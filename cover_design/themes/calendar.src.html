@@ -1,0 +1,143 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>달력 벽</title>
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/500.css">
+<link rel="stylesheet" href="../mz.css">
+<style>
+:root{--bg:#DCE3EA;--card:#FFFFFF;--cell:#F2F5F8;--tx:#15202E;--tx2:#34404F;--mu:#5E6B7A;--mu2:#8994A2;--line:#D2DAE3;--navy:#15202E;--sun:#B4453C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Gothic A1',sans-serif;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
+.wrap{width:1440px;margin:0 auto;padding:34px 48px 56px}
+.hd{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{width:46px;height:46px;border-radius:14px;background:var(--navy);display:flex;align-items:center;justify-content:center}
+.brand b{display:block;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.brand small{display:block;font-size:12.5px;font-weight:600;color:var(--mu);margin-top:3px}
+.month{display:flex;align-items:center;gap:18px}
+.month .ar{width:42px;height:42px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(21,32,46,.08);color:var(--tx)}
+.month .ar.off{color:var(--mu2);box-shadow:none;background:transparent;border:1px solid var(--line)}
+.month h1{margin:0;font-family:Outfit;font-weight:700;font-size:36px;letter-spacing:-.01em}
+.month h1 span{font-family:'Gothic A1';font-weight:800;font-size:30px}
+.tools{display:flex;justify-content:flex-end;align-items:center;gap:10px}
+.pill{height:42px;display:inline-flex;align-items:center;gap:8px;padding:0 16px;border-radius:12px;background:var(--card);font-size:13.5px;font-weight:700;color:var(--tx2);box-shadow:0 4px 12px rgba(21,32,46,.06)}
+.pill.srch{width:230px;font-weight:500;color:var(--mu2)}
+.main{display:grid;grid-template-columns:1fr 380px;gap:28px;margin-top:30px;align-items:start}
+.card{background:var(--card);border-radius:28px;box-shadow:0 22px 50px rgba(21,32,46,.10)}
+.cal{padding:24px 26px 22px}
+.cal-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.cal-h h2{margin:0;font-size:20px;font-weight:800}
+.cal-h h2 small{font-family:'IBM Plex Mono';font-weight:400;font-size:12.5px;color:var(--mu);margin-left:10px}
+.seg{display:flex;background:var(--cell);border-radius:12px;padding:4px}
+.seg span{height:32px;padding:0 16px;display:flex;align-items:center;border-radius:9px;font-size:13px;font-weight:700;color:var(--mu)}
+.seg span.on{background:var(--card);color:var(--tx);box-shadow:0 2px 8px rgba(21,32,46,.10)}
+.wk,.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.wk div{font-size:12.5px;font-weight:800;color:var(--mu);padding:0 4px 8px;letter-spacing:.04em}
+.wk div:first-child{color:var(--sun)}
+.day{position:relative;height:214px;border-radius:14px;background:var(--cell);padding:8px 9px 0;display:flex;flex-direction:column}
+.day .top{display:flex;align-items:center;justify-content:space-between;height:22px}
+.day .n{font-family:Outfit;font-weight:600;font-size:15px}
+.day.sun .n{color:var(--sun)}
+.day .pm{width:19px;height:19px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:Outfit;font-weight:700;font-size:11px}
+.day .pm.two{width:30px;font-size:10px}
+.day .stack{position:relative;margin-top:9px;flex:1}
+.day .stack .cv{position:absolute;left:0;top:0;width:100%}
+.day .cnt{position:absolute;right:-3px;bottom:12px;z-index:9;height:20px;padding:0 7px;border-radius:999px;background:var(--navy);color:#fff;font-family:Outfit;font-weight:600;font-size:11px;display:flex;align-items:center}
+.day.out{background:transparent}
+.day.out .n{color:var(--mu2);font-weight:500}
+.day.none{background:transparent;border:1.5px dashed var(--line)}
+.day.none .msg{margin:auto;font-size:12px;font-weight:700;color:var(--mu2);text-align:center;line-height:1.5}
+.day.next{background:transparent;border:1.5px dashed var(--navy)}
+.day.next .msg{margin:auto;text-align:center;font-size:12px;font-weight:700;color:var(--tx2);line-height:1.5}
+.day.next .msg b{display:block;font-family:Outfit;font-size:20px;margin-bottom:4px}
+.day.today{box-shadow:0 0 0 2.5px var(--navy)}
+.day.today .n::after{content:"오늘";font-family:'Gothic A1';font-size:10.5px;font-weight:800;background:var(--navy);color:#fff;border-radius:5px;padding:2px 6px;margin-left:6px;vertical-align:2px}
+.sum{display:flex;gap:26px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--mu)}
+.sum b{font-family:Outfit;font-weight:700;font-size:16px;color:var(--tx);margin-right:4px}
+.legend{display:flex;gap:14px;margin-left:auto;font-size:12.5px;color:var(--mu)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.side{padding:22px 24px 24px;position:sticky;top:24px}
+.side .lab{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--mu)}
+.side .dt{display:flex;align-items:baseline;justify-content:space-between;margin-top:6px}
+.side .dt b{font-family:Outfit;font-weight:700;font-size:26px}
+.side .dt span{font-size:13px;font-weight:700;color:var(--mu)}
+.side .big{margin-top:16px}
+.side h3{margin:20px 0 0;font-size:21px;line-height:1.45;font-weight:800;letter-spacing:-.02em}
+.side .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.side .chip{height:28px;display:inline-flex;align-items:center;padding:0 11px;border-radius:999px;background:var(--cell);font-size:12.5px;font-weight:700;color:var(--tx2)}
+.kv{margin-top:18px;border-top:1px solid var(--line)}
+.kv div{display:grid;grid-template-columns:1fr auto 84px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.kv span{font-size:12.5px;font-weight:700;color:var(--mu)}
+.kv b{font-family:Oswald;font-weight:500;font-size:22px;text-align:right}
+.kv b small{display:block;font-family:'IBM Plex Mono';font-weight:400;font-size:11px;color:var(--mu)}
+.side .btn{margin-top:18px;height:50px;border-radius:14px;background:var(--navy);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px}
+.side .nav{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;font-weight:700;color:var(--tx2)}
+.bot{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:28px}
+.mc{padding:22px 24px}
+.mc h3{margin:0;font-size:14px;font-weight:800}
+.mc p{margin:4px 0 12px;font-size:12.5px;color:var(--mu)}
+.mc b{display:block;font-family:Oswald;font-weight:500;font-size:30px;margin-bottom:8px}
+</style></head><body>
+<div class="wrap" id="app"></div>
+<script src="../data.js"></script>
+<script>
+(function(){
+<<MZ>>
+<<COMMON>>
+var st=stats(), dl=deltas(L), app=document.getElementById('app'), dm=dayMap();
+function pm(p){var ps=parts(p); if(!ps.length) return '<i class="pm" style="background:#E3E8EE;color:#5E6B7A">?</i>';
+  if(ps.length>1) return '<i class="pm two" style="background:linear-gradient(90deg,'+PCOL[ps[0]]+' 50%,'+PCOL[ps[1]]+' 50%);color:#fff">'+ps.join('')+'</i>';
+  return '<i class="pm" style="background:'+PCOL[ps[0]]+';color:'+PINK[ps[0]]+'">'+ps[0]+'</i>';}
+var mk='<svg width="26" height="24" viewBox="0 0 24 22" fill="none" stroke="#fff" stroke-width="1.6"><circle cx="8.5" cy="8.3" r="6"/><circle cx="15.5" cy="8.3" r="6"/><circle cx="12" cy="14.3" r="6"/></svg>';
+var arL='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18 9 12l6-6"/></svg>', arR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+var h='<header class="hd"><div class="brand"><span class="mark">'+mk+'</span><div><b>크립토 브리핑 서고</b><small>매일 아침 06:10, 한 호씩 꽂힙니다</small></div></div>'
+  +'<div class="month"><span class="ar">'+arL+'</span><h1>2026<span>년</span> 9<span>월</span></h1><span class="ar off">'+arR+'</span></div>'
+  +'<div class="tools"><span class="pill srch"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>날짜나 낱말로 찾기</span><span class="pill">발행 목록</span><span class="pill">지표</span></div></header>';
+/* calendar: September 2026 starts on Tuesday */
+var first=new Date(Date.UTC(2026,8,1)).getUTCDay(), cells=[], d;
+for(d=first-1;d>=0;d--) cells.push({out:true,n:31-d});
+for(d=1;d<=30;d++) cells.push({n:d,ds:'2026-09-'+(d<10?'0'+d:d)});
+var k=1; while(cells.length%7) cells.push({out:true,n:k++,next:k===2});
+var grid='';
+cells.forEach(function(c,i){
+  var sun=i%7===0?' sun':'';
+  if(c.out){ if(c.next){grid+='<div class="day next"><div class="top"><span class="n">10.'+c.n+'</span></div><div class="msg"><b>제'+(B.length+1)+'호</b>06:10 발행 예정</div></div>';} else grid+='<div class="day out'+sun+'"><div class="top"><span class="n">'+(c.n>20?'8.':'10.')+c.n+'</span></div></div>'; return; }
+  var xs=dm[c.ds];
+  if(!xs){ grid+='<div class="day none'+sun+'"><div class="top"><span class="n">'+c.n+'</span></div><div class="msg">'+(c.ds<B[0].date?'기록 전':'브리핑 없음')+'</div></div>'; return; }
+  var lastB=xs[xs.length-1], stack='';
+  xs.forEach(function(b,j){var off=(xs.length-1-j); stack+='<div class="cv" style="transform:translate('+(off*7)+'px,'+(-off*7)+'px);z-index:'+(j+1)+(off?';filter:brightness(.92)':'')+'">'+cover(b)+'</div>';});
+  if(xs.length>1) stack+='<span class="cnt">'+xs.length+'회</span>';
+  grid+='<div class="day'+sun+(c.ds===L.date?' today':'')+'"><div class="top"><span class="n">'+c.n+'</span>'+pm(lastB.phase)+'</div><div class="stack">'+stack+'</div></div>';
+});
+var multi=Object.keys(dm).filter(function(x){return dm[x].length>1;}).length, days=Object.keys(dm).length, empty=0;
+for(d=+B[0].date.slice(8);d<=30;d++){ if(!dm['2026-09-'+(d<10?'0'+d:d)]) empty++; }
+h+='<div class="main"><section class="card cal"><div class="cal-h"><h2>9월의 표지<small>'+B.length+'호</small></h2>'
+  +'<div class="legend">'+['A','B','C','D','E'].map(function(x){return '<span><i style="background:'+PCOL[x]+'"></i>'+x+' '+PHN[x]+'</span>';}).join('')+'</div>'
+  +'<div class="seg" style="margin-left:18px"><span class="on">달력</span><span>서가</span><span>목록</span></div></div>'
+  +'<div class="wk">'+WD.map(function(w){return '<div>'+w+'</div>';}).join('')+'</div><div class="grid">'+grid+'</div>'
+  +'<div class="sum"><span><b>'+B.length+'</b>브리핑</span><span><b>'+days+'</b>발행한 날</span><span><b>'+empty+'</b>빈 날</span><span><b>'+multi+'</b>하루 여러 번</span><span><b>'+st.days+'</b>지표 적립일</span></div></section>';
+var pk=BK.pick(L,B).split(' · ');
+h+='<aside class="card side"><div class="lab">고른 날</div><div class="dt"><b>'+(+L.date.slice(5,7))+'월 '+(+L.date.slice(8))+'일 '+wd(L.date)+'요일</b><span>제'+vol(L)+'호</span></div>'
+  +'<div class="big">'+cover(L)+'</div><h3>'+esc(L.headline)+'</h3>'
+  +'<div class="chips">'+chipsOf(L).map(function(c){return '<span class="chip">'+c+'</span>';}).join('')+'<span class="chip">'+runLabel(L)+'</span></div>'
+  +'<div class="kv"><div><span>BTC.D</span><b>'+f(L.btcd,2)+'%<small>전날 '+sg(dl.dB,2)+'%p</small></b>'+spark(daily('btcd').slice(-14),84,30,'#15202E',{sw:1.5,r:2.6,pad:3})+'</div>'
+  +'<div><span>ΣSTABLECOIN.D</span><b>'+f(L.stableD,3)+'%<small>1개월 '+sg(L.stable1m,3)+'%p</small></b>'+spark(daily('stableD').slice(-14),84,30,'#15202E',{sw:1.5,r:2.6,pad:3})+'</div>'
+  +'<div><span>BTCUSD 1개월</span><b>'+sg(L.btc1m,2)+'%<small>한 달 등락</small></b>'+spark(daily('btc1m').slice(-14),84,30,'#15202E',{sw:1.5,r:2.6,pad:3})+'</div></div>'
+  +'<div class="btn">브리핑 펼치기 '+arR+'</div><div class="nav"><span>'+arL.replace('width="16" height="16"','width="12" height="12"')+' 9월 29일</span><span style="color:#8994A2">다음 호는 10월 1일</span></div></aside></div>';
+h+='<div class="bot">'
+  +'<div class="card mc"><h3>BTC.D</h3><p>비트코인 점유율, 9월 3일부터</p><b>'+f(L.btcd,2)+'%</b>'+spark(daily('btcd'),372,78,'#15202E',{sw:1.8,r:3.2,area:'rgba(21,32,46,.06)'})+'</div>'
+  +'<div class="card mc"><h3>ΣSTABLECOIN.D 1개월</h3><p>E 판정의 임시 기준은 +1.0%p</p><b>'+sg(L.stable1m,3)+'%p</b>'+spark(daily('stable1m'),372,78,'#15202E',{sw:1.8,r:3.2,area:'rgba(21,32,46,.06)'})+'</div>'
+  +'<div class="card mc"><h3>BTCUSD 1개월</h3><p>0 아래로 내려가야 D·E 판정의 전제가 섭니다</p><b>'+sg(L.btc1m,2)+'%</b>'+spark(daily('btc1m'),372,78,'#15202E',{sw:1.8,r:3.2,area:'rgba(21,32,46,.06)'})+'</div></div>';
+app.innerHTML=h;
+ready();
+})();
+</script></body></html>

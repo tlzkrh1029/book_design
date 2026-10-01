@@ -1,0 +1,155 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>밤의 가판대</title>
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/500.css">
+<link rel="stylesheet" href="../mz.css">
+<style>
+:root{--bg:#0C0E12;--s1:#14181E;--s2:#1B2028;--line:#272D37;--line2:#353C48;--tx:#F2F3F5;--mu:#A0A7B3;--mu2:#6C7480;--acc:#F2B39F;--accInk:#1A1512}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:'Gothic A1',sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+.wrap{width:1440px;margin:0 auto;position:relative;overflow:hidden;padding-bottom:56px}
+.amb{position:absolute;left:0;right:0;top:0;height:980px;pointer-events:none;background:radial-gradient(46% 52% at 22% 34%,color-mix(in srgb,var(--acc) 20%,transparent),transparent 72%),radial-gradient(40% 40% at 80% 0%,rgba(120,140,190,.10),transparent 70%)}
+.top{position:relative;display:flex;align-items:center;justify-content:space-between;height:78px;padding:0 64px;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:baseline;gap:14px}
+.logo b{font-family:Oswald;font-weight:600;font-size:23px;letter-spacing:.16em}
+.logo span{font-size:12.5px;font-weight:600;color:var(--mu)}
+.top nav{display:flex;align-items:center;gap:30px;font-size:14px;font-weight:600;color:var(--mu)}
+.top nav .on{color:var(--tx);position:relative}
+.top nav .on::after{content:"";position:absolute;left:0;right:0;bottom:-29px;height:2px;background:var(--acc)}
+.srch{display:flex;align-items:center;gap:10px;height:40px;padding:0 16px;border-radius:12px;background:var(--s1);border:1px solid var(--line);color:var(--mu2);font-size:13px;width:250px}
+.srch svg{width:15px;height:15px}
+.hero{position:relative;display:grid;grid-template-columns:500px 1fr;gap:80px;padding:56px 64px 24px 88px}
+.stage{position:relative;height:728px}
+.spot{position:absolute;left:50%;top:-60px;width:620px;height:820px;transform:translateX(-50%);background:radial-gradient(44% 42% at 50% 34%,rgba(255,244,228,.13),transparent 72%);pointer-events:none}
+.cone{position:absolute;left:50%;top:-56px;width:360px;height:120px;transform:translateX(-50%);background:linear-gradient(180deg,rgba(255,244,228,.10),transparent);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);pointer-events:none}
+.stage .cv{position:absolute;left:40px;bottom:30px;width:420px}
+.stage .ledge{position:absolute;left:0;right:0;bottom:16px;height:14px;border-radius:3px;background:linear-gradient(180deg,#4A525F 0,#2B313B 40%,#1C2129 100%);box-shadow:0 22px 34px rgba(0,0,0,.65)}
+.stage .glint{position:absolute;left:60px;right:60px;bottom:0;height:16px;background:radial-gradient(50% 100% at 50% 0,color-mix(in srgb,var(--acc) 30%,transparent),transparent 80%);opacity:.6}
+.info{padding-top:18px}
+.iss{display:flex;align-items:center;gap:12px;font-family:Oswald;font-weight:500;font-size:14px;letter-spacing:.24em;color:var(--acc)}
+.iss i{display:inline-block;width:34px;height:1px;background:var(--acc)}
+.date{font-family:Oswald;font-weight:600;font-size:72px;line-height:1;margin-top:18px;letter-spacing:.01em}
+.date small{font-family:'Gothic A1';font-weight:700;font-size:19px;color:var(--mu);margin-left:16px;letter-spacing:0}
+.info h1{font-size:46px;line-height:1.3;font-weight:800;margin:30px 0 0;letter-spacing:-.025em;text-wrap:balance;max-width:720px}
+.info h1 em{font-style:normal;color:var(--acc)}
+.chips{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
+.chip{height:32px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:999px;padding:0 14px;font-size:13px;font-weight:700;color:var(--mu)}
+.chip .pm{width:20px;height:20px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-family:Outfit;font-size:12px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);margin-top:40px;border-top:1px solid var(--line)}
+.nums > div{padding:22px 24px 4px 0;border-right:1px solid var(--line)}
+.nums > div + div{padding-left:24px}
+.nums > div:last-child{border-right:0}
+.nums span{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--mu)}
+.nums b{display:block;font-family:Oswald;font-weight:500;font-size:46px;line-height:1.1;margin-top:8px;letter-spacing:.005em}
+.nums i{display:block;font-style:normal;font-family:'IBM Plex Mono';font-size:13px;color:var(--mu);margin-top:6px}
+.nums i.up{color:#8FD6A0} .nums i.dn{color:#F09B8E}
+.nums svg{display:block;margin-top:12px}
+.btns{display:flex;gap:12px;margin-top:40px}
+.btn{height:50px;padding:0 26px;border-radius:12px;background:var(--acc);color:var(--accInk);font-weight:800;font-size:15px;display:inline-flex;align-items:center;gap:10px}
+.btn.o{background:transparent;color:var(--tx);border:1px solid var(--line2);font-weight:700}
+.sec{position:relative;padding:40px 64px 0}
+.sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.sec-h h2{margin:0;font-size:30px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:baseline;gap:16px}
+.sec-h h2 small{font-family:Oswald;font-weight:500;font-size:15px;letter-spacing:.2em;color:var(--acc)}
+.sec-h p{margin:0;font-size:13.5px;line-height:1.6;color:var(--mu);max-width:560px;text-align:right}
+.rack{margin-top:44px}
+.row{position:relative;margin-bottom:58px}
+.row .cvs{display:grid;grid-template-columns:repeat(7,160px);gap:0 29px;align-items:end;padding:0 22px}
+.row .ledge{height:12px;margin:-2px 0 0;border-radius:2px;background:linear-gradient(180deg,#48505C 0,#2A2F38 45%,#1B2027 100%);box-shadow:0 18px 26px rgba(0,0,0,.6)}
+.row .caps{display:grid;grid-template-columns:repeat(7,160px);gap:0 29px;padding:0 22px;margin-top:14px}
+.cap{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono';font-size:12.5px;color:var(--mu)}
+.cap b{font-weight:500;color:var(--tx)}
+.cap .pm{margin-left:auto;width:18px;height:18px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:Outfit;font-weight:700;font-size:10.5px}
+.cap .pm.two{width:28px;font-size:9.5px}
+.more{display:flex;justify-content:center;margin-top:-10px}
+.more span{height:44px;padding:0 22px;border-radius:12px;border:1px solid var(--line2);display:inline-flex;align-items:center;font-weight:700;font-size:14px;color:var(--tx)}
+.tl{display:grid;grid-template-columns:repeat(30,1fr);gap:6px;margin-top:30px}
+.tc{display:flex;flex-direction:column;align-items:center;gap:8px}
+.tc .bx{width:100%;height:46px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:Outfit;font-weight:700;font-size:15px;overflow:hidden}
+.tc .bx.gap{border:1px dashed var(--line2);color:var(--mu2);font-size:12px}
+.tc .bx.two{font-size:11px}
+.tc .bx.two i{flex:1;height:100%;display:flex;align-items:center;justify-content:center;font-style:normal}
+.tc .dn{font-family:'IBM Plex Mono';font-size:11px;color:var(--mu2)}
+.tc.now .bx{box-shadow:0 0 0 2px var(--acc)}
+.tc.now .dn{color:var(--acc)}
+.legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;font-size:13px;color:var(--mu)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:16px;height:16px;border-radius:4px;display:inline-block}
+.list{margin-top:10px}
+.li{display:grid;grid-template-columns:84px 44px 1fr 120px 110px;gap:20px;align-items:center;padding:18px 8px;border-bottom:1px solid var(--line)}
+.li .d{font-family:'IBM Plex Mono';font-size:13.5px;color:var(--tx)}
+.li .d small{display:block;color:var(--mu2);font-size:11.5px;margin-top:3px}
+.li .pm{width:36px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:Outfit;font-weight:700;font-size:13px}
+.li .h{font-size:15.5px;font-weight:600;line-height:1.5;color:var(--tx)}
+.li .v{font-family:'IBM Plex Mono';font-size:13.5px;text-align:right;color:var(--tx)}
+.li .v small{display:block;color:var(--mu2);font-size:11px}
+.li .r{justify-self:end;font-size:12px;font-weight:700;color:var(--mu);border:1px solid var(--line2);border-radius:999px;padding:4px 10px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.foot{padding:36px 64px 0;font-size:12.5px;color:var(--mu2);display:flex;justify-content:space-between}
+</style></head><body>
+<div class="wrap" id="app"></div>
+<script src="../data.js"></script>
+<script>
+(function(){
+<<MZ>>
+<<COMMON>>
+var T=pal(L), acc=T.fr;
+document.documentElement.style.setProperty('--acc',acc);
+document.documentElement.style.setProperty('--accInk',BK.contrast('#FFFFFF',acc)>=BK.contrast('#15171B',acc)?'#FFFFFF':'#15171B');
+var st=stats(), dl=deltas(L), app=document.getElementById('app');
+function pm(p,cls){var ps=parts(p); if(!ps.length) return '<i class="pm '+(cls||'')+'" style="background:#2A303A;color:#A0A7B3">?</i>';
+  if(ps.length>1) return '<i class="pm two '+(cls||'')+'" style="background:linear-gradient(90deg,'+PCOL[ps[0]]+' 50%,'+PCOL[ps[1]]+' 50%);color:#fff">'+ps.join('')+'</i>';
+  return '<i class="pm '+(cls||'')+'" style="background:'+PCOL[ps[0]]+';color:'+PINK[ps[0]]+'">'+ps[0]+'</i>';}
+var h='<div class="amb"></div>';
+h+='<header class="top"><div class="logo"><b>CRYPTO BRIEF</b><span>크립토 브리핑 서고</span></div>'
+  +'<nav><span class="on">가판대</span><span>국면 타임라인</span><span>발행 목록</span><span>지표 시계열</span><span>부속 문서</span><span>갱신 방식</span>'
+  +'<span class="srch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>날짜나 낱말로 찾기</span></nav></header>';
+var hl=L.headline, ci=hl.lastIndexOf(', '), mainTxt=ci>3?esc(hl.slice(0,ci+1))+' <em>'+esc(hl.slice(ci+2))+'</em>':esc(hl);
+h+='<section class="hero"><div class="stage"><div class="spot"></div><div class="cone"></div><div class="cv">'+cover(L)+'</div><div class="ledge"></div><div class="glint"></div></div>'
+  +'<div class="info"><div class="iss"><i></i>오늘의 호 · 제'+vol(L)+'호</div>'
+  +'<div class="date">'+L.date.replace(/-/g,'.')+'<small>'+wd(L.date)+'요일 · '+runLabel(L)+'</small></div>'
+  +'<h1>'+mainTxt+'</h1>'
+  +'<div class="chips">'+chipsOf(L).map(function(c,i){return '<span class="chip">'+(i===0?pm(L.phase):'')+c+'</span>';}).join('')+'<span class="chip">브리핑 '+st.n+'회 · 지표 적립 '+st.days+'일</span></div>'
+  +'<div class="nums">'
+  +'<div><span>BTC.D</span><b>'+f(L.btcd,2)+'%</b><i class="'+(dl.dB>0?'up':'dn')+'">전날 '+sg(dl.dB,2)+'%p</i>'+spark(daily('btcd').slice(-14),200,40,acc,{sw:1.6,r:3})+'</div>'
+  +'<div><span>ΣSTABLECOIN.D</span><b>'+f(L.stableD,3)+'%</b><i>1개월 '+sg(L.stable1m,3)+'%p</i>'+spark(daily('stableD').slice(-14),200,40,acc,{sw:1.6,r:3})+'</div>'
+  +'<div><span>BTCUSD 1개월</span><b>'+sg(L.btc1m,2)+'%</b><i>한 달 등락</i>'+spark(daily('btc1m').slice(-14),200,40,acc,{sw:1.6,r:3})+'</div></div>'
+  +'<div class="btns"><span class="btn">브리핑 펼치기 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span><span class="btn o">지난 호 넘겨 보기</span></div>'
+  +'</div></section>';
+/* rack: newest first, seven per shelf, three shelves shown */
+var R=B.slice().reverse(), shown=R.slice(0,21);
+h+='<section class="sec"><div class="sec-h"><h2>가판대<small>SEPTEMBER 2026</small></h2><p>9월에 꽂힌 표지 '+B.length+'장 가운데 최근 21장입니다. 표지를 누르면 그날 브리핑이 열립니다.</p></div><div class="rack">';
+for(var i=0;i<shown.length;i+=7){
+  var row=shown.slice(i,i+7);
+  h+='<div class="row"><div class="cvs">'+row.map(function(b){return '<div>'+cover(b)+'</div>';}).join('')+'</div><div class="ledge"></div>'
+    +'<div class="caps">'+row.map(function(b){return '<div class="cap"><b>'+mdot(b.date)+'</b>'+wd(b.date)+(b.seq>1?' · '+b.seq+'회':'')+pm(b.phase)+'</div>';}).join('')+'</div></div>';
+}
+h+='</div><div class="more"><span>나머지 '+(B.length-shown.length)+'장 더 보기</span></div></section>';
+/* timeline and list side by side */
+var dm=dayMap(), cells='';
+for(var d=1;d<=30;d++){var ds='2026-09-'+(d<10?'0'+d:d), L2=dm[ds], now=d===30;
+  if(!L2){cells+='<div class="tc"><div class="bx gap">–</div><span class="dn">'+d+'</span></div>'; continue;}
+  var ps=parts(L2[L2.length-1].phase), bx;
+  if(!ps.length) bx='<div class="bx" style="background:#2A303A;color:#A0A7B3">?</div>';
+  else if(ps.length>1) bx='<div class="bx two"><i style="background:'+PCOL[ps[0]]+';color:'+PINK[ps[0]]+'">'+ps[0]+'</i><i style="background:'+PCOL[ps[1]]+';color:'+PINK[ps[1]]+'">'+ps[1]+'</i></div>';
+  else bx='<div class="bx" style="background:'+PCOL[ps[0]]+';color:'+PINK[ps[0]]+'">'+ps[0]+'</div>';
+  cells+='<div class="tc'+(now?' now':'')+'">'+bx+'<span class="dn">'+d+'</span></div>';}
+h+='<section class="sec" style="padding-top:56px"><div class="sec-h"><h2>국면 타임라인<small>30 DAYS</small></h2><p>하루 한 칸입니다. 브리핑이 없는 날은 빈칸으로 두고, 여러 번 발행한 날은 마지막 회차의 판정을 씁니다.</p></div>'
+  +'<div class="tl">'+cells+'</div>'
+  +'<div class="legend">'+['A','B','C','D','E'].map(function(k){return '<span><i style="background:'+PCOL[k]+'"></i>'+k+' · '+PHN[k]+'</span>';}).join('')+'<span><i style="border:1px dashed #353C48"></i>브리핑 없음</span></div></section>';
+h+='<section class="sec" style="padding-top:56px"><div class="sec-h"><h2>발행 목록<small>LATEST</small></h2><p>날짜, 판정 국면, 헤드라인, BTC.D, 발행 실행 순입니다.</p></div><div class="list">'
+  +R.slice(0,5).map(function(b){return '<div class="li"><div class="d">'+mdot(b.date)+'<small>'+wd(b.date)+'요일</small></div>'+pm(b.phase)+'<div class="h">'+esc(b.headline||b.note)+'</div><div class="v">'+f(b.btcd,2)+'%<small>BTC.D</small></div><span class="r">'+runLabel(b)+'</span></div>';}).join('')
+  +'</div></section>';
+h+='<footer class="foot"><span>크립토 브리핑 서고 · 매일 아침 06:10에 한 호씩 꽂힙니다.</span><span>매크로 리스크 서고 →</span></footer>';
+app.innerHTML=h;
+ready();
+})();
+</script></body></html>
