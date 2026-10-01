@@ -1,0 +1,728 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>크립토 브리핑 서고 · 2026년 9월</title>
+<!-- page fonts: Gothic A1, Outfit, IBM Plex Mono -->
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/700.css">
+<!-- fonts the fixed cover module draws with (never used by page text) -->
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="../mz.css">
+<style>
+:root{
+  /* color tokens */
+  --wall:#E3E9F0; --wallHover:#D8E0EA; --surface:#FFFFFF; --mat:#EEF2F7; --subtle:#F4F7FA;
+  --hairline:#E3E9F0; --gridline:#E6EBF1; --border:#CBD4DF; --borderStrong:#B1BECE; --dash:#6B7B8F;
+  --ink:#16212C; --inkHover:#2A3746; --ink2:#44515F; --muted:#586575;
+  --onPhaseDark:#0A0F14; --onPhaseLight:#FFFFFF;
+  --today:#F2B39F; --marker:#FFE27A; --sunday:#C0352B; --saturday:#2455B0; --focus:#0B57D0; --selectedLine:#8795A6;
+  --phA:#CB8242; --phB:#A96CAF; --phC:#056F15; --phD:#594D99; --phE:#2B97FF;
+  /* type families */
+  --ff-g:'Gothic A1',sans-serif; --ff-n:'Outfit','Gothic A1',sans-serif; --ff-m:'IBM Plex Mono','Gothic A1',monospace;
+  /* shadows */
+  --sh-tile:0 1px 2px rgba(22,33,44,.06),0 2px 6px rgba(22,33,44,.05);
+  --sh-tileHover:0 8px 20px rgba(22,33,44,.12);
+  --sh-card:0 2px 4px rgba(22,33,44,.04),0 16px 40px rgba(22,33,44,.08);
+  --sh-coverS:0 1px 2px rgba(22,33,44,.20),0 4px 10px rgba(22,33,44,.12);
+  --sh-coverL:0 2px 4px rgba(22,33,44,.16),0 20px 40px rgba(22,33,44,.24);
+  --sh-pop:0 12px 32px rgba(22,33,44,.18);
+  /* radii */
+  --r-tile:12px; --r-card:18px; --r-strip:14px; --r-input:12px; --r-icon:10px; --r-chip:8px; --r-tag:6px; --r-cell:4px; --r-stand:3px; --r-paper:2px; --r-pill:999px;
+  /* frame */
+  --content:1360px; --colL:1012px; --colR:320px; --colGap:28px; --headH:64px;
+  --cellW:136px; --cellH:226px; --gridGap:10px; --coverS:120px; --coverSH:calc(120px * 100 / 68); --coverL:272px; --coverLH:400px;
+  --ease:cubic-bezier(.2,0,0,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--wall); color:var(--ink); font:500 14px/22px var(--ff-g); letter-spacing:0; word-break:keep-all; overflow-wrap:break-word; -webkit-font-smoothing:antialiased}
+button{font:inherit; color:inherit; margin:0}
+a{color:inherit}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0; list-style:none}
+.sr{position:absolute !important; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+:focus{outline:none}
+:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+.ic{display:block; flex:none}
+
+/* skip links: visible only on focus, top-left */
+.skip{position:absolute; left:16px; top:12px; z-index:60; background:var(--ink); color:#fff; font:700 13px/20px var(--ff-g); padding:10px 14px; border-radius:10px; text-decoration:none; transform:translateY(-200%)}
+.skip:focus{transform:none}
+
+.page{width:var(--content); margin:0 auto; padding-bottom:48px}
+
+/* ---------- header ---------- */
+.hd{height:var(--headH); display:flex; align-items:center; justify-content:space-between}
+.brand{display:flex; align-items:center; gap:12px}
+.logo{width:40px; height:40px; border-radius:12px; background:var(--ink); color:#fff; display:grid; place-items:center; flex:none}
+.brand h1{font:800 19px/24px var(--ff-g); letter-spacing:-.3px; color:var(--ink)}
+.brand p{font:500 12px/16px var(--ff-g); color:var(--muted)}
+.tools{display:flex; align-items:center; gap:8px}
+.search{position:relative; width:400px; height:40px; display:flex; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:var(--r-input)}
+.search:focus-within{border-color:var(--ink); outline:3px solid var(--focus); outline-offset:2px}
+.scope{position:relative; width:92px; height:100%; flex:none; border-right:1px solid var(--border)}
+.scope select{appearance:none; -webkit-appearance:none; width:100%; height:100%; border:0; background:transparent; font:700 13px/20px var(--ff-g); color:var(--ink); padding:0 30px 0 14px; border-radius:11px 0 0 11px; cursor:pointer}
+.scope .ic{position:absolute; right:12px; top:50%; margin-top:-6px; color:var(--ink); pointer-events:none}
+.search .mag{margin-left:12px; color:var(--muted)}
+.search input{flex:1; min-width:0; height:100%; margin-left:8px; padding:0; border:0; background:transparent; font:500 14px/22px var(--ff-g); color:var(--ink); outline:none}
+.search input::placeholder{color:var(--muted); opacity:1}
+.kbd{flex:none; width:18px; height:18px; margin:0 12px 0 8px; border:1px solid var(--border); border-radius:4px; display:grid; place-items:center; font:400 11px/1 var(--ff-m); color:var(--muted)}
+.search input:not(:placeholder-shown) ~ .kbd{display:none}
+.tbtn{height:40px; padding:0 12px; border:0; border-radius:var(--r-icon); background:transparent; font:700 14px/20px var(--ff-g); color:var(--ink2); cursor:pointer}
+.tbtn:hover{background:var(--wallHover); color:var(--ink)}
+.vsep{width:1px; height:20px; background:var(--border); margin:0 8px; flex:none}
+.sib{height:40px; padding:0 14px; border:1px solid var(--borderStrong); border-radius:var(--r-input); display:inline-flex; align-items:center; gap:6px; font:700 13px/20px var(--ff-g); color:var(--ink); text-decoration:none; white-space:nowrap}
+.sib:hover{background:var(--surface)}
+
+/* ---------- body columns ---------- */
+.main{margin-top:16px; display:flex; align-items:flex-start; gap:var(--colGap)}
+.colL{width:var(--colL); flex:none}
+.colR{width:var(--colR); flex:none}
+
+/* month bar */
+.mbar{height:40px; display:flex; align-items:center; justify-content:space-between}
+.mbar-l{display:flex; align-items:center}
+.mbar h2{font:800 30px/36px var(--ff-g); letter-spacing:-.6px; color:var(--ink)}
+.mnav{display:flex; gap:4px; margin-left:14px}
+.ibtn{width:32px; height:32px; padding:0; border-radius:var(--r-icon); background:var(--surface); border:1px solid var(--border); color:var(--ink); display:grid; place-items:center; cursor:pointer}
+.ibtn:hover{background:var(--mat)}
+.ibtn[aria-disabled=true]{color:var(--borderStrong); border-color:var(--hairline); cursor:default}
+.ibtn[aria-disabled=true]:hover{background:var(--surface)}
+.seg{display:inline-flex; padding:3px; border-radius:var(--r-icon); background:var(--surface)}
+.seg button{height:30px; border:0; border-radius:8px; background:transparent; font:700 13px/20px var(--ff-g); color:var(--ink2); cursor:pointer; white-space:nowrap; padding:0}
+.seg.view button{width:72px}
+.seg button:hover{background:var(--mat)}
+.seg button[aria-pressed=true]{background:var(--ink); color:#fff}
+.seg.in-card{background:var(--mat); display:flex; width:272px; height:32px; padding:3px}
+.seg.in-card button{flex:1 1 0; height:26px}
+.seg.in-card button:hover{background:var(--surface)}
+.seg.in-card button[aria-pressed=true]{background:var(--ink); color:#fff}
+
+/* stats line */
+.stats{margin-top:8px; height:20px; display:flex; align-items:baseline; gap:10px; white-space:nowrap; font:500 13px/20px var(--ff-g); color:var(--ink2)}
+.stats b{font:700 14px/20px var(--ff-n); color:var(--ink)}
+.stats .sep{color:var(--muted)}
+
+/* phase strip */
+.strip{margin-top:20px; height:92px; padding:10px 12px; background:var(--surface); border-radius:var(--r-strip); box-shadow:var(--sh-tile)}
+.sh{height:18px; display:flex; align-items:center; justify-content:space-between; white-space:nowrap}
+.sh-l{display:flex; align-items:baseline; gap:8px}
+.sh-l h2{font:700 12px/16px var(--ff-g); color:var(--ink)}
+.sh-l span{font:500 12px/18px var(--ff-g); color:var(--muted)}
+.lg{display:flex; align-items:center; gap:12px; font:600 12px/16px var(--ff-g); color:var(--ink2)}
+.lg li{display:flex; align-items:center; gap:6px}
+.lg .pl{font:700 12px/12px var(--ff-n)}
+.sw{width:12px; height:12px; border-radius:3px; flex:none}
+.sw.unk{background:var(--mat); box-shadow:inset 0 0 0 1px var(--borderStrong)}
+.sw.none{border:1.5px dashed var(--dash)}
+.cells,.dates{display:grid; grid-template-columns:repeat(var(--nd),minmax(0,1fr)); gap:4px}
+.cells{margin-top:8px; height:28px}
+.sb{height:28px; padding:0; border:0; border-radius:var(--r-cell); display:flex; align-items:center; justify-content:center; font:700 12px/12px var(--ff-n); cursor:pointer; background:transparent}
+.sb.split{overflow:hidden}
+.sb.split span{flex:1 1 0; height:100%; display:flex; align-items:center; justify-content:center; font-size:11px; line-height:11px}
+.sb.unk{background:var(--mat); box-shadow:inset 0 0 0 1px var(--borderStrong); color:var(--ink2)}
+.sb.none{border:1.5px dashed var(--dash)}
+.sb.pre{cursor:default}
+.sb.pre::after{content:""; width:4px; height:4px; border-radius:50%; background:var(--borderStrong)}
+.sb.sel{outline:2px solid var(--ink); outline-offset:2px}
+.sb.sel:focus-visible{outline:3px solid var(--focus); outline-offset:4px; box-shadow:0 0 0 4px var(--surface),0 0 0 6px var(--ink)}
+.dates{margin-top:4px; height:14px}
+.dn{text-align:center; font:400 11px/14px var(--ff-m); color:var(--muted)}
+.dn.sun{color:var(--sunday)}
+.dn.sel{font-weight:700; color:var(--ink)}
+.dn .tp{display:inline-block; height:14px; padding:0 4px; border-radius:var(--r-pill); background:var(--today); color:var(--ink); font-weight:700}
+
+/* weekday row + calendar grid */
+.wk{margin-top:20px; height:18px; display:grid; grid-template-columns:repeat(7,var(--cellW)); gap:var(--gridGap)}
+.wk span{display:block; padding-left:10px; font:700 12px/18px var(--ff-g); color:var(--ink2)}
+.wk .sun{color:var(--sunday)} .wk .sat{color:var(--saturday)}
+.grid{margin-top:8px; display:grid; grid-template-columns:repeat(7,var(--cellW)); grid-auto-rows:var(--cellH); gap:var(--gridGap)}
+.gr{display:contents}
+.cell{position:relative; width:var(--cellW); height:var(--cellH); border-radius:var(--r-tile); isolation:isolate}
+.tile{background:var(--surface); box-shadow:var(--sh-tile); cursor:pointer; transition:transform 160ms var(--ease),box-shadow 160ms var(--ease)}
+.tile:hover{transform:translateY(-2px); box-shadow:var(--sh-tileHover)}
+.tile.sel{box-shadow:var(--sh-tile),0 0 0 2px var(--ink)}
+.tile.sel:hover{box-shadow:var(--sh-tileHover),0 0 0 2px var(--ink)}
+.cell.sel:focus-visible{outline-offset:4px}
+.cell.empty,.cell.next{cursor:pointer}
+.cell.empty::before,.cell.next::before{content:""; position:absolute; inset:0; border:1.5px dashed var(--dash); border-radius:var(--r-tile); pointer-events:none}
+.cell.empty.sel::before,.cell.next.sel::before{box-shadow:0 0 0 2px var(--ink)}
+.tt{position:absolute; left:8px; right:8px; top:8px; height:20px; display:flex; align-items:center; justify-content:space-between; white-space:nowrap}
+.tt-l,.tt-r{display:flex; align-items:center}
+.cd{font:600 15px/20px var(--ff-n); color:var(--ink)}
+.cd.sun{color:var(--sunday)} .cd.sat{color:var(--saturday)}
+.empty .cd,.next .cd{color:var(--ink2)}
+.pre .cd{color:var(--muted)}
+.pill-t{margin-left:6px; height:18px; padding:0 6px; border-radius:var(--r-pill); background:var(--today); color:var(--ink); display:inline-flex; align-items:center; font:800 11px/14px var(--ff-g)}
+.cnt{margin-right:6px; height:20px; padding:0 6px; border-radius:var(--r-pill); background:var(--ink); color:#fff; display:inline-flex; align-items:center; font:800 11px/14px var(--ff-g)}
+.nx-tag{font:800 11px/14px var(--ff-g); color:var(--muted)}
+.pdot{display:inline-flex; align-items:center; gap:4px; font:700 12px/12px var(--ff-n); color:var(--ink); white-space:nowrap}
+.pdot i{width:8px; height:8px; border-radius:50%; flex:none}
+.pdot i.unk{border:1.5px dashed var(--dash)}
+.cv{position:absolute; left:8px; top:40px; width:var(--coverS); z-index:3; box-shadow:var(--sh-coverS)}
+.paper{position:absolute; height:var(--coverSH); border-radius:var(--r-paper)}
+.paper.p1{left:14px; width:108px; top:36px; background:var(--border); z-index:2}
+.paper.p2{left:20px; width:96px; top:32px; background:var(--borderStrong); z-index:1}
+.slot{position:absolute; left:8px; top:40px; width:var(--coverS); height:var(--coverSH); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center}
+.empty .slot span{font:600 13px/18px var(--ff-g); color:var(--ink2)}
+.pre .slot span{font:500 12px/18px var(--ff-g); color:var(--muted)}
+
+/* cover placeholders */
+.ph{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center}
+.ph-next{background:var(--subtle)}
+.ph-next b{font:800 16px/20px var(--ff-g); color:var(--ink)}
+.ph-next span{margin-top:6px; font:600 12px/18px var(--ff-g); color:var(--ink2)}
+.ph-next.big{border:1.5px dashed var(--dash)}
+.ph-next.big b{font:800 22px/30px var(--ff-g)}
+.ph-none{background:var(--surface); border:1.5px dashed var(--dash)}
+.ph-none b{font:800 16px/22px var(--ff-g); color:var(--ink2)}
+.ph-none span{margin-top:6px; font:500 13px/20px var(--ff-g); color:var(--muted)}
+.ph-fail{background:var(--mat); padding:0 12px}
+.ph-fail span{font:500 12px/18px var(--ff-g); color:var(--muted)}
+
+/* list view */
+.lv-cap{margin-top:20px; height:18px; font:500 12px/18px var(--ff-g); color:var(--muted)}
+.lv{margin-top:8px; background:var(--surface); border-radius:var(--r-strip); box-shadow:var(--sh-tile); overflow:hidden}
+.tb{width:100%; border-collapse:collapse; table-layout:fixed}
+.tb th{height:40px; padding:0 8px; text-align:left; font:700 12px/16px var(--ff-g); color:var(--muted); border-bottom:1px solid var(--hairline); white-space:nowrap}
+.tb td{height:44px; padding:0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:middle}
+.tb tbody tr + tr td{border-top:1px solid var(--hairline)}
+.tb tr > :first-child{padding-left:16px}
+.tb .num{text-align:right}
+.tb tbody tr{cursor:pointer}
+.tb tbody tr:hover{background:var(--subtle)}
+.tb tbody tr.sel{background:var(--mat)}
+.tb tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--ink)}
+.tb .vo{font:700 13px/20px var(--ff-g); color:var(--ink)}
+.tb .dt{font:500 12px/20px var(--ff-m); color:var(--ink2)}
+.tb .dt i{font-style:normal; color:var(--muted)}
+.tb .hl1{font:600 13px/20px var(--ff-g); color:var(--ink)}
+.tb .hl1 .memo{color:var(--muted)}
+.tb .n{font:500 12px/20px var(--ff-m); color:var(--ink)}
+.tb .n.na{color:var(--muted)}
+.runTag{display:inline-flex; align-items:center; height:18px; padding:0 6px; margin-right:6px; border-radius:var(--r-tag); background:var(--mat); font:800 11px/14px var(--ff-g); color:var(--ink2); vertical-align:1px}
+.open{width:28px; height:28px; border-radius:8px; display:grid; place-items:center; color:var(--ink2)}
+.open:hover{background:var(--mat); color:var(--ink)}
+
+/* right column cards */
+.card{background:var(--surface); border-radius:var(--r-card); box-shadow:var(--sh-card); padding:24px}
+.fade{animation:fadeIn 180ms var(--ease)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.dp-1{height:32px; display:flex; align-items:center; justify-content:space-between}
+.dp-1 h2{font:800 22px/30px var(--ff-g); letter-spacing:-.4px; color:var(--ink); white-space:nowrap}
+.inav{display:flex; gap:4px}
+.dp-2{margin-top:6px; height:24px; display:flex; align-items:center; white-space:nowrap}
+.pill-th{margin-right:8px; height:24px; padding:0 10px; border-radius:var(--r-pill); background:var(--today); color:var(--ink); font:800 12px/24px var(--ff-g)}
+.dp-id{font:500 13px/20px var(--ff-g); color:var(--ink2)}
+.dp-id b{font:700 13px/20px var(--ff-g); color:var(--ink)}
+.dp-note{font:500 13px/20px var(--ff-g); color:var(--ink2)}
+.seqs{margin-top:14px}
+.disp{margin-top:20px; display:flex; flex-direction:column; align-items:center}
+.cvL{display:block; width:var(--coverL); box-shadow:var(--sh-coverL); transition:transform 160ms var(--ease)}
+a.cvL:hover{transform:translateY(-3px)}
+.cvL.ph{display:flex; height:var(--coverLH); box-shadow:none}
+.stand{position:relative; width:288px; height:6px; border-radius:var(--r-stand); background:var(--border)}
+.hl{margin-top:20px; font:700 18px/27px var(--ff-g); letter-spacing:-.3px; color:var(--ink)}
+.hl-note{margin-top:20px; font:500 13px/20px var(--ff-g); color:var(--ink2)}
+.hl-none{margin-top:20px; font:500 13px/20px var(--ff-g); color:var(--muted)}
+.chips{margin-top:12px; display:flex; flex-wrap:wrap; gap:6px}
+.chip{height:28px; display:inline-flex; border-radius:var(--r-chip); overflow:hidden; white-space:nowrap}
+.chip .sq{width:28px; height:28px; display:grid; place-items:center; font:700 14px/14px var(--ff-n); font-style:normal}
+.chip .sq.unk{background:var(--surface); border:1.5px dashed var(--dash); border-radius:var(--r-chip) 0 0 var(--r-chip); color:var(--ink)}
+.chip .nm{background:var(--mat); padding:0 10px; font:700 12px/28px var(--ff-g); color:var(--ink)}
+.badge-prov{height:28px; padding:0 10px; border:1px dashed var(--dash); border-radius:var(--r-chip); background:var(--surface); font:700 12px/26px var(--ff-g); color:var(--ink); white-space:nowrap}
+.badge-prev{height:28px; padding:0 10px; border-radius:var(--r-chip); background:var(--mat); font:600 12px/28px var(--ff-g); color:var(--ink2); white-space:nowrap}
+.primary{margin-top:16px; width:272px; height:48px; border-radius:var(--r-input); background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; gap:8px; font:700 15px/20px var(--ff-g); text-decoration:none; white-space:nowrap}
+a.primary:hover{background:var(--inkHover)}
+a.primary:active{transform:translateY(1px)}
+.primary.off{background:var(--wall); color:var(--ink2); cursor:default}
+.disp + .primary{margin-top:20px}
+
+.ic-card{margin-top:16px}
+.ic-h{height:22px; display:flex; align-items:baseline; justify-content:space-between; white-space:nowrap}
+.ic-h h2{font:800 16px/22px var(--ff-g); letter-spacing:-.2px; color:var(--ink)}
+.ic-h span{font:500 12px/18px var(--ff-g); color:var(--muted)}
+.ic-d{margin-top:4px; height:18px; display:flex; align-items:center; gap:6px; font:500 12px/18px var(--ff-g); color:var(--muted); white-space:nowrap}
+.ic-d i{width:1px; height:10px; background:var(--selectedLine); flex:none}
+.blocks{margin-top:16px}
+.blk + .blk{margin-top:12px; padding-top:12px; border-top:1px solid var(--hairline)}
+.blk .nm{height:16px; font:700 12px/16px var(--ff-g); color:var(--ink2); white-space:nowrap}
+.blk .val{margin-top:4px; height:28px; display:flex; align-items:baseline; gap:8px; white-space:nowrap}
+.blk .val b{font:600 24px/28px var(--ff-n); letter-spacing:-.2px; color:var(--ink)}
+.blk .val span{font:500 12px/20px var(--ff-m); color:var(--ink2)}
+.blk .val span.ko{font-family:var(--ff-g)}
+.blk .lgd{margin-top:4px; height:16px; display:flex; align-items:center; gap:6px; font:500 12px/16px var(--ff-g); color:var(--ink2); white-space:nowrap}
+.blk .lgd svg{display:block; flex:none; overflow:visible}
+.blk .ch{margin-top:8px; height:88px}
+.chart{display:block; overflow:visible}
+.chart .ax{font:400 11px/14px var(--ff-m); fill:var(--muted)}
+.ic-f{margin-top:16px; height:20px}
+.ic-f a{font:700 13px/20px var(--ff-g); color:var(--ink); text-decoration:none; text-underline-offset:3px}
+.ic-f a:hover{text-decoration:underline}
+
+/* ---------- footer ---------- */
+.ft{margin-top:56px; padding-top:28px; border-top:1px solid var(--border)}
+.ft-cols{display:grid; grid-template-columns:repeat(3,432px); gap:32px}
+.ft h3{font:800 14px/20px var(--ff-g); color:var(--ink)}
+.ft p{margin-top:8px; font:500 13px/21px var(--ff-g); color:var(--ink2)}
+.ft ul{margin-top:8px}
+.ft li + li{margin-top:8px}
+.ft .lnk{display:inline-flex; align-items:center; gap:6px; font:600 13px/20px var(--ff-g); color:var(--ink); text-decoration:none}
+.ft .lnk.sibl{font-weight:700}
+.ft .lnk:hover{text-decoration:underline; text-underline-offset:3px}
+.ft .none{margin-top:8px; font:500 13px/21px var(--ff-g); color:var(--muted)}
+.ft .end{margin-top:32px; font:500 12px/18px var(--ff-g); color:var(--muted)}
+
+/* tooltip */
+.tip{position:absolute; z-index:50; display:none; background:var(--ink); color:#fff; font:600 12px/16px var(--ff-g); padding:6px 10px; border-radius:8px; white-space:nowrap; pointer-events:none; opacity:0; transition:opacity 120ms linear}
+.tip::after{content:""; position:absolute; top:100%; left:var(--tx,50%); margin-left:-6px; border:6px solid transparent; border-top-color:var(--ink)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none !important; animation:none !important}
+}
+</style>
+</head><body>
+<div id="app"></div>
+<script src="../data.js"></script>
+<script>
+(function(){
+<<MZ>>
+<<COMMON>>
+
+/* ================= data derived from the archive ================= */
+function D2(n){return (n<10?'0':'')+n;}
+function isoOf(n){var t=new Date(n*864e5); return t.getUTCFullYear()+'-'+D2(t.getUTCMonth()+1)+'-'+D2(t.getUTCDate());}
+function dd(d){return +d.slice(8,10);}
+function mm(d){return +d.slice(5,7);}
+function wdIdx(d){return new Date(dn(d)*864e5).getUTCDay();}
+var WDL=['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+function longD(d){return mm(d)+'월 '+dd(d)+'일 '+WDL[wdIdx(d)];}
+function shortD(d){return mm(d)+'월 '+dd(d)+'일 ('+wd(d)+')';}
+
+var DAYS=dayMap();
+var DATES=Object.keys(DAYS).sort();
+var FIRST=DATES[0], TODAY=L.date;
+var MONTH=TODAY.slice(0,7), MY=+MONTH.slice(0,4), MN=+MONTH.slice(5,7);
+var NDAYS=new Date(Date.UTC(MY,MN,0)).getUTCDate();
+var MDAYS=[]; for(var i=1;i<=NDAYS;i++) MDAYS.push(MONTH+'-'+D2(i));
+var NEXT=isoOf(dn(TODAY)+1), NEXTVOL=B.length+1;
+function repOf(d){var a=DAYS[d]; return a?a[a.length-1]:null;}
+
+var ST=(function(){
+  var gap=0; for(var n=dn(FIRST);n<=dn(TODAY);n++){ if(!DAYS[isoOf(n)]) gap++; }
+  return {n:B.length, pub:DATES.length, gap:gap, multi:DATES.filter(function(d){return DAYS[d].length>1;}).length, idx:stats().days};
+})();
+
+/* number formatting: change values carry a sign unless zero, minus is U+2212 */
+function sgn(v,d){var s=Math.abs(v).toFixed(d); if(Number(s)===0) return s; return (v>0?'+':'−')+s;}
+function lvl(v,d){var s=Math.abs(v).toFixed(d); return (v<0&&Number(s)!==0?'−':'')+s;}
+function runOf(b){ if(b.run) return RUN[b.run]||b.run; if(b.window) return '지연 실행 '+b.window.split('~')[0]; return ''; }
+
+/* cover with the spec's failure placeholder (mat fill + caption) */
+function coverOf(b){
+  try{ return cover(b); }
+  catch(e){ return '<div class="ph ph-fail" style="aspect-ratio:68/100"><span>표지를 그리지 못했습니다</span></div>'; }
+}
+
+/* ================= icons (line SVG, 1.75 stroke, currentColor) ================= */
+var ICP={
+  left:'<path d="M10 3.5 5.5 8l4.5 4.5"/>',
+  right:'<path d="M6 3.5 10.5 8 6 12.5"/>',
+  down:'<path d="M4 6l4 4 4-4"/>',
+  search:'<circle cx="7" cy="7" r="4.75"/><path d="m10.5 10.5 3.25 3.25"/>',
+  ext:'<path d="M5 11 11 5M6 5h5v5"/>'
+};
+function ico(name,size){
+  return '<svg class="ic" width="'+size+'" height="'+size+'" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+    +ICP[name].replace(/<(path|circle)/g,'<$1 vector-effect="non-scaling-stroke"')+'</svg>';
+}
+function logo(){
+  return '<svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+    +'<rect x="3.5" y="4.5" width="15" height="15" rx="2.5"/><path d="M8 2.5v4M14 2.5v4"/><rect x="8.5" y="9.5" width="5" height="7" rx=".75"/></svg>';
+}
+
+/* ================= phase marks ================= */
+function onPh(p){return (p==='C'||p==='D')?'var(--onPhaseLight)':'var(--onPhaseDark)';}
+function phLabel(p){var ps=parts(p); if(!ps.length) return '판정 없음'; if(ps.length>1) return '국면 '+ps[0]+'에서 '+ps[ps.length-1]+'로 걸침'; return '국면 '+ps[0]+' '+PHN[ps[0]];}
+function phTip(p){var ps=parts(p); if(!ps.length) return '판정 없음'; if(ps.length>1) return '국면 '+ps.join('→')+' 걸친 판정'; return '국면 '+ps[0]+' '+PHN[ps[0]];}
+function half(a,b){return 'linear-gradient(90deg,'+PCOL[a]+' 50%,'+PCOL[b]+' 50%)';}
+/* dot: calendar tiles, list rows, search results */
+function dotMark(p){
+  var ps=parts(p), lab=esc(phLabel(p));
+  if(!ps.length) return '<span class="pdot" role="img" aria-label="'+lab+'"><i class="unk"></i><span aria-hidden="true">?</span></span>';
+  if(ps.length>1) return '<span class="pdot" role="img" aria-label="'+lab+'"><i style="background:'+half(ps[0],ps[ps.length-1])+'"></i><span aria-hidden="true">'+ps[0]+'→'+ps[ps.length-1]+'</span></span>';
+  return '<span class="pdot" role="img" aria-label="'+lab+'"><i style="background:'+PCOL[ps[0]]+'"></i><span aria-hidden="true">'+ps[0]+'</span></span>';
+}
+/* chip: selected-day card */
+function chipMark(p){
+  var ps=parts(p), lab=esc(phLabel(p));
+  if(!ps.length) return '<span class="chip" role="img" aria-label="'+lab+'"><i class="sq unk">?</i><span class="nm">판정 없음</span></span>';
+  var sq=function(x){return '<i class="sq" style="background:'+PCOL[x]+';color:'+onPh(x)+'">'+x+'</i>';};
+  if(ps.length>1){var a=ps[0], b=ps[ps.length-1]; return '<span class="chip" role="img" aria-label="'+lab+'">'+sq(a)+sq(b)+'<span class="nm">'+esc(PHN[a]+' → '+PHN[b])+'</span></span>';}
+  return '<span class="chip" role="img" aria-label="'+lab+'">'+sq(ps[0])+'<span class="nm">'+esc(PHN[ps[0]])+'</span></span>';
+}
+
+/* ================= state ================= */
+var S={date:L.date, b:L, view:'cal', chartDate:L.date};
+
+/* ================= header ================= */
+function headerHTML(){
+  return '<header class="hd">'
+    +'<div class="brand"><div class="logo">'+logo()+'</div><div><h1>크립토 브리핑 서고</h1><p>매일 아침 06:10, 한 호씩 꽂힙니다</p></div></div>'
+    +'<div class="tools">'
+      +'<div class="search" role="search">'
+        +'<label class="scope"><span class="sr">찾을 범위</span><select id="scope" aria-label="찾을 범위"><option value="all">전체</option><option value="headline">헤드라인</option><option value="title">제목</option><option value="note">메모</option></select>'+ico('down',12)+'</label>'
+        +'<span class="mag">'+ico('search',16)+'</span>'
+        +'<input id="q" type="text" autocomplete="off" placeholder="날짜나 낱말로 찾기" aria-label="지난 호 찾기">'
+        +'<span class="kbd" aria-hidden="true">/</span>'
+      +'</div>'
+      +'<button type="button" class="tbtn" id="go-list">발행 목록</button>'
+      +'<button type="button" class="tbtn" id="go-ind">지표</button>'
+      +'<span class="vsep" aria-hidden="true"></span>'
+      /* sibling archive: the existing archive's link value is not in the provided data; placeholder href */
+      +'<a class="sib" href="#" data-sibling="macro-risk">매크로 리스크 서고'+ico('ext',14)+'</a>'
+    +'</div></header>';
+}
+
+/* ================= left column ================= */
+function monthBarHTML(){
+  return '<div class="mbar"><div class="mbar-l"><h2 id="month-title">'+MY+'년 '+MN+'월</h2>'
+    +'<div class="mnav"><button type="button" class="ibtn" aria-disabled="true" tabindex="-1" aria-label="이전 달" data-tip="'+esc(mm(FIRST)+'월 '+dd(FIRST)+'일부터 기록')+'">'+ico('left',16)+'</button>'
+    +'<button type="button" class="ibtn" aria-disabled="true" tabindex="-1" aria-label="다음 달" data-tip="'+esc((MN%12+1)+'월 호는 아직 없습니다')+'">'+ico('right',16)+'</button></div></div>'
+    +'<div class="seg view" role="group" aria-label="보기"><button type="button" data-view="cal" aria-pressed="'+(S.view==='cal')+'">달력</button><button type="button" data-view="list" aria-pressed="'+(S.view==='list')+'">목록</button></div></div>';
+}
+function statsHTML(){
+  var sep='<span class="sep" aria-hidden="true">·</span>';
+  return '<p class="stats"><span><b>'+ST.n+'</b>호</span>'+sep
+    +'<span>발행한 날 <b>'+ST.pub+'</b>일</span>'+sep
+    +'<span>브리핑 없는 날 <b>'+ST.gap+'</b>일</span>'+sep
+    +'<span>여러 번 발행한 날 <b>'+ST.multi+'</b>일</span>'+sep
+    +'<span>지표 기록 <b>'+ST.idx+'</b>일</span></p>';
+}
+function stripHTML(){
+  var legend=['A','B','C','D','E'].map(function(k){return '<li><i class="sw" style="background:'+PCOL[k]+'"></i><span><b class="pl">'+k+'</b> '+esc(PHN[k])+'</span></li>';}).join('')
+    +'<li><i class="sw" style="background:'+half('C','D')+'"></i><span><b class="pl">C→D</b> 걸친 판정</span></li>'
+    +'<li><i class="sw unk"></i><span><b class="pl">?</b> 판정 없음</span></li>'
+    +'<li><i class="sw none"></i><span>브리핑 없음</span></li>';
+  var cells='', dates='';
+  MDAYS.forEach(function(d){
+    var day=dd(d), arr=DAYS[d]||[], b=repOf(d), sel=d===S.date;
+    if(d<FIRST){ cells+='<span class="sb pre" aria-hidden="true"></span>'; }
+    else {
+      var cls='sb', inner='', st='', tip;
+      if(!b){ cls+=' none'; tip=shortD(d)+' · 브리핑 없음'; }
+      else {
+        var ps=parts(b.phase);
+        if(!ps.length){ cls+=' unk'; inner='?'; }
+        else if(ps.length>1){ var x=ps[0], y=ps[ps.length-1]; cls+=' split'; inner='<span style="background:'+PCOL[x]+';color:'+onPh(x)+'">'+x+'</span><span style="background:'+PCOL[y]+';color:'+onPh(y)+'">'+y+'</span>'; }
+        else { st=' style="background:'+PCOL[ps[0]]+';color:'+onPh(ps[0])+'"'; inner=ps[0]; }
+        tip=shortD(d)+' · '+phTip(b.phase)+(arr.length>1?' · '+arr.length+'회 발행':'');
+      }
+      cells+='<button type="button" class="'+cls+(sel?' sel':'')+'" data-d="'+d+'" tabindex="'+(sel?0:-1)+'" aria-pressed="'+sel+'" aria-label="'+esc(tip)+'" data-tip="'+esc(tip)+'"'+st+'>'+inner+'</button>';
+    }
+    dates+='<span class="dn'+(wdIdx(d)===0?' sun':'')+(sel?' sel':'')+'" data-dn="'+d+'" aria-hidden="true">'+(d===TODAY?'<b class="tp">'+day+'</b>':day)+'</span>';
+  });
+  return '<section class="strip" aria-labelledby="strip-h" style="--nd:'+MDAYS.length+'">'
+    +'<div class="sh"><div class="sh-l"><h2 id="strip-h">국면 흐름</h2><span>하루 한 칸 · 마지막 호 기준</span></div><ul class="lg" aria-label="범례">'+legend+'</ul></div>'
+    +'<div class="cells" id="strip-cells" role="group" aria-label="국면 흐름, 하루 한 칸">'+cells+'</div>'
+    +'<div class="dates">'+dates+'</div></section>';
+}
+
+/* calendar cells */
+function tileHTML(d,col){
+  var arr=DAYS[d], b=arr[arr.length-1], n=arr.length, isT=d===TODAY, sel=d===S.date;
+  var dc=col===0?' sun':col===6?' sat':'';
+  var label=longD(d)+', '+(n>1?n+'회 발행':'제'+vol(b)+'호')+', '+phLabel(b.phase)+(isT?', 오늘':'');
+  return '<div class="cell tile'+(sel?' sel':'')+'" role="gridcell" data-d="'+d+'" tabindex="'+(sel?0:-1)+'" aria-selected="'+sel+'" aria-label="'+esc(label)+'"'+(isT?' aria-current="date"':'')+'>'
+    +'<div class="tt"><span class="tt-l"><span class="cd'+dc+'">'+dd(d)+'</span>'+(isT?'<span class="pill-t">오늘</span>':'')+'</span>'
+    +'<span class="tt-r">'+(n>1?'<span class="cnt">'+n+'회</span>':'')+dotMark(b.phase)+'</span></div>'
+    +(n>2?'<i class="paper p2" aria-hidden="true"></i>':'')
+    +(n>1?'<i class="paper p1" aria-hidden="true"></i>':'')
+    +'<div class="cv" aria-hidden="true">'+coverOf(b)+'</div></div>';
+}
+function cellHTML(d,col){
+  var sel=d===S.date;
+  if(d===NEXT){
+    return '<div class="cell next'+(sel?' sel':'')+'" role="gridcell" data-d="'+d+'" tabindex="'+(sel?0:-1)+'" aria-selected="'+sel+'" aria-label="'+esc(longD(d)+', 제'+NEXTVOL+'호 06:10 발행 예정')+'">'
+      +'<div class="tt"><span class="cd">'+mm(d)+'.'+dd(d)+'</span><span class="nx-tag">다음 호</span></div>'
+      +'<div class="slot ph ph-next" aria-hidden="true"><b>제'+NEXTVOL+'호</b><span>06:10 발행 예정</span></div></div>';
+  }
+  if(d.slice(0,7)!==MONTH || d>NEXT) return '<div class="cell out" role="gridcell" aria-hidden="true"></div>';
+  if(d<FIRST){
+    return '<div class="cell pre" role="gridcell" aria-disabled="true" aria-label="'+esc(longD(d)+', 기록 전')+'">'
+      +'<div class="tt"><span class="cd">'+dd(d)+'</span></div><div class="slot" aria-hidden="true"><span>기록 전</span></div></div>';
+  }
+  if(DAYS[d]) return tileHTML(d,col);
+  return '<div class="cell empty'+(sel?' sel':'')+'" role="gridcell" data-d="'+d+'" tabindex="'+(sel?0:-1)+'" aria-selected="'+sel+'" aria-label="'+esc(longD(d)+', 브리핑 없음')+'">'
+    +'<div class="tt"><span class="cd">'+dd(d)+'</span></div><div class="slot" aria-hidden="true"><span>브리핑 없음</span></div></div>';
+}
+function calendarHTML(){
+  var first=MONTH+'-01', start=dn(first)-wdIdx(first), rows=Math.ceil((wdIdx(first)+NDAYS)/7), h='';
+  for(var r=0;r<rows;r++){
+    h+='<div class="gr" role="row">';
+    for(var c=0;c<7;c++) h+=cellHTML(isoOf(start+r*7+c),c);
+    h+='</div>';
+  }
+  var wk=WD.map(function(w,i){return '<span class="'+(i===0?'sun':i===6?'sat':'')+'">'+w+'</span>';}).join('');
+  return '<div class="wk" aria-hidden="true">'+wk+'</div><div class="grid" id="cal" role="grid" aria-label="'+MY+'년 '+MN+'월 발행 달력">'+h+'</div>';
+}
+
+/* list view: publication list + indicator table */
+function listHTML(){
+  var rows=B.slice().reverse().map(function(b){
+    var arr=DAYS[b.date], sel=b===S.b, run=runLabel(b);
+    var hl=b.headline?esc(b.headline):(b.note?'<span class="memo">메모 · '+esc(b.note)+'</span>':'<span class="memo">헤드라인 없음</span>');
+    var tag=run!=='06:10 본실행'?'<span class="runTag">'+esc(run)+'</span>':'';
+    var num=function(v,txt){return v==null?'<td class="num"><span class="n na">—</span></td>':'<td class="num"><span class="n">'+txt+'</span></td>';};
+    return '<tr data-id="'+esc(b.id)+'" class="'+(sel?'sel':'')+'" tabindex="'+(sel?0:-1)+'" aria-selected="'+sel+'">'
+      +'<td><span class="vo">제'+vol(b)+'호</span></td>'
+      +'<td><span class="dt">'+mm(b.date)+'.'+dd(b.date)+' ('+wd(b.date)+')'+(arr.length>1?'<i> · '+b.seq+'회</i>':'')+'</span></td>'
+      +'<td>'+dotMark(b.phase)+'</td>'
+      +'<td><span class="hl1" data-tip="'+esc(b.headline||b.note||'')+'">'+tag+hl+'</span></td>'
+      +num(b.btcd,b.btcd!=null?lvl(b.btcd,2)+'%':'')
+      +num(b.stable1m,b.stable1m!=null?sgn(b.stable1m,3)+'%p':'')
+      +num(b.btc1m,b.btc1m!=null?sgn(b.btc1m,2)+'%':'')
+      +'<td>'+(b.url?'<a class="open" href="'+esc(b.url)+'" target="_blank" rel="noopener" tabindex="-1" aria-label="'+esc('제'+vol(b)+'호 새 탭으로 열기, '+b.title)+'">'+ico('ext',16)+'</a>':'')+'</td></tr>';
+  }).join('');
+  return '<p class="lv-cap">'+B.length+'호 · 최신 호부터 · 실행 표시가 없는 호는 06:10 본실행</p>'
+    +'<div class="lv"><table class="tb" id="list-table" role="grid" aria-label="발행 목록과 지표 표">'
+    +'<colgroup><col style="width:84px"><col style="width:120px"><col style="width:64px"><col><col style="width:88px"><col style="width:100px"><col style="width:100px"><col style="width:56px"></colgroup>'
+    +'<thead><tr><th scope="col">호</th><th scope="col">날짜</th><th scope="col">국면</th><th scope="col">헤드라인</th><th scope="col" class="num">BTC.D</th>'
+    +'<th scope="col" class="num"><span data-tip="ΣSTABLECOIN.D 1개월 변화" aria-label="ΣSTABLECOIN.D 1개월 변화">Σ 1개월</span></th><th scope="col" class="num">BTCUSD 1개월</th><th scope="col"><span class="sr">열기</span></th></tr></thead>'
+    +'<tbody>'+rows+'</tbody></table></div>';
+}
+
+/* ================= right column ================= */
+function navOf(){
+  var d=S.date, b=S.b, prev=null, next=null;
+  if(b){ var i=B.indexOf(b); prev=B[i-1]||null; next=B[i+1]||null; }
+  else { B.forEach(function(x){ if(x.date<d) prev=x; }); for(var j=0;j<B.length;j++){ if(B[j].date>d){ next=B[j]; break; } } }
+  return {prev:prev,next:next};
+}
+function navBtn(dir,label,target,offTip){
+  if(target) return '<button type="button" class="ibtn" data-go="'+esc(target.id)+'" aria-label="'+esc(label+', 제'+vol(target)+'호')+'" data-tip="'+esc('제'+vol(target)+'호 · '+shortD(target.date))+'">'+ico(dir,16)+'</button>';
+  return '<button type="button" class="ibtn" aria-disabled="true" tabindex="-1" aria-label="'+esc(label)+'"'+(offTip?' data-tip="'+esc(offTip)+'"':'')+'>'+ico(dir,16)+'</button>';
+}
+function dayCardHTML(){
+  var d=S.date, b=S.b, nav=navOf(), h='';
+  var nextOff=(b===L||d===NEXT)?'제'+NEXTVOL+'호 · '+mm(NEXT)+'월 '+dd(NEXT)+'일 06:10 발행 예정':'';
+  h+='<div class="dp-1"><h2>'+longD(d)+'</h2><div class="inav">'+navBtn('left','이전 호',nav.prev,'')+navBtn('right','다음 호',nav.next,nextOff)+'</div></div>';
+  if(b){
+    var run=runOf(b), arr=DAYS[d];
+    h+='<div class="dp-2">'+(b===L?'<span class="pill-th">오늘 호</span>':'')+'<span class="dp-id"><b>제'+vol(b)+'호</b>'+(run?' · '+esc(run):'')+'</span></div>';
+    if(arr.length>1){
+      h+='<div class="seg in-card seqs" role="group" aria-label="회차">'+arr.map(function(x){return '<button type="button" data-go="'+esc(x.id)+'" aria-pressed="'+(x===b)+'">'+x.seq+'회 · 제'+vol(x)+'호</button>';}).join('')+'</div>';
+    }
+    h+='<div class="disp">'+(b.url?'<a class="cvL" href="'+esc(b.url)+'" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">'+coverOf(b)+'</a>':'<div class="cvL">'+coverOf(b)+'</div>')+'<div class="stand" aria-hidden="true"></div></div>';
+    if(b.headline) h+='<p class="hl">'+esc(b.headline)+'</p>';
+    else if(b.note) h+='<p class="hl-note">'+esc(b.note)+'</p>';
+    else h+='<p class="hl-none">헤드라인 없음</p>';
+    var chips=chipMark(b.phase);
+    if(b.provisional) chips+='<span class="badge-prov">임시 기준</span>';
+    if(b.prevPhase) chips+='<span class="badge-prev">전날 국면 '+esc(parts(b.prevPhase).join('→')||b.prevPhase)+'</span>';
+    h+='<div class="chips">'+chips+'</div>';
+    if(b.url) h+='<a class="primary" id="open-btn" href="'+esc(b.url)+'" target="_blank" rel="noopener" aria-label="'+esc('제'+vol(b)+'호 브리핑 펼치기, 새 탭, '+b.title)+'"><span>제'+vol(b)+'호 브리핑 펼치기</span>'+ico('ext',16)+'</a>';
+    else h+='<span class="primary off" id="open-btn" role="button" aria-disabled="true">링크 없음</span>';
+  } else if(d===NEXT){
+    h+='<div class="dp-2"><span class="dp-id"><b>제'+NEXTVOL+'호</b> · 06:10 발행 예정</span></div>';
+    h+='<div class="disp"><div class="cvL ph ph-next big"><b>제'+NEXTVOL+'호</b><span>06:10 발행 예정</span></div><div class="stand" aria-hidden="true"></div></div>';
+    h+='<span class="primary off" id="open-btn" role="button" aria-disabled="true">아직 발행 전</span>';
+  } else {
+    h+='<div class="dp-2"><span class="dp-note">브리핑 없음</span></div>';
+    h+='<div class="disp"><div class="cvL ph ph-none"><b>브리핑 없음</b><span>이날은 발행된 호가 없습니다.</span></div><div class="stand" aria-hidden="true"></div></div>';
+  }
+  return '<section class="card dp" id="day-card" role="region" aria-label="고른 날"><div class="dp-in">'+h+'</div></section>';
+}
+
+/* ---------- charts ---------- */
+var CH={
+  btcd:{name:'BTC.D', step:.2, must:[], fmt:function(v){return lvl(v,1)+'%';}, refs:[], val:function(v){return lvl(v,2)+'%';}},
+  stable1m:{name:'ΣSTABLECOIN.D 1개월 변화', step:.5, must:[0,1], fmt:function(v){return sgn(v,1)+'%p';}, refs:[{v:1,k:'e'},{v:0,k:'zero'}], val:function(v){return sgn(v,3)+'%p';}},
+  btc1m:{name:'BTCUSD 1개월', step:5, must:[0], fmt:function(v){return sgn(v,0)+'%';}, refs:[{v:0,k:'ink2'}], val:function(v){return sgn(v,2)+'%';}}
+};
+function seriesOf(key){var o=[]; MDAYS.forEach(function(d,i){var b=repOf(d); if(b&&b[key]!=null) o.push({day:i+1,d:d,v:b[key]});}); return o;}
+function r6(x){return Math.round(x*1e6)/1e6;}
+function chartSVG(key){
+  var c=CH[key], pts=seriesOf(key), vs=pts.map(function(p){return p.v;}).concat(c.must);
+  var lo=Math.min.apply(null,vs), hi=Math.max.apply(null,vs);
+  lo=r6(Math.floor(lo/c.step+1e-9)*c.step); hi=r6(Math.ceil(hi/c.step-1e-9)*c.step); if(hi<=lo) hi=r6(lo+c.step);
+  var X0=42, X1=272, Y0=.5, Y1=67.5, N=MDAYS.length;
+  var X=function(day){return X0+(day-1)/(N-1)*(X1-X0);};
+  var Y=function(v){return Y0+(hi-v)/(hi-lo)*(Y1-Y0);};
+  var sd=S.chartDate, sday=sd&&sd.slice(0,7)===MONTH?dd(sd):null, sp=null;
+  pts.forEach(function(p){ if(p.day===sday) sp=p; });
+  var lab=c.name+' '+MN+'월 추이, '+pts.length+'일 기록'+(sday?', 고른 날 '+MN+'월 '+sday+'일 '+(sp?c.val(sp.v):'기록 없음'):'');
+  var s='<svg class="chart" width="272" height="88" viewBox="0 0 272 88" role="img" aria-label="'+esc(lab)+'">';
+  [Y0,34.5,Y1].forEach(function(y){ s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+y+'" y2="'+y+'" stroke="#E6EBF1" stroke-width="1"/>'; });
+  c.refs.forEach(function(r){
+    var y=Y(r.v).toFixed(2);
+    if(r.k==='e') s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+y+'" y2="'+y+'" stroke="#2B97FF" stroke-width="1.5" stroke-dasharray="4 3"/>';
+    else if(r.k==='zero') s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+y+'" y2="'+y+'" stroke="#B1BECE" stroke-width="1"/>';
+    else s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+y+'" y2="'+y+'" stroke="#44515F" stroke-width="1.5" stroke-dasharray="4 3"/>';
+  });
+  s+='<text class="ax" x="36" y="'+(Y0+4)+'" text-anchor="end">'+c.fmt(hi)+'</text><text class="ax" x="36" y="'+(Y1+4)+'" text-anchor="end">'+c.fmt(lo)+'</text>';
+  var ticks=[1,8,15,22,29];
+  ticks.forEach(function(day,i){ s+='<text class="ax" x="'+X(day).toFixed(1)+'" y="82" text-anchor="'+(i===0?'start':i===ticks.length-1?'end':'middle')+'">'+MN+'/'+day+'</text>'; });
+  if(sday){ var sx=Math.round(X(sday))-.5; s+='<line class="selv" x1="'+sx+'" x2="'+sx+'" y1="0" y2="68" stroke="#8795A6" stroke-width="1"/>'; }
+  var dpath='', prev=null, lone=[];
+  pts.forEach(function(p,i){
+    var joined=prev!=null&&p.day===prev+1;
+    dpath+=(joined?'L':'M')+X(p.day).toFixed(2)+' '+Y(p.v).toFixed(2);
+    var nx=pts[i+1]; if(!joined&&!(nx&&nx.day===p.day+1)) lone.push(p);
+    prev=p.day;
+  });
+  s+='<path d="'+dpath+'" fill="none" stroke="#16212C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+  lone.forEach(function(p){ s+='<circle cx="'+X(p.day).toFixed(2)+'" cy="'+Y(p.v).toFixed(2)+'" r="1.5" fill="#16212C"/>'; });
+  if(sp) s+='<circle cx="'+X(sp.day).toFixed(2)+'" cy="'+Y(sp.v).toFixed(2)+'" r="5" fill="#16212C" stroke="#FFFFFF" stroke-width="2"/>';
+  return s+'</svg>';
+}
+function legendHTML(color,text){
+  return '<div class="lgd"><svg width="16" height="2" viewBox="0 0 16 2" aria-hidden="true"><line x1="0" x2="16" y1="1" y2="1" stroke="'+color+'" stroke-width="1.5" stroke-dasharray="4 3"/></svg><span>'+esc(text)+'</span></div>';
+}
+function prevBtcd(b){
+  var p=null; daily('btcd').forEach(function(x){ if(x.d<b.date) p=x; }); return p;
+}
+function indCardHTML(){
+  var b=S.b, cd=S.chartDate, NA='—';
+  var big1=NA, sub1='기록 없음', big2=NA, sub2='기록 없음', big3=NA, sub3='기록 없음';
+  if(b){
+    if(b.btcd!=null){
+      big1=CH.btcd.val(b.btcd); sub1='';
+      var p=prevBtcd(b);
+      if(p){ var dv=sgn(b.btcd-p.v,2)+'%p'; sub1=(dn(p.d)===dn(b.date)-1)?'전날 '+dv:mm(p.d)+'/'+dd(p.d)+' 대비 '+dv; }
+    }
+    if(b.stable1m!=null){ big2=CH.stable1m.val(b.stable1m); sub2=b.stableD!=null?'수준 '+lvl(b.stableD,3)+'%':''; }
+    if(b.btc1m!=null){ big3=CH.btc1m.val(b.btc1m); sub3=''; }
+  }
+  var blk=function(key,big,sub,lg){
+    /* all-Hangul secondary text ('기록 없음') falls back to Gothic A1 as a whole */
+    return '<div class="blk"><div class="nm">'+esc(CH[key].name)+'</div><div class="val"><b>'+big+'</b>'+(sub?'<span'+(/\d/.test(sub)?'':' class="ko"')+'>'+esc(sub)+'</span>':'')+'</div>'+(lg||'')+'<div class="ch">'+chartSVG(key)+'</div></div>';
+  };
+  return '<section class="card ic-card" id="ind-card" role="region" aria-label="지표 추이">'
+    +'<div class="ic-h"><h2>지표 추이</h2><span>'+MN+'월 · '+ST.idx+'일 기록</span></div>'
+    +'<div class="ic-d"><i aria-hidden="true"></i><span>세로선은 고른 날 · '+mm(cd)+'월 '+dd(cd)+'일</span></div>'
+    +'<div class="blocks">'
+      +blk('btcd',big1,sub1,'')
+      +blk('stable1m',big2,sub2,legendHTML('#2B97FF','E 판정 임시 기준 +1.0%p'))
+      +blk('btc1m',big3,sub3,legendHTML('#44515F','0 아래로 내려가야 D·E 판정 전제'))
+    +'</div>'
+    +'<div class="ic-f"><a href="#cal-col" id="to-table">표로 보기 →</a></div></section>';
+}
+
+/* ================= footer ================= */
+var DOCS=[{title:'UNI·ARB 관통 해부', date:'2026-09-08', url:'https://claude.ai/code/artifact/f371939a-b726-438b-98e2-92abf515976c'}];
+function footerHTML(){
+  var docs=DOCS.length?'<ul>'+DOCS.map(function(x){return '<li><a class="lnk" href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.title)+ico('ext',14)+'</a></li>';}).join('')+'</ul>':'<p class="none">부속 문서가 없습니다</p>';
+  return '<footer class="ft" aria-labelledby="ft-h"><h2 class="sr" id="ft-h">서고 안내</h2><div class="ft-cols">'
+    +'<div><h3>갱신 방식</h3><p>매일 아침 06:10(KST)에 새 호가 발행되면 이 서고에 한 호씩 꽂힙니다. 하루에 여러 번 발행되면 같은 날짜 칸에 쌓입니다.</p><p>실행 표기: 06:10 본실행 · 안전판 · 지연 실행(예: 지연 실행 10:57)</p></div>'
+    +'<div><h3>부속 문서</h3>'+docs+'</div>'
+    +'<div><h3>형제 서고</h3><ul><li><a class="lnk sibl" href="#" data-sibling="macro-risk">매크로 리스크 서고'+ico('ext',14)+'</a></li></ul></div>'
+    +'</div><p class="end">크립토 브리핑 서고 · '+(+FIRST.slice(0,4))+'년 '+mm(FIRST)+'월 '+dd(FIRST)+'일부터 기록 · 최신 제'+vol(L)+'호 '+L.date+'</p></footer>';
+}
+
+/* ================= page ================= */
+var app=document.getElementById('app');
+app.innerHTML='<a class="skip" href="#open-btn">오늘 호 펼치기로 건너뛰기</a><a class="skip" href="#cal-col">달력으로 건너뛰기</a>'
+  +'<div class="page">'+headerHTML()
+  +'<main class="main"><section class="colL" id="cal-col" aria-labelledby="month-title">'+monthBarHTML()+statsHTML()+stripHTML()+'<div id="view">'+calendarHTML()+'</div></section>'
+  +'<div class="colR" id="right">'+dayCardHTML()+indCardHTML()+'</div></main>'
+  +footerHTML()+'</div><div class="sr" id="live" aria-live="polite"></div>';
+
+/* ================= behaviour (selection, views, tooltips, keyboard) ================= */
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function byId(id){for(var i=0;i<B.length;i++) if(B[i].id===id) return B[i]; return null;}
+function announce(){var live=document.getElementById('live'); var b=S.b; live.textContent=longD(S.date)+(b?' 제'+vol(b)+'호':(S.date===NEXT?' 제'+NEXTVOL+'호 발행 예정':' 브리핑 없음'));}
+function patchLeft(){
+  document.querySelectorAll('#cal [data-d]').forEach(function(el){var on=el.getAttribute('data-d')===S.date; el.classList.toggle('sel',on); el.setAttribute('aria-selected',on); el.tabIndex=on?0:-1;});
+  document.querySelectorAll('#strip-cells [data-d]').forEach(function(el){var on=el.getAttribute('data-d')===S.date; el.classList.toggle('sel',on); el.setAttribute('aria-pressed',on); el.tabIndex=on?0:-1;});
+  document.querySelectorAll('.dn').forEach(function(el){el.classList.toggle('sel',el.getAttribute('data-dn')===S.date);});
+  document.querySelectorAll('#list-table tbody tr').forEach(function(el){var on=S.b&&el.getAttribute('data-id')===S.b.id; el.classList.toggle('sel',!!on); el.setAttribute('aria-selected',!!on); el.tabIndex=on?0:-1;});
+}
+function renderRight(){
+  var r=document.getElementById('right'); r.innerHTML=dayCardHTML()+indCardHTML();
+  if(!reduce) document.querySelector('#day-card .dp-in').classList.add('fade');
+  BK.fit(r,true);
+}
+function selectIssue(b){S.b=b; S.date=b.date; S.chartDate=b.date; patchLeft(); renderRight(); announce();}
+function selectDate(d){
+  var a=DAYS[d]; if(a){selectIssue(a[a.length-1]); return;}
+  if(d<FIRST||d>NEXT) return;
+  S.b=null; S.date=d; if(d.slice(0,7)===MONTH) S.chartDate=d; patchLeft(); renderRight(); announce();
+}
+function setView(v){
+  if(S.view===v) return; S.view=v;
+  document.getElementById('view').innerHTML=v==='list'?listHTML():calendarHTML();
+  document.querySelectorAll('.seg.view button').forEach(function(x){x.setAttribute('aria-pressed',x.getAttribute('data-view')===v);});
+  if(v==='cal') BK.fit(document.getElementById('view'),true);
+}
+function scrollToEl(el){ if(el) el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); }
+
+app.addEventListener('click',function(e){
+  var t=e.target;
+  var go=t.closest('[data-go]'); if(go){ var b=byId(go.getAttribute('data-go')); if(b) selectIssue(b); return; }
+  var v=t.closest('[data-view]'); if(v){ setView(v.getAttribute('data-view')); return; }
+  var row=t.closest('#list-table tbody tr'); if(row && !t.closest('a')){ var rb=byId(row.getAttribute('data-id')); if(rb) selectIssue(rb); return; }
+  var dd_=t.closest('[data-d]'); if(dd_ && !t.closest('a')){ selectDate(dd_.getAttribute('data-d')); return; }
+  if(t.closest('#go-list')){ setView('list'); scrollToEl(document.getElementById('cal-col')); return; }
+  if(t.closest('#go-ind')){ scrollToEl(document.getElementById('ind-card')); return; }
+  if(t.closest('#to-table')){ e.preventDefault(); setView('list'); scrollToEl(document.getElementById('cal-col')); return; }
+  if(t.closest('[data-sibling]')){ e.preventDefault(); return; }
+  if(t.closest('[aria-disabled=true]')){ e.preventDefault(); }
+});
+/* keyboard: grid (arrows, Home/End, Enter/Space), strip (left/right), table (up/down, Enter) */
+app.addEventListener('keydown',function(e){
+  var cell=e.target.closest&&e.target.closest('#cal [data-d]');
+  if(cell){
+    var d=cell.getAttribute('data-d'), step={ArrowLeft:-1,ArrowRight:1,ArrowUp:-7,ArrowDown:7}[e.key], w=wdIdx(d);
+    if(e.key==='Home') step=-w; if(e.key==='End') step=6-w;
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectDate(d); return; }
+    if(step!=null){
+      e.preventDefault(); var n=dn(d)+step, dir=step<0?-1:1, tgt=null;
+      for(var k=0;k<40;k++){ var el=document.querySelector('#cal [data-d="'+isoOf(n)+'"]'); if(el){tgt=el;break;} if(Math.abs(step)!==1&&e.key!=='Home'&&e.key!=='End') break; n+=dir; }
+      if(tgt){ cell.tabIndex=-1; tgt.tabIndex=0; tgt.focus(); }
+    }
+    return;
+  }
+  var sb=e.target.closest&&e.target.closest('#strip-cells [data-d]');
+  if(sb&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){
+    e.preventDefault(); var list=[].slice.call(document.querySelectorAll('#strip-cells [data-d]')), i=list.indexOf(sb)+(e.key==='ArrowLeft'?-1:1);
+    if(list[i]){ sb.tabIndex=-1; list[i].tabIndex=0; list[i].focus(); } return;
+  }
+  var tr=e.target.closest&&e.target.closest('#list-table tbody tr');
+  if(tr){
+    if(e.key==='Enter'){ var rb=byId(tr.getAttribute('data-id')); if(rb) selectIssue(rb); return; }
+    if(e.key==='ArrowUp'||e.key==='ArrowDown'){ e.preventDefault(); var nb=e.key==='ArrowUp'?tr.previousElementSibling:tr.nextElementSibling; if(nb){ tr.tabIndex=-1; nb.tabIndex=0; nb.focus(); } }
+  }
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='/'&&!/^(INPUT|SELECT|TEXTAREA)$/.test((document.activeElement||{}).tagName||'')){ e.preventDefault(); document.getElementById('q').focus(); }
+});
+/* tooltip: ink bubble 8px above the target, 150ms delay, 120ms fade */
+var tip=document.createElement('div'); tip.className='tip'; tip.setAttribute('role','tooltip'); document.body.appendChild(tip);
+var tipT=null;
+function showTip(el){
+  var t=el.getAttribute('data-tip'); if(!t) return;
+  tip.textContent=t; tip.style.display='block'; tip.style.opacity='0';
+  var r=el.getBoundingClientRect(), w=tip.offsetWidth, h=tip.offsetHeight, cx=r.left+r.width/2;
+  var x=Math.max(8,Math.min(document.documentElement.clientWidth-w-8,cx-w/2));
+  tip.style.left=(x+window.scrollX)+'px'; tip.style.top=(r.top+window.scrollY-h-8-6)+'px'; tip.style.setProperty('--tx',(cx-x)+'px');
+  requestAnimationFrame(function(){tip.style.opacity='1';});
+}
+function hideTip(){clearTimeout(tipT); tip.style.display='none';}
+document.addEventListener('mouseover',function(e){var el=e.target.closest&&e.target.closest('[data-tip]'); if(!el) return; clearTimeout(tipT); tipT=setTimeout(function(){showTip(el);},150);});
+document.addEventListener('mouseout',function(e){var el=e.target.closest&&e.target.closest('[data-tip]'); if(el&&!el.contains(e.relatedTarget)) hideTip();});
+document.addEventListener('focusin',function(e){var el=e.target.closest&&e.target.closest('[data-tip]'); if(el&&el.matches(':focus-visible')){clearTimeout(tipT); tipT=setTimeout(function(){showTip(el);},150);}});
+document.addEventListener('focusout',hideTip);
+
+void document.body.offsetHeight;  /* start font loads before ready() waits on them */
+ready();
+})();
+</script></body></html>

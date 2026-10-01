@@ -1,0 +1,283 @@
+# 크립토 브리핑 서고 — 시안 2 「편집국 1면」 디자인 명세. 개발자는 이 문서만 보고 그대로 구현한다.
+meta:
+  theme: "편집국 1면 (paper)"
+  canvas: "데스크톱 1440px 한 장이 렌더 기준. 모바일 390px 적응은 mobile_390에 적는다."
+  copy_rule: "화면 문구는 한국어. 브리프에 없는 값은 만들지 않는다. 통계·날짜 계산은 모두 데이터에서 한다."
+
+intent:
+  concept: "흑백 신문 1면. 종이색 바탕에 먹 한 가지, 굵은 괘선과 가는 괘선, 명조 제호. 페이지는 무채색만 쓰고 색은 표지에만 두어 표지가 1면 보도사진처럼 보이게 한다."
+  mood: ["아침 조간의 정돈된 긴장", "절제된 권위", "촘촘하지만 줄이 맞는 지면", "시세표처럼 믿을 수 있는 숫자"]
+  improvements_over_draft:
+    - "제호를 132px에서 112px로 낮추고 좌우 귀퉁이 상자(오늘의 국면, 다음 호)를 단다. 판정과 다음 발행이 첫 화면 맨 위에서 읽힌다."
+    - "'브리핑 전문 읽기'를 헤드라인 바로 밑 먹색 버튼으로 올려 1440×900 첫 화면 안에 둔다."
+    - "숫자를 되풀이하던 해설 문단을 없애고, 지표 상자에 기준선(+1.0%p, 0)과의 관계를 적는다. '06:10 본실행'은 BTCUSD 밑이 아니라 킥커로 옮긴다."
+    - "구역을 색(1면) → 흑백(국면과 지표) → 색(전체 표지) → 흑백(발행 목록) 순으로 번갈아 리듬을 만든다."
+    - "국면 연표와 차트 3개를 한 날짜 축에 세로로 맞춰 같은 날을 한 세로줄로 읽게 하고, 차트에 눈금과 기준선을 넣는다."
+    - "빠져 있던 발행 목록·지표 표를 한 표로 되살리고, 부속 문서·갱신 방식은 서고 안내로 모은다. 메뉴 이름은 구역 제목과 같게 한다."
+    - "'No.31'을 '제31호'로 통일하고 모든 구역 머리를 같은 괘선 규칙으로 맞춘다. 9.18–19 공백을 표지 격자에도 드러낸다."
+
+tokens:
+  color:
+    paper:      { hex: "#F2EEE4", role: "페이지 바탕(신문 용지). 질감·그라데이션 없는 단색" }
+    paper_deep: { hex: "#E6E0D2", role: "눌린 면: 표 행 호버, 날짜 칸 강조 띠, 검색 결과 띠, 브리핑 없는 날 행" }
+    ink:        { hex: "#16140F", role: "주 글자, 모든 괘선, 국면 도장, 먹색 버튼, 차트 선, 포커스 윤곽" }
+    ink_2:      { hex: "#2D2A24", role: "본문·메모 글자, 먹색 버튼 호버 바탕" }
+    ink_3:      { hex: "#5C574D", role: "보조 글자(날짜, 캡션, 눈금, 자리 표시), 점선 윤곽, 브리핑 없음 막대" }
+    rule_hair:  { hex: "#C4BCAC", role: "가는 괘선, 표 행 구분, 차트 격자, 단 사이 세로선. 글자에는 쓰지 않는다" }
+    halftone:   { hex: "#9A9281", role: "차트 기준 구역 망점: 지름 1.5px 점을 5px 간격 격자로" }
+    on_ink:     { hex: "#F2EEE4", role: "먹 바탕 위 글자(도장, 버튼, 깃발)" }
+    shadow:     { hex: "#16140F", role: "그림자 색. 불투명도는 shadow 토큰에" }
+  font_family:
+    serif:  "Noto Serif KR — 제호, 헤드라인, 구역 제목, 귀퉁이 본문, 목록 헤드라인"
+    sans:   "Gothic A1 — 메뉴, 라벨, 캡션, 버튼, 표 머리, 안내문"
+    mono:   "IBM Plex Mono — 날짜, 호 번호 숫자, 표·축 숫자"
+    figure: "Oswald — 큰 지표 숫자와 국면 도장 글자에만. 숫자는 라이닝·고정폭"
+    unused: "Outfit과 Bodoni Moda는 쓰지 않는다(영문 부제 없음). 한글에 가짜 기울임을 쓰지 않는다."
+  type:  # size·line 단위 px
+    nameplate:       { font: serif,  size: 112, weight: 900, line: 112, tracking: "-2px" }
+    tagline:         { font: serif,  size: 16,  weight: 500, line: 24,  tracking: "0", color: ink_2, use: "제호 밑 표어 한 줄" }
+    dateline:        { font: mono,   size: 13,  weight: 400, line: 20,  tracking: "0" }
+    nav:             { font: sans,   size: 15,  weight: 700, line: 20,  tracking: "0" }
+    label:           { font: sans,   size: 12,  weight: 800, line: 16,  tracking: "0.72px", use: "지표 이름·작은 제목. 라틴 대문자도 같은 값" }
+    flag:            { font: sans,   size: 12,  weight: 800, line: 16,  tracking: "1px", color: on_ink }
+    headline_lead:   { font: serif,  size: 56,  weight: 800, line: 68,  tracking: "-1px", use: "1면 헤드라인. 4줄 이상이면 48/58" }
+    section_title:   { font: serif,  size: 36,  weight: 800, line: 44,  tracking: "-0.5px" }
+    month_title:     { font: serif,  size: 22,  weight: 800, line: 28,  tracking: "-0.3px" }
+    ear_main:        { font: serif,  size: 22,  weight: 800, line: 28,  tracking: "-0.3px" }
+    teaser_headline: { font: serif,  size: 18,  weight: 700, line: 26,  tracking: "-0.2px" }
+    list_headline:   { font: serif,  size: 15,  weight: 600, line: 22,  tracking: "0" }
+    figure_lg:       { font: figure, size: 44,  weight: 500, line: 48,  tracking: "0" }
+    figure_md:       { font: figure, size: 28,  weight: 500, line: 32,  tracking: "0" }
+    stamp_letter:    { font: figure, weight: 600, size: "도장 L 24 · M 18 · S 12, 걸친 도장은 L 20 · M 15 · S 12", line: "도장 높이" }
+    meta:            { font: sans,   size: 13,  weight: 500, line: 20,  tracking: "0", color: ink_3 }
+    caption:         { font: sans,   size: 13,  weight: 500, line: 18,  tracking: "0", color: ink_3 }
+    body_small:      { font: sans,   size: 14,  weight: 400, line: 22,  tracking: "0", color: ink_2 }
+    button:          { font: sans,   size: 16,  weight: 800, line: 20,  tracking: "0.3px" }
+    link_text:       { font: sans,   size: 13,  weight: 700, line: 20,  tracking: "0", use: "늘 밑줄 1px, 글자 아래 3px 띄움" }
+    number:          { font: mono,   size: 13,  weight: 400, line: 20,  tracking: "0" }
+    number_small:    { font: mono,   size: 12,  weight: 400, line: 16,  tracking: "0", color: ink_3 }
+  type_rules: ["한글은 어절 단위 줄바꿈(keep-all). 글자 최소 12px", "음수는 U+2212 '−', 양수는 '+'를 붙인다", "표와 축의 숫자는 고정폭이라 소수점이 세로로 맞는다"]
+  space: { scale: [4, 8, 12, 16, 24, 32, 40, 48, 64, 96], section_gap: 96, header_to_content: 32 }
+  radius: { all: 0, exception: "차트 점만 원형" }
+  rule:
+    heavy:  "4px ink — 구역 머리 윗선"
+    double: "4px ink + 3px 틈 + 1px ink — 제호 아래 겹괘"
+    medium: "2px ink — 지표 상자 윗선, 표 머리 아랫선"
+    thin:   "1px ink — 윗단 아래, 메뉴 아래, 구역 머리 아랫선, 귀퉁이 상자, 표지 받침선"
+    hair:   "1px rule_hair — 표 행, 격자, 단 사이 세로선"
+  shadow:  # x y 흐림 퍼짐(px) 불투명도, 색은 shadow
+    cover_lead:        "0 1 2 0 16% + 0 14 28 -10 30%"
+    cover_lead_hover:  "0 1 2 0 16% + 0 20 36 -10 34%"
+    cover_thumb:       "0 1 1 0 18% + 0 6 12 -4 24%"
+    cover_thumb_hover: "0 1 1 0 18% + 0 12 22 -6 30%"
+    pop:               "0 4 14 0 16% — 툴팁, 범위 목록"
+  motion:
+    fast: "120ms — 밑줄, 툴팁, 날짜 띠"
+    base: "180ms — 표지 들림과 그림자"
+    easing: "cubic-bezier(0.2, 0, 0, 1)"
+    reduced: "움직임 줄이기 설정이면 전환·들림·부드러운 스크롤 없이 바로 바뀐다"
+  icon: "선 SVG, 굵기 1.75px, 끝 butt, 모서리 miter, 색은 글자색과 같게. 20px(버튼)·16px(글줄). 돋보기, →, ↓, ↑, 아래 꺾쇠, ×"
+
+frame:
+  width: "1440px. 좌우 여백 72px, 본문 1296px 가운데. 1024–1439px는 여백 48px에 단 폭만 비례로 줄인다."
+  grid: "8단: 단 141px, 사이 24px. n단 왼쪽 x = 72 + (n−1)×165."
+  background: "body 전체 paper 단색."
+  vertical: "구역 사이 96px(앞 구역 내용 끝 → 다음 구역 4px 윗선). 윗단 40 + 1 + 제호 구역 192 + 겹괘 8 + 메뉴 56 + 1 = 298px, 1면 내용은 y 338에서 시작."
+
+formats:
+  issue: "'제31호'. 어디서도 'No.' 표기를 쓰지 않는다"
+  date_long: "'2026년 9월 30일 수요일'"
+  date_short: "'09.30 수'. 여러 번 발행한 날은 그날 모든 호에 '1회'·'2회'·'3회'를 붙인다"
+  btcd: "'59.18%' 소수 둘째 자리"
+  btcd_delta: "'전날 +0.01%p' — 직전 날짜 마지막 호와의 차이. 직전 날짜에 값이 없으면 '9.17 대비 ±x.xx%p'처럼 비교한 날을 적는다. 차이가 0이면 '전날과 같음'"
+  stableD: "'9.125%' 소수 셋째 자리"
+  stable1m: "'1개월 −0.705%p' 소수 셋째 자리, 부호"
+  btc1m: "'+6.71%' 소수 둘째 자리, 부호"
+  phase: "도장 글자 A–E, 이름 A 'BTC!' · B '알트시즌?' · C '선별적' · D 'STICKY BTC.D' · E '튀어?'. 걸친 판정 'C→D', 없으면 '?'와 '판정 없음'. provisional 참이면 '임시 기준'"
+  run: "데이터 그대로: '06:10 본실행' · '안전판' · '지연 실행 10:57'"
+  missing: "값 없음은 '—'(ink_3), 설명 자리는 '기록 없음'"
+
+sections:
+  - id: topbar
+    title: "윗단"
+    layout: "높이 40px, 세 칸(왼쪽·가운데·오른쪽 정렬), 아래 thin 괘선"
+    content: { left: "최신 호 date_long + ' · 제31호' (dateline, ink)", center: "'매일 아침 06:10 발행 · 한국 시각' (dateline, ink_3)", right: "형제 서고 링크 '매크로 리스크 서고 →' (link_text)" }
+  - id: nameplate
+    title: "제호"
+    layout: "위·아래 24px 여백(24 + 112 + 8 + 24 + 24 = 192px). 제호 글줄(112px)은 가운데, 본문 좌우 끝에 ear(256×104px)를 제호 글줄 세로 가운데에 맞춘다. 제호 밑 8px에 표어 한 줄, 그 밑 double 겹괘."
+    content:
+      nameplate: "'크립토 브리핑' (nameplate, ink)"
+      tagline: "'날짜별로 모아 두는 크립토 브리핑 서고'(tagline), 가운데 한 줄. 글자 양옆 12px 띄워 길이 48px 1px ink 가로선(표어 장식)"
+      ears: "왼쪽 ear '오늘의 국면', 오른쪽 ear '다음 호'"
+  - id: nav
+    title: "메뉴와 검색"
+    layout: "높이 56px, 아래 thin 괘선. 스크롤하면 화면 위에 붙는다(paper 바탕, 같은 괘선). 왼쪽 nav, 오른쪽 search(400px)."
+    content: "메뉴 5개: '1면' · '국면과 지표' · '전체 표지' · '발행 목록' · '서고 안내'"
+  - id: front
+    title: "1면 (구역 머리 없음)"
+    layout: "메뉴 괘선 밑 40px. 1–3단(471px) 표지 열, 4–8단(801px) 기사 열, 두 열 윗선 맞춤."
+    cover_column:
+      - "cover_lead 471×693px → 최신 호 url"
+      - "12px 뒤 캡션 한 줄(caption): '▲ 제31호 표지 · 동전 파이 · 딥 드라마 배색'. 그림·배색 이름은 지금 시안 캡션이 쓰는 값이고, 없으면 그 조각을 뺀다."
+    story_column:
+      - "킥커 줄 24px: flag '오늘의 1면' + 12px + run '06:10 본실행'(dateline, ink_3). 최신 호 날짜가 오늘(KST)이 아니면 flag는 '최신 호'."
+      - "16px 뒤 헤드라인(headline_lead, ink): headline → 없으면 note → 없으면 title. 링크 아님, 자르지 않음, 두세 줄."
+      - "24px 뒤 button_primary '브리핑 전문 읽기' → url, 왼쪽 정렬"
+      - "32px 뒤 figure_box"
+      - "32px 뒤 머리 줄: 왼쪽 label '직전 호', 오른쪽 button_text '전체 표지 ↓'. 밑 hair 괘선, 16px 뒤 teaser 2개 나란히(각 388px, 사이 24px): 제30호, 제29호"
+  - id: market
+    header: { title: "국면과 지표", meta: "하루 한 칸 · 여러 번 발행한 날은 마지막 회차 · 브리핑이 기록한 숫자" }
+    layout:
+      - "달 줄: month_title '2026년 9월'. 달이 둘 이상일 때만 오른쪽에 button_text '← {이전 달}' '{다음 달} →' (기본은 최신 달)."
+      - "16px 뒤 날짜 축 틀: 왼쪽 96px는 이름·눈금 칸, 오른쪽 1200px 축을 그달 날수로 나눈다(9월 30칸 × 40px). 모든 트랙이 같은 칸 가운데를 쓴다."
+      - "국면 트랙(44px): timeline_cell × 날수. 왼쪽 칸에 label '국면'."
+      - "날짜 줄(20px): 칸 가운데 날짜 숫자(number_small). 최신 호 날짜만 ink 700. 왼쪽 칸 '9월'."
+      - "12px 뒤 범례 한 줄(meta, 항목 사이 20px, 앞에 도장 S 견본): 'A BTC!' 'B 알트시즌?' 'C 선별적' 'D STICKY BTC.D' 'E 튀어?' '걸친 판정' '판정 없음' '브리핑 없음' '여러 번 발행(마지막 회차)' '오늘'"
+      - "40px 뒤 chart 3개, 사이 28px: BTC.D → ΣSTABLECOIN.D 1개월 변화 → BTCUSD 1개월. 마지막 차트 밑에 날짜 줄을 한 번 더."
+    guides: "월요일 칸의 왼쪽 경계에 세로 점선(1px rule_hair, 점 2px·틈 3px)을 국면 트랙과 각 차트 그림 안에만 긋는다."
+    interaction: "국면 칸이나 차트 위 포인터(또는 연표 포커스)가 있는 날: 국면 트랙부터 마지막 차트까지 그 칸을 paper_deep 띠로 칠하고, 차트마다 세로 1px ink 선, 그리고 tooltip."
+  - id: covers
+    header: { title: "전체 표지", meta: "월별 · 최신 호부터 · 표지를 누르면 브리핑이 열립니다" }
+    layout:
+      - "달 머리 줄: 왼쪽 month_title '2026년 9월', 오른쪽 meta '31호 · 발행한 날 27일 · 브리핑 없는 날 2일 · 여러 번 발행한 날 3일'. 16px 뒤 격자. 달이 여럿이면 최신 달이 위, 달 사이 64px."
+      - "격자 8열(141px, 사이 24px), 최신 호가 왼쪽 위. 칸 = cover_thumb. 브리핑 없는 날이 이어진 묶음마다 cover_gap 한 칸을 날짜 자리에 넣는다(9월: 제20호와 제19호 사이). 9월은 31 + 1 = 32칸으로 네 줄이 꽉 찬다."
+      - "받침: 줄마다 표지 밑 10px에 thin 가로 괘선(본문 폭 전체), 괘선 밑 8px에 캡션. 줄 사이 40px."
+      - "검색 중: 격자 위 search_result_bar. 맞지 않는 칸은 숨기고 남은 칸을 앞으로 당긴다. cover_gap과 달 머리 통계도 숨긴다."
+  - id: list
+    header: { title: "발행 목록", meta: "회차마다 한 줄 · 헤드라인을 누르면 브리핑이 열립니다" }
+    layout:
+      - "달 머리 줄(month_title) → 12px → list_table(본문 폭)."
+      - "처음에는 최신 10줄만. 표 밑 row_toggle '나머지 21호 펼치기'(숫자는 계산), 펼친 뒤 '접기'. 검색 중에는 맞는 줄을 모두 보이고 row_toggle을 숨긴다."
+      - "12px 뒤 각주(meta): '* 임시 기준으로 판정한 호 · — 기록 없음 · 전날은 직전 날짜 마지막 호와 비교'"
+  - id: about
+    header: { title: "서고 안내", meta: "갱신 방식 · 기록 현황 · 부속 문서" }
+    layout: "footer 역할. 블록 넷, 각 2단(306px), 블록 사이 거터 가운데에 세로 hair 괘선. 블록 = label 제목 → 10px → 내용(body_small, 항목 사이 6px)."
+    blocks:
+      - "갱신 방식: '매일 아침 06:10(KST) 발행 실행이 한 호씩 등록합니다.' / '하루에 여러 번 발행하면 회차(1~3회)로 나눕니다.' / '실행 표기: 06:10 본실행 · 안전판 · 지연 실행(시각)'"
+      - "기록 현황(이름 왼쪽, 값 오른쪽 number): 호 31 / 발행한 날 27일 / 브리핑 없는 날 2일(9.18, 9.19) / 여러 번 발행한 날 3일(9.3 3회 · 9.5 2회 · 9.24 2회) / 지표 기록 26일"
+      - "부속 문서: 지금 서고의 부속 문서 링크를 같은 순서로 한 줄씩 '{문서 제목} →'(link_text 14px). 없으면 meta '등록된 부속 문서가 없습니다.'"
+      - "서고: ear_main '크립토 브리핑 서고' / meta '첫 호 2026년 9월 2일' / 16px 뒤 label '형제 서고' / link_text '매크로 리스크 서고 →'"
+    footer: "블록 밑 48px에 thin 괘선, 16px 뒤 한 줄: 왼쪽 number_small '크립토 브리핑 서고 · 매일 아침 06:10 발행', 오른쪽 button_text '맨 위로 ↑'. 페이지 아래 여백 64px."
+
+components:
+  section_header: "4px ink 윗선 → 14px → 한 줄(왼쪽 section_title, 오른쪽 meta, 글줄 바닥 맞춤) → 12px → 1px ink 아랫선 → 32px 뒤 내용. market·covers·list·about 모두 같다."
+  ear:
+    box: "256×104px, 1px ink 테두리, 안쪽 여백 12px 16px"
+    today_phase: "label '오늘의 국면' → 8px → phase_stamp L + 12px + 두 줄[ear_main '선별적' / meta '전날 C · 임시 기준']. 걸친 판정은 이름 'C→D', meta '걸친 판정 · 전날 C'. 판정 없음은 '?' 도장과 '판정 없음'. prevPhase 없으면 '전날 판정 없음', provisional 거짓이면 '· 임시 기준'을 뺀다."
+    next_issue: "글자 오른쪽 정렬. label '다음 호' → 8px → ear_main '10월 1일 목요일'(최신 호 날짜 + 1일) → meta '아침 06:10 발행 예정'"
+  phase_stamp:
+    sizes: "L 44px(귀퉁이) · M 32px(연표) · S 20px(목록, 직전 호, 툴팁, 범례). 정사각, 모서리 0"
+    single: "ink로 채우고 글자 on_ink(stamp_letter) 가운데"
+    split: "세로로 반 나눔: 왼쪽 반 ink + 앞 글자 on_ink, 오른쪽 반 paper + 뒤 글자 ink, 전체에 1.5px ink 윤곽. 폭 L 44 · M 32 · S 28(높이 20)"
+    none: "paper 바탕, 1.5px ink_3 점선 윤곽(선 3px·틈 3px), 글자 '?'(Oswald 500, ink_3)"
+    today: "연표에서만: 도장 바깥 3px 띄워 2px ink 윤곽"
+  flag: "ink 바탕, 높이 22px, 좌우 여백 8px, flag 글꼴"
+  figure_box:
+    frame: "801px, 세 칸 균등(267px). 위 medium 괘선, 아래 thin 괘선, 칸 사이 hair 세로선. 칸 안쪽 위·아래 16px, 왼쪽 20px(첫 칸 0), 오른쪽 16px"
+    cell: "label → 8px → figure_lg(ink) → 6px → 변화 줄(number, ink_3) → 2px → 기준 줄(caption)"
+    cells:
+      - "'BTC.D' / '59.18%' / '전날 +0.01%p' / 기준 줄 없음"
+      - "'ΣSTABLECOIN.D' / '9.125%' / '1개월 −0.705%p' / 'E 임시 기준 +1.0%p 아래'(stable1m이 1.0 이상이면 '이상')"
+      - "'BTCUSD 1개월' / '+6.71%' / 변화 줄 자리에 caption 'D·E 전제선 0% 위'(0 미만이면 '아래')"
+  cover_lead: "471×693px(68:100), 그림자 cover_lead, 받침 없음, 링크 → url. 호버: 2px 들림 + cover_lead_hover"
+  cover_thumb:
+    size: "141×207px, 그림자 cover_thumb. 카드 전체가 url 링크 하나"
+    caption: "받침 괘선 밑 한 줄 16px: 왼쪽 '제30호'(sans 800 12px, ink), 오른쪽 '09.29 화'(number_small). 여러 번 발행한 날은 '09.24 목 2회'('2회'만 sans 700 12px ink)"
+  cover_mini: "96×141px, 그림자 cover_thumb. 링크 → url이되 탭 순서에서 빼고 옆 헤드라인 링크가 대신한다"
+  cover_gap: "141×207px 자리에 1px ink_3 점선(선 4px·틈 4px), 가운데 caption '브리핑 없음'. 캡션 자리 number_small '09.18 금 – 09.19 토'. 링크 아님"
+  cover_missing: "표지를 그리지 못하면 같은 크기 자리에 1px ink_3 점선과 가운데 caption '표지 없음'. 캡션과 링크는 그대로"
+  teaser: "388px: cover_mini + 16px + 글 열(276px): number_small '제30호 · 09.29 화' → 6px → teaser_headline 링크 → url(최대 3줄, 넘치면 말줄임) → 8px → phase_stamp S + 6px + meta '선별적 · BTC.D 59.17%'"
+  timeline_cell:
+    slot: "폭 = 1200 ÷ 그달 날수(9월 40px), 높이 44px, 내용은 가로 가운데·위 정렬"
+    issue_day: "phase_stamp M, 그날 마지막 회차의 phase. 칸 전체가 그 호 url 링크"
+    multi_issue: "도장 밑 4px에 4×4px ink 사각 점을 발행 횟수만큼(2회 이상일 때), 사이 3px"
+    no_briefing: "도장 높이 가운데에 16×1.5px ink_3 가로 막대, 링크 아님"
+    outside: "첫 호 이전(9월 1일)과 아직 오지 않은 날은 빈칸, 날짜 숫자만"
+    today: "최신 호 날짜 칸은 phase_stamp today 윤곽"
+  chart:
+    header: "높이 36px 한 줄: 왼쪽 label + 12px + figure_md(최신 값) + 10px + 보조 값(number, ink_3), 오른쪽 meta 설명. 12px 뒤 그림"
+    plot: "높이 132px, x는 날짜 칸 가운데. 눈금 3~5개(0.1·0.2·0.25·0.5·1·2·5·10 중 맞는 간격), 격자는 hair 가로선, 눈금 글자는 왼쪽 칸 오른쪽 끝에서 8px(number_small)"
+    line: "1.75px ink 직선 연결(곡선 금지), 값 없는 날에서 끊는다. 점은 지름 5px ink 원, 최신 점은 지름 9px ink 원 + 2px paper 테두리"
+    series:
+      - "BTC.D: 값 '59.18%', 보조 '전날 +0.01%p', 설명 '비트코인 점유율 · {첫 기록 날짜}부터 기록'. 범위는 최소·최대를 눈금 간격에 맞춰 바깥으로 넓힌다"
+      - "ΣSTABLECOIN.D 1개월 변화: 값 '−0.705%p', 보조 '수준 9.125%', 설명 'E 판정 임시 기준 +1.0%p'. 위 끝 = max(최대, 1.0) + 한 눈금. 0선 1px ink, +1.0선 1.5px ink 파선(6px·4px)과 오른쪽 끝 선 위 label 'E 임시 기준 +1.0%p', +1.0 위는 halftone"
+      - "BTCUSD 1개월: 값 '+6.71%', 보조 없음, 설명 '0 아래로 내려가야 D·E 판정의 전제가 섭니다'. 아래 끝 = min(최소, 0) − 한 눈금. 0선 1.5px ink 실선과 오른쪽 끝 선 밑 label 'D·E 전제선 0%', 0 아래는 halftone"
+  tooltip: "paper 바탕, 1px ink 테두리, 그림자 pop, 폭 248px, 안쪽 12px 14px, 포인터 오른쪽 위 16px(넘치면 왼쪽). ① label '9월 30일 수요일' + 오른쪽 number_small '제31호'(여러 번이면 '제{n}호 · {k}회 중 마지막') ② 도장 S + sans 700 13px 국면 이름(+ ' · 임시 기준') ③ 헤드라인 serif 600 14/20 최대 2줄 ④ hair 괘선 ⑤ 세 줄, 이름 왼쪽 meta·값 오른쪽 number: BTC.D / ΣSTABLECOIN.D 1개월 / BTCUSD 1개월. 브리핑 없는 날은 ①과 '브리핑 없음'만"
+  list_table:
+    head: "머리 두 줄(각 20px, sans 700 12px ink). 묶음 머리 'BTC.D'(2열)·'ΣSTABLECOIN.D'(2열)·'BTCUSD'(1열) 밑에 1px ink, 둘째 줄에 세부 머리. 나머지 머리는 두 줄에 걸친다. 머리 밑 medium 괘선"
+    columns:  # 머리 / 폭 px / 정렬 / 내용
+      - "'호' / 56 / 왼쪽 / number '31'"
+      - "'날짜' / 112 / 왼쪽 / number '09.30 수', 여러 번이면 뒤에 sans 700 12px '2회'"
+      - "'국면' / 136 / 왼쪽 / phase_stamp S + 6px + sans 500 13px 이름, provisional이면 뒤에 '*'"
+      - "'헤드라인' / 나머지(480) / 왼쪽 / list_headline 링크 → url. headline 없으면 note(serif 400, ink_2), 그것도 없으면 title. 줄바꿈 허용, 자르지 않음"
+      - "'%' / 72 / 오른쪽 / number '59.18' — BTC.D"
+      - "'전날 %p' / 72 / 오른쪽 / number '+0.01'"
+      - "'%' / 80 / 오른쪽 / number '9.125' — ΣSTABLECOIN.D"
+      - "'1개월 %p' / 80 / 오른쪽 / number '−0.705'"
+      - "'1개월 %' / 88 / 오른쪽 / number '+6.71' — BTCUSD"
+      - "'실행' / 120 / 왼쪽 / sans 500 12px. '06:10 본실행'은 ink_3, 그 밖('안전판', '지연 실행 10:57')은 ink 700"
+    row: "최소 높이 40px, 안쪽 위아래 10px·좌우 8px, 첫 줄 글자 바닥 맞춤, 행 사이 hair 괘선. 호버 paper_deep"
+    gap_row: "브리핑 없는 날 묶음마다 한 줄(32px, paper_deep): '호'~'국면' 칸을 합쳐 number '09.18 금 – 09.19 토', 나머지를 합쳐 meta '브리핑 없음'"
+  button_primary: "높이 52px, 좌우 여백 24px, ink 바탕, on_ink 글자(button), 글자 뒤 10px에 → 아이콘 20px. 호버 바탕 ink_2 + 화살표 4px 오른쪽, 누름 1px 아래로. url이 없으면 paper 바탕 + 1px ink_3 점선 + ink_3 '브리핑 링크 없음', 누를 수 없음"
+  button_text: "link_text 모양의 버튼·링크. 호버 밑줄 2px"
+  button_icon: "36×36px, 아이콘 20px 가운데, 바탕 없음. 호버 paper_deep"
+  row_toggle: "본문 폭, 높이 48px, 위아래 hair 괘선, 가운데 link_text + 16px ↓(접기는 ↑). 호버 paper_deep"
+  nav: "항목 사이 32px, 세로 가운데. 현재 구역(윗선이 화면 위 120px 선을 지난 마지막 구역) 항목에 글자 폭 3px ink 밑줄을 메뉴 괘선 바로 위에. 호버 1px 밑줄. 누르면 구역 머리가 붙은 메뉴 밑 16px에 오도록 스크롤"
+  search:
+    shape: "400×36px, 바탕 없음, 아래 1.5px ink 선(안에 포커스가 있으면 3px)"
+    parts: "범위 선택 96px('전체' + 꺾쇠 16px, sans 700 14px) | 세로 hair 20px | 입력(sans 500 15px, 자리 표시 '날짜나 낱말로 찾기' ink_3, 글이 있으면 오른쪽 × 24px) | button_icon 돋보기"
+    scope: "'전체'(헤드라인·note·title·날짜) · '헤드라인'(헤드라인·note·title) · '날짜'(날짜만). 펼친 목록은 paper 바탕 1px ink 테두리, 그림자 pop, 항목 36px, 고른 항목 앞 ✓"
+    dates: "9.24 · 09.24 · 9/24 · 0924 · 2026-09-24 · 9월 24일을 같은 날짜로 읽는다"
+    run: "Enter나 돋보기로 실행, Esc나 ×로 지움. 실행하면 전체 표지와 발행 목록을 함께 거르고 전체 표지 구역 머리로 스크롤"
+  search_result_bar: "높이 48px, paper_deep 띠, 좌우 여백 16px. 왼쪽 sans 600 14px '검색어 ‘{검색어}’ · 범위 {범위} · {n}호', 오른쪽 button_text '검색 지우기 ×'. 전체 표지 격자 위와 발행 목록 표 위에 같은 띠"
+
+states:
+  hover: "링크 글자 밑줄 1→2px · cover_thumb 3px 들림 + cover_thumb_hover + 캡션 '제n호' 밑줄 · 표 행 paper_deep · 연표 칸과 차트는 날짜 띠와 tooltip. 표지 자체에는 테두리·필터·투명도 변화를 주지 않는다"
+  focus: "모든 조작 요소 3px ink 윤곽, 3px 띄움(먹색 버튼도 같아서 paper 틈이 보인다). cover_thumb는 표지에 닿지 않게 카드(표지+캡션) 바깥 6px에 윤곽. 연표 포커스는 호버와 같은 띠와 tooltip을 함께 보인다"
+  current: "메뉴 현재 구역 3px 밑줄 · 연표 최신 호 윤곽 · 날짜 줄 최신 날짜 ink 700"
+  search_empty: "격자 자리에 높이 160px, 1px ink_3 점선 상자, 가운데 serif 700 20px '검색어 ‘{검색어}’ · 맞는 호 없음' + 8px + meta '범위를 ‘전체’로 바꾸거나 9.24처럼 날짜로 찾아 보세요.' 브리핑 없는 날짜를 찾았으면 둘째 줄은 '이날은 브리핑이 없습니다.'"
+  no_issue: "호가 하나도 없으면 표지 자리에 471×693px 점선 상자와 caption '아직 발행한 호가 없습니다', 기사 열은 같은 문장만"
+  missing:
+    headline: "headline 없으면 note, note도 없으면 title, 모두 없으면 ink_3 '제목 없음'"
+    phase: "'?' 도장 + '판정 없음'"
+    indicator: "'—'(ink_3), 변화·기준 줄은 '기록 없음'. 차트는 그날 끊고 점 없음"
+    run: "킥커와 표에서 그 조각을 구분점과 함께 뺀다"
+    url: "헤드라인·표지는 링크 아님, button_primary는 비활성 모양"
+    cover: "cover_missing"
+
+accessibility:
+  contrast: "ink/paper 15.9:1 · ink_2/paper 12.4:1 · ink_3/paper 6.2:1 · ink_3/paper_deep 5.5:1 · on_ink/ink 15.9:1. rule_hair(1.6:1)와 halftone은 장식이며 유일한 단서로 쓰지 않는다"
+  structure: "html lang 'ko'. header(윗단·제호) · nav('구역') · main(1면~발행 목록) · footer(서고 안내). 제호 h1, 1면 헤드라인·구역 제목 h2, 달 이름·'직전 호' h3"
+  focus_order: "'본문 바로가기'(첫 탭에만 보이는 flag 모양, 왼쪽 위) → 형제 서고 링크 → 메뉴 5개 → 검색 범위 → 입력 → 돋보기 → 브리핑 전문 읽기 → 직전 호 헤드라인 2개 → '전체 표지 ↓' → 연표(탭 한 번, ←/→로 발행한 날 사이 이동, Home/End, Enter로 열기) → 전체 표지 카드(최신부터) → 목록 헤드라인 → 펼치기 → 서고 안내 링크 → 맨 위로. cover_lead·cover_mini는 탭에서 뺀다"
+  labels:
+    - "보이지 않는 이름: 범위 선택 '검색 범위', 입력 '지난 호 찾기', 돋보기 '찾기', × '검색어 지우기'"
+    - "cover_thumb 링크 '제30호, 2026년 9월 29일 화요일, {헤드라인}, 브리핑 열기', 표지 그림 대체 글 '제30호 표지'"
+    - "도장 '국면 C 선별적' · '국면 C→D 걸친 판정' · '국면 판정 없음'. 연표 칸 '9월 3일, 3회 발행, 국면 C→D'"
+    - "차트는 그림 역할에 요약 이름('BTC.D, {첫날} {값}에서 {최신일} {값}까지, 최저 {값} 최고 {값}'). 같은 숫자를 발행 목록 표가 글로 준다"
+    - "링크는 새 탭으로 열지 않는다. 누를 수 있는 것은 최소 24×24px"
+
+mobile_390:
+  frame: "좌우 16px, 본문 358px, 한 단. 구역 사이 64px, section_title 26/32, 구역 머리 meta는 제목 밑 줄로"
+  topbar: "높이 36px: 왼쪽 dateline 12px '2026.09.30 수 · 제31호', 오른쪽 link_text 12px '매크로 리스크 서고 →', 가운데 문구 숨김"
+  nameplate: "제호 52/56, tracking -1px. 표어 serif 500 13/20 한 줄(양옆 선 24px). 12px 밑에 ear 두 개 나란히(각 171×84px, 사이 16px, 안쪽 여백 10px 12px, label 뒤 4px, 도장 M, ear_main 18/24, meta 12/18). 국면 이름이 폭을 넘으면 ear_main을 15/20으로 줄인다. 다음 호 문구는 '10월 1일 목요일' / '06:10 발행 예정'"
+  nav: "높이 48px, 위에 붙음. 메뉴는 이 줄 안에서만 가로로 스크롤(sans 700 14px, 사이 20px), 오른쪽 끝 돋보기 button_icon 고정. 누르면 메뉴 밑에 56px 검색 줄(범위 88px + 입력 + 돋보기)이 열린다"
+  front: "킥커 → 12px → 헤드라인 serif 800 30/38 tracking -0.5px → 20px → button_primary 전체 폭 → 24px → cover_lead 358×526 + 캡션 → 24px → figure_box 세 줄(각 64px: 왼쪽 label·변화 줄, 오른쪽 Oswald 500 32px, 줄 사이 hair) → 32px → teaser 둘을 세로로"
+  market: "연표는 한 줄 10칸씩 세 줄(칸 35.8px, 도장 28px·글자 16px, 칸 밑 날짜 숫자). 칸을 누르면 연표 밑에 tooltip과 같은 내용의 상세 칸(전체 폭, 1px ink 테두리)과 button_text '이 호 브리핑 열기 →'. 차트는 전체 폭(눈금 40px + 그림 318px, 높이 112px), x 눈금 1·8·15·22·29일, 머리는 두 줄(label·값 / 설명)"
+  covers: "3열(표지 112×165px, 사이 11px), 캡션 두 줄('제25호 · 2회' / '09.24 목'), 줄 사이 28px, 받침 괘선 유지"
+  list: "표 대신 줄 목록: ① 도장 S + number_small '제31호 · 09.30 수' + 오른쪽 실행 ② list_headline 16/24 ③ number_small 'BTC.D 59.18(+0.01) · ΣSTABLECOIN.D 9.125(1개월 −0.705) · BTCUSD 1개월 +6.71', 줄바꿈 허용. 줄 사이 hair, 처음 10줄 + row_toggle"
+  about: "블록을 세로로 쌓고 사이에 hair 괘선, 블록 위아래 20px"
+  tablet: "768–1023px: 모바일 구조에 좌우 32px, 전체 표지 5열"
+
+do:
+  - "페이지는 paper와 먹 계열만 쓰고, 색은 표지만 낸다"
+  - "구조는 괘선으로 만든다: 4px는 구역 시작, 1px ink는 구분, hair는 행. 모서리는 모두 0"
+  - "표지에는 그림자와 받침 괘선만 더하고, 폭은 471 · 141 · 96(모바일 358 · 112)만 쓴다"
+  - "같은 값은 어디서나 formats 형식으로, 숫자는 고정폭으로 소수점을 맞춘다"
+  - "여러 번 발행한 날은 연표·차트·툴팁에서 마지막 회차, 표지·목록에서는 회차마다 따로 보인다"
+dont:
+  - "표지에 테두리·필터(흑백·흐림)·투명도·기울임·겹쳐 가리기를 하지 않는다. 검색에서 빠진 표지는 흐리게 하지 말고 숨긴다"
+  - "국면 색(#CB8242, #A96CAF, #056F15, #594D99, #2B97FF)과 최신 호 표지 배색(#F2B39F 등)을 페이지에 쓰지 않는다"
+  - "Outfit·Bodoni Moda, 영문 문구, 가짜 기울임, 그라데이션, 둥근 모서리, 종이 질감 이미지를 쓰지 않는다"
+  - "1면에 지표 숫자를 되풀이하는 해설 문단을 두지 않는다"
+  - "값을 추정하거나 기록 없는 날을 선으로 잇지 않고, 차트 선을 곡선으로 다듬지 않는다"
+  - "통계·다음 호 날짜·'나머지 n호' 같은 숫자를 손으로 적지 않고 데이터에서 계산한다"
