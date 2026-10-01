@@ -1,0 +1,21 @@
+{
+  "btc1m": 5.47,
+  "btcd": 59.16,
+  "date": "2026-09-28",
+  "headline": "엿새 동안 보이지 않던 꼬리가 오늘 처음 드러났고, 꼬리는 훨씬 약했다.",
+  "lite": false,
+  "note": "",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-28T06:38:55+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -0.608,
+  "stableD": 9.007,
+  "title": "9월 28일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/TUyU2o9WZGxL2xXPLm1hCh",
+  "window": "06:11~07:00"
+}

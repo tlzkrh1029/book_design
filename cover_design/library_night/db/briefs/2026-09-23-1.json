@@ -1,0 +1,21 @@
+{
+  "btc1m": 11.89,
+  "btcd": 59.66,
+  "date": "2026-09-23",
+  "headline": "현금 유출은 하루 만에 멈췄고, 돈이 BTC에서 꼬리로 옮겨 앉았다",
+  "lite": false,
+  "note": "",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-23T06:28:28+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -1.035,
+  "stableD": 8.887,
+  "title": "9월 23일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/Ba4YkiRjr5iws8qhPJy9dz",
+  "window": "06:11~06:36"
+}

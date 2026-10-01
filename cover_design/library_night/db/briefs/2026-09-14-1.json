@@ -1,0 +1,21 @@
+{
+  "btc1m": 20.98,
+  "btcd": 59.304,
+  "date": "2026-09-14",
+  "headline": "스테이블에서 빠져나온 한 달 치 돈은 그대로인데, 이번 주 이틀에 클로처와 FOMC가 겹친다",
+  "lite": false,
+  "note": "",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-14T06:40:42+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -1.975,
+  "stableD": 9.83,
+  "title": "9월 14일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/4bAu48z4FuTCuE4NvU4EEk",
+  "window": "06:10~06:55"
+}

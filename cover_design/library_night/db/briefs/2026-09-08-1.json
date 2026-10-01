@@ -1,0 +1,21 @@
+{
+  "btc1m": 22.39,
+  "btcd": 59.56,
+  "date": "2026-09-08",
+  "headline": null,
+  "lite": false,
+  "note": "BTC.D가 144HMA를 하향 교차한 날",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-08T06:37:45+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -2.02,
+  "stableD": 9.653,
+  "title": "9월 8일 크립토 브리핑",
+  "url": "https://claude.ai/code/artifact/7f48cfa8-666f-4469-b5e0-4fbd19b6e46a",
+  "window": null
+}

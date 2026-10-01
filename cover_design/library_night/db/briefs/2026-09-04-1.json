@@ -1,0 +1,21 @@
+{
+  "btc1m": null,
+  "btcd": 60.34,
+  "date": "2026-09-04",
+  "headline": null,
+  "lite": false,
+  "note": "국면 미기록",
+  "phase": null,
+  "prevPhase": "C→D",
+  "provisional": null,
+  "publishedAt": null,
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": null,
+  "seq": 1,
+  "stable1m": null,
+  "stableD": null,
+  "title": "9월 4일 크립토 브리핑",
+  "url": "https://claude.ai/code/artifact/4b2606f3-22a3-4373-82cd-273b161cb093",
+  "window": null
+}

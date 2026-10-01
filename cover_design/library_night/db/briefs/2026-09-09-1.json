@@ -1,0 +1,21 @@
+{
+  "btc1m": 21.49,
+  "btcd": 59.33,
+  "date": "2026-09-09",
+  "headline": null,
+  "lite": false,
+  "note": "ΣSTABLECOIN.D 1개월 −1.93%p",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-09T06:35:06+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -1.93,
+  "stableD": 9.693,
+  "title": "9월 9일 크립토 브리핑",
+  "url": "https://claude.ai/code/artifact/25b1856f-313d-4013-a724-dbfcf1cd8e5b",
+  "window": null
+}

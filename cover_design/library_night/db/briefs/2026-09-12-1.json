@@ -1,0 +1,21 @@
+{
+  "btc1m": 21.78,
+  "btcd": 59.19,
+  "date": "2026-09-12",
+  "headline": "한 달 내내 현금에서 자금이 빠져나온 구조는 그대로인데, 오늘은 BTC.D가 기록을 쌓기 시작한 이후 가장 크게 밀리면서 국면 C 안에서 무게가 알트 쪽으로 기울었다.",
+  "lite": false,
+  "note": "BTC.D 1주 %p가 기록 구간 최저 · 촉매 확인율 13.3%",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-12T06:35:23+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -1.982,
+  "stableD": 9.813,
+  "title": "9월 12일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/8EvTU4NEkx8AFZwnzNJGYp",
+  "window": "06:10~06:35"
+}

@@ -1,0 +1,21 @@
+{
+  "btc1m": 6.71,
+  "btcd": 59.18,
+  "date": "2026-09-30",
+  "headline": "BTC는 일주일 만에 되밀렸는데, 알트 점유율은 오히려 올랐다",
+  "lite": false,
+  "note": "",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-30T06:36:49+09:00",
+  "registeredAt": "2026-09-30T16:37:43+09:00",
+  "registeredBy": "수동",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -0.705,
+  "stableD": 9.125,
+  "title": "9월 30일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/UpTvW2srGzX6S45Vht8WjH",
+  "window": "06:11~06:40"
+}

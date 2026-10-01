@@ -1,0 +1,21 @@
+{
+  "btc1m": 7.79,
+  "btcd": 59.19,
+  "date": "2026-10-01",
+  "headline": "오르는 섹터와 빠지는 섹터가 46%p 벌어지는 동안, 시장 전체를 대표하는 기준선은 제자리였다",
+  "lite": false,
+  "note": "TradingView 워치리스트 패널이 렌더링되지 않아 심볼 페이지로 대체. CryptoCompare 월 한도 초과로 MA는 바이낸스·Yahoo 일봉으로 계산. 빗썸 코드 버그로 단독 상장 84종 미수집(평가 297종).",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-10-01T06:51:00+09:00",
+  "registeredAt": "2026-10-01T06:53:00+09:00",
+  "registeredBy": "본실행",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -0.83,
+  "stableD": 9.083,
+  "title": "10월 1일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/R7kW6bPsydiaXDtSNmNqAS",
+  "window": "06:11~06:52"
+}

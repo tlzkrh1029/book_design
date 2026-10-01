@@ -1,0 +1,21 @@
+{
+  "btc1m": 24.45,
+  "btcd": 59.58,
+  "date": "2026-09-07",
+  "headline": null,
+  "lite": false,
+  "note": "ΣSTABLECOIN.D 1개월 −2.18%p로 기록 구간 최저",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-07T06:39:24+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -2.18,
+  "stableD": 9.564,
+  "title": "9월 7일 크립토 브리핑",
+  "url": "https://claude.ai/code/artifact/cd20bfbc-e3f8-4746-b932-a376a368d32d",
+  "window": null
+}

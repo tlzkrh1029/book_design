@@ -1,0 +1,21 @@
+{
+  "btc1m": 21.75,
+  "btcd": 59.15,
+  "date": "2026-09-13",
+  "headline": "BTC는 제자리에 멈춰 섰고, 갈라진 것은 알트뿐이다",
+  "lite": false,
+  "note": "12:35 개정판 · 스테이블코인 시가총액 신규 · XMR·ZEC 판정 철회 · IGV 초장기선",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-13T12:35:49+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -1.98,
+  "stableD": 9.842,
+  "title": "9월 13일 (일) 크립토 브리핑",
+  "url": "https://claude.ai/artifact/DWAbxzrV2B1qb4bh18C9RL",
+  "window": "06:10~06:40"
+}

@@ -1,0 +1,21 @@
+{
+  "btc1m": 6.56,
+  "btcd": 59.08,
+  "date": "2026-09-26",
+  "headline": "SEC가 소각과 업그레이드에 선을 그었고, BTC.D는 이틀 연속 최대 하락을 갈아치웠다",
+  "lite": false,
+  "note": "",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-26T06:34:48+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "본실행",
+  "seq": 1,
+  "stable1m": -0.719,
+  "stableD": 9.11,
+  "title": "9월 26일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/BwyRJgWYQ9sdAV9qCYnWzf",
+  "window": "06:11~06:50"
+}

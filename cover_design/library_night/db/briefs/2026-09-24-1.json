@@ -1,0 +1,21 @@
+{
+  "btc1m": 6.65,
+  "btcd": 59.63,
+  "date": "2026-09-24",
+  "headline": "대형주 마흔 종목 가운데 24시간 기준 오른 것이 하나도 없다",
+  "lite": false,
+  "note": "정규 슬롯이 돌지 않아 10:57에 시작한 지연 실행 · 수집 공백 큼",
+  "phase": "C",
+  "prevPhase": "C",
+  "provisional": true,
+  "publishedAt": "2026-09-24T11:17:33+09:00",
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": null,
+  "seq": 1,
+  "stable1m": -0.627,
+  "stableD": 9.137,
+  "title": "9월 24일 크립토 브리핑",
+  "url": "https://claude.ai/artifact/RKumD6G9pzxU42JS1wyyTQ",
+  "window": "10:57~11:45"
+}

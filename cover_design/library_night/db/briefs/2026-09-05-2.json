@@ -1,0 +1,21 @@
+{
+  "btc1m": 24.46,
+  "btcd": 60,
+  "date": "2026-09-05",
+  "headline": null,
+  "lite": false,
+  "note": "맥북 이관 검증용 수동 재실행",
+  "phase": "A→C",
+  "prevPhase": "A→C",
+  "provisional": true,
+  "publishedAt": null,
+  "registeredAt": "2026-09-30T16:13:31+09:00",
+  "registeredBy": "일괄 등록",
+  "run": "수동",
+  "seq": 2,
+  "stable1m": -2.06,
+  "stableD": 9.682,
+  "title": "9월 5일 저녁 크립토 브리핑",
+  "url": "https://claude.ai/code/artifact/0a5d2258-3c03-40c2-9d5a-db656931aec4",
+  "window": null
+}
