@@ -1,0 +1,627 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>크립토 브리핑 서고 · 밤의 가판대</title>
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/700.css">
+<link rel="stylesheet" href="../mz.css">
+<style>
+:root{
+  /* night: the room is near-black; only light falls on the covers */
+  --bg:#0B0C0F; --bg-raise:#14151A; --bg-sunk:#08090B;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.15);
+  --ink:#F2EEE7; --ink-2:#BCB7AE; --ink-3:#8E8A83;
+  /* accent = today's cover frame colour (set from pal(L).fr at runtime); cover ground for the halo */
+  --acc:#FCB8A5; --acc-ink:#22110C; --cbg:#022B3B;
+  --light:color-mix(in srgb, var(--acc) 28%, #FFF4EA);
+  --f-kr:'Gothic A1','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --f-num:'Oswald','Arial Narrow',sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --f-wm:'Outfit',sans-serif;
+  --w:1296px;
+  --sec:112px;            /* vertical space between sections */
+  --cv-hero:420px;        /* today's cover */
+  --cv:148px;             /* shelf cover */
+  --gap:16px;             /* between shelf covers */
+  --hl:42px;              /* hero headline */
+  --h2:30px;              /* section title */
+  --pw:944px;             /* flow plot width (29 days) */
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:var(--f-kr);font-weight:500;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+p,h1,h2,h3,dl,dd,ol,ul{margin:0;padding:0}
+li{list-style:none}
+.wrap{width:var(--w);margin:0 auto;position:relative}
+.mono{font-family:var(--f-mono)}
+svg{display:block}
+
+/* ---------- top bar ---------- */
+.top{position:relative;z-index:6;height:72px;border-bottom:1px solid var(--line);background:var(--bg)}
+.top .wrap{height:100%;display:flex;align-items:center}
+.brand{display:flex;align-items:baseline;gap:14px;white-space:nowrap}
+.brand b{font-family:var(--f-num);font-weight:600;font-size:22px;letter-spacing:.16em;color:var(--ink)}
+.brand span{font-size:13px;font-weight:600;color:var(--ink-2)}
+.nav{display:flex;gap:30px;margin-left:auto;margin-right:36px;height:100%}
+.nav a{display:flex;align-items:center;height:100%;font-size:14px;font-weight:600;color:var(--ink-2);position:relative;white-space:nowrap}
+.nav a.on{color:var(--ink)}
+.nav a.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--acc);box-shadow:0 0 10px var(--acc)}
+.search{display:flex;align-items:center;height:40px;border:1px solid var(--line-2);border-radius:20px;background:var(--bg-raise)}
+.search label{display:flex;align-items:center;height:100%;position:relative}
+.search select{appearance:none;-webkit-appearance:none;height:100%;background:transparent;border:0;color:var(--ink);font:600 13px var(--f-kr);padding:0 30px 0 18px;cursor:pointer}
+.search select option{background:#14151A;color:var(--ink)}
+.search .chev{position:absolute;right:12px;top:50%;margin-top:-4px;pointer-events:none}
+.search .sep{width:1px;height:18px;background:var(--line-2)}
+.search input{height:100%;background:transparent;border:0;outline:0;color:var(--ink);font:500 14px var(--f-kr);width:236px;padding:0 6px 0 14px}
+.search input::placeholder{color:var(--ink-3)}
+.search button{height:100%;width:44px;border:0;background:transparent;color:var(--ink-2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* ---------- hero: today's issue under the lamp ---------- */
+.hero{position:relative;height:836px;overflow:hidden;
+  background:
+    radial-gradient(ellipse 620px 560px at calc(50% - 388px) 470px, color-mix(in srgb, var(--cbg) 55%, transparent) 0%, transparent 72%),
+    radial-gradient(ellipse 1100px 760px at calc(50% - 388px) 0%, color-mix(in srgb, var(--acc) 6%, transparent) 0%, transparent 70%),
+    linear-gradient(180deg, #0D0E12 0%, var(--bg) 70%)}
+.hero .wrap{height:100%}
+.stage{position:absolute;left:0;top:0;width:520px;height:100%}
+.lamp{position:absolute;left:50%;top:0;margin-left:-80px;z-index:3}
+.beam{position:absolute;left:50%;top:62px;width:1000px;margin-left:-500px;height:704px;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(ellipse 150px 70px at 50% 0%, color-mix(in srgb, var(--light) 34%, transparent), transparent 75%),
+    conic-gradient(from 151deg at 50% 0%, transparent 0deg, color-mix(in srgb, var(--light) 19%, transparent) 13deg, color-mix(in srgb, var(--light) 19%, transparent) 45deg, transparent 58deg);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.6) 50%,rgba(0,0,0,.3) 100%);
+  mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.6) 50%,rgba(0,0,0,.3) 100%)}
+.halo{position:absolute;left:50%;top:150px;width:640px;height:700px;margin-left:-320px;z-index:1;
+  background:radial-gradient(closest-side, color-mix(in srgb, var(--cbg) 70%, transparent), transparent)}
+.hero-cover{position:absolute;left:50px;top:148px;width:var(--cv-hero);z-index:4;display:block;
+  box-shadow:0 0 90px -10px color-mix(in srgb, var(--light) 22%, transparent), 0 44px 60px -28px rgba(0,0,0,.9)}
+.counter{position:absolute;left:0;right:0;top:765px;height:71px;z-index:2}
+.counter::before{content:"";position:absolute;left:0;right:0;top:0;height:16px;
+  background:linear-gradient(180deg,#2E2F35 0%,#1C1D22 100%);box-shadow:0 1px 0 rgba(255,255,255,.05) inset}
+.counter::after{content:"";position:absolute;left:0;right:0;top:16px;bottom:0;
+  background:linear-gradient(180deg,#111216 0%,#0B0C0F 100%)}
+.pool{position:absolute;top:0;height:16px;width:900px;left:calc(50% - 388px - 450px);z-index:3;pointer-events:none;
+  background:radial-gradient(ellipse closest-side, color-mix(in srgb, var(--light) 34%, transparent), transparent)}
+.pool::after{content:"";position:absolute;left:50%;top:16px;width:700px;height:60px;margin-left:-350px;
+  background:radial-gradient(ellipse 50% 100% at 50% 0%, color-mix(in srgb, var(--light) 9%, transparent), transparent)}
+
+.today{position:absolute;left:592px;right:0;top:148px;height:618px;display:flex;flex-direction:column;justify-content:center;z-index:3}
+.kicker{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:700;color:var(--acc);letter-spacing:.04em}
+.kicker::before{content:"";width:28px;height:2px;background:var(--acc);box-shadow:0 0 8px var(--acc)}
+.kicker em{font-style:normal;color:var(--ink-2);font-weight:600}
+.dateline{display:flex;align-items:flex-end;gap:16px;margin-top:16px}
+.dateline .d{font-family:var(--f-num);font-weight:500;font-size:52px;line-height:.9;letter-spacing:.01em;color:var(--ink)}
+.dateline .w{font-size:17px;font-weight:700;line-height:1.3;color:var(--ink);padding-bottom:1px}
+.dateline .w small{display:block;font-size:13px;font-weight:600;color:var(--ink-3)}
+.hl{margin-top:30px;font-size:var(--hl);font-weight:800;line-height:1.27;letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
+.hl em{font-style:normal;color:var(--acc)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 13px;border:1px solid var(--line-2);border-radius:16px;font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.chip.ph{color:var(--ink);padding-left:6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:32px;border-top:1px solid var(--line-2)}
+.stat{padding:18px 22px 0 22px;border-left:1px solid var(--line)}
+.stat:first-child{padding-left:0;border-left:0}
+.stat .k{font-size:12.5px;font-weight:700;color:var(--ink-3);letter-spacing:.02em;white-space:nowrap}
+.stat .v{font-family:var(--f-num);font-weight:500;font-size:34px;line-height:1.1;margin-top:6px;color:var(--ink);white-space:nowrap}
+.stat .v small{font-size:19px;margin-left:2px;color:var(--ink-2)}
+.stat .s{font-size:13px;font-weight:600;color:var(--ink-2);margin-top:2px;white-space:nowrap}
+.stat .s b{font-family:var(--f-mono);font-weight:500;color:var(--ink)}
+.stat svg{margin-top:12px}
+.acts{display:flex;align-items:center;gap:12px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 24px;border-radius:25px;font-size:15px;font-weight:800;white-space:nowrap}
+.btn.pri{background:var(--acc);color:var(--acc-ink);box-shadow:0 0 28px -6px color-mix(in srgb, var(--acc) 70%, transparent)}
+.btn.ghost{border:1px solid var(--line-2);color:var(--ink)}
+.next{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink-3);white-space:nowrap}
+.next b{color:var(--ink-2);font-weight:700}
+
+/* ---------- section heads ---------- */
+.sec{padding-top:var(--sec)}
+.sec.stand{padding-top:68px}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.sh h2{font-size:var(--h2);font-weight:800;letter-spacing:-.02em;line-height:1.2;display:flex;align-items:baseline;gap:16px}
+.en{font-family:var(--f-num);font-weight:500;font-size:14px;letter-spacing:.2em;color:var(--acc)}
+.sh p{font-size:14px;color:var(--ink-2);text-align:right;max-width:680px;text-wrap:pretty}
+
+/* ---------- shelves: one shelf per week, newest first ---------- */
+.shelf{position:relative;margin-top:44px}
+.shelf:first-of-type{margin-top:0}
+.shelf .lab{display:flex;align-items:baseline;gap:12px;height:20px;margin-bottom:14px;font-size:13px;font-weight:700;color:var(--ink-2);white-space:nowrap}
+.shelf .lab b{font-family:var(--f-num);font-weight:500;font-size:16px;letter-spacing:.04em;color:var(--ink)}
+.shelf .lab i{font-style:normal;font-weight:600;color:var(--ink-3)}
+.rack{position:relative}
+.shelf .back{position:absolute;left:-24px;right:-24px;top:-4px;height:250px;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg, color-mix(in srgb, var(--light) 8%, transparent) 0%, color-mix(in srgb, var(--light) 2%, transparent) 55%, transparent 100%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
+.shelf .back::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:color-mix(in srgb, var(--light) 34%, transparent);box-shadow:0 0 16px 2px color-mix(in srgb, var(--light) 14%, transparent)}
+.slots,.tags{display:flex;gap:var(--gap);position:relative;z-index:1}
+.slots{align-items:flex-end;padding-top:12px}
+.slot{width:var(--cv);flex:none;display:block;position:relative}
+.slot.cv{box-shadow:0 18px 22px -14px rgba(0,0,0,.95), 0 0 34px -8px color-mix(in srgb, var(--light) 10%, transparent)}
+.hole{width:100%;aspect-ratio:68/100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;
+  border:1px dashed rgba(255,255,255,.16);border-radius:2px;
+  background:repeating-linear-gradient(135deg, rgba(255,255,255,.028) 0 6px, transparent 6px 13px)}
+.hole span{font-size:12.5px;font-weight:600;color:var(--ink-3);line-height:1.45}
+.hole.next{border-color:color-mix(in srgb, var(--acc) 55%, transparent);background:color-mix(in srgb, var(--acc) 5%, transparent);
+  box-shadow:0 0 30px -6px color-mix(in srgb, var(--acc) 30%, transparent) inset}
+.hole.next b{font-size:15px;font-weight:800;color:var(--acc)}
+.hole.next span{color:var(--ink-2)}
+.hole.next .mono{font-size:12px;color:var(--ink-2)}
+.ledge{position:relative;z-index:1;margin:0 -24px}
+.ledge::before{content:"";display:block;height:9px;background:linear-gradient(180deg,#303137 0%,#1E1F24 100%)}
+.ledge .tags{padding:0 24px;height:38px;align-items:center;background:linear-gradient(180deg,#15161A 0%,#101114 100%);box-shadow:0 10px 18px -8px rgba(0,0,0,.8)}
+.tag{width:var(--cv);flex:none;display:flex;align-items:center;gap:6px;font-size:12.5px;white-space:nowrap}
+.tag .dt{font-family:var(--f-mono);font-weight:500;color:var(--ink)}
+.tag .wd{font-weight:600;color:var(--ink-3)}
+.tag .x{font-size:11.5px;font-weight:700;color:var(--ink-2);border:1px solid var(--line-2);border-radius:9px;padding:0 6px;line-height:16px}
+.tag .x.now{color:var(--acc-ink);background:var(--acc);border-color:var(--acc)}
+.tag .phm{margin-left:auto}
+.tag.void .dt{color:var(--ink-3)}
+.shelf.first .slots,.shelf.first .tags{justify-content:flex-end}
+.shelf.first .lab{width:max-content;margin-left:auto}
+.shelf.first .intro{position:absolute;left:0;top:0;width:600px;height:calc(46px + var(--cv) / .68);z-index:2;display:flex;flex-direction:column;padding-bottom:18px}
+.intro h2{font-size:var(--h2);font-weight:800;letter-spacing:-.02em;line-height:1.2;display:flex;align-items:baseline;gap:16px}
+.intro p{margin-top:16px;font-size:15px;color:var(--ink-2);max-width:520px}
+.facts{display:flex;gap:0;margin-top:auto}
+.facts div{padding:0 22px;border-left:1px solid var(--line)}
+.facts div:first-child{padding-left:0;border-left:0}
+.facts b{display:block;font-family:var(--f-num);font-weight:500;font-size:30px;line-height:1.1;color:var(--ink)}
+.facts span{font-size:12.5px;font-weight:600;color:var(--ink-3);white-space:nowrap}
+
+/* phase mark (shared by hero, shelves, flow, list) */
+.phm{display:inline-flex;flex:none;width:16px;height:16px;border-radius:3px;overflow:hidden;font-family:var(--f-wm);font-weight:700;font-size:10.5px;line-height:1;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.phm i{flex:1 1 0;display:flex;align-items:center;justify-content:center;font-style:normal}
+.phm.two{width:24px;font-size:9.5px}
+.phm.none{border:1px dashed rgba(255,255,255,.3);box-shadow:none;color:var(--ink-3);align-items:center;justify-content:center}
+.phm.lg{width:22px;height:22px;font-size:13px;border-radius:11px}
+
+/* ---------- flow: phase strip + three indicators on one date axis ---------- */
+.flow{position:relative;margin-top:34px;display:grid;grid-template-columns:176px 44px var(--pw) 1fr;row-gap:0}
+.flow .cell-l{padding:12px 16px 0 0}
+.flow .cell-l b{display:block;font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap}
+.flow .cell-l span{display:block;font-size:12.5px;font-weight:600;color:var(--ink-3);line-height:1.4;margin-top:2px}
+.flow .ticks{position:relative}
+.flow .ticks span{position:absolute;right:8px;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);line-height:14px;white-space:nowrap}
+.flow .val{padding:10px 0 0 22px}
+.flow .val b{display:block;font-family:var(--f-num);font-weight:500;font-size:26px;line-height:1.1;color:var(--ink);white-space:nowrap}
+.flow .val span{display:block;font-size:12.5px;font-weight:600;color:var(--ink-3);margin-top:3px;white-space:nowrap;line-height:1.45}
+.flow .trk{border-top:1px solid var(--line)}
+.flow .axis{display:grid;grid-template-columns:repeat(29,1fr);height:46px;align-items:end;padding-bottom:8px}
+.flow .axis span{text-align:center;font-family:var(--f-mono);font-size:12px;line-height:1.25;color:var(--ink-2)}
+.flow .axis span small{display:block;font-family:var(--f-kr);font-size:11px;font-weight:600;color:var(--ink-3)}
+.flow .axis span.mon{color:var(--ink)}
+.flow .axis span.now{color:var(--acc);font-weight:500}
+.flow .axis span.now small{color:var(--acc)}
+.flow .axis span.void{color:var(--ink-3)}
+.flow .phs{display:grid;grid-template-columns:repeat(29,1fr);height:58px;align-items:center;position:relative}
+.flow .phs .c{height:36px;margin:0 2px;border-radius:4px;display:flex;overflow:hidden;font-family:var(--f-wm);font-weight:700;font-size:13px;position:relative;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.flow .phs .c i{flex:1 1 0;display:flex;align-items:center;justify-content:center;font-style:normal}
+.flow .phs .c.two{font-size:10.5px}
+.flow .phs .c.none{border:1px dashed rgba(255,255,255,.3);box-shadow:none;color:var(--ink-2);align-items:center;justify-content:center}
+.flow .phs .c.now{box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--acc),0 0 16px 2px color-mix(in srgb, var(--acc) 45%, transparent)}
+.flow .phs .dots{position:absolute;left:0;right:0;bottom:-9px;display:flex;justify-content:center;gap:3px}
+.flow .phs .dots u{width:4px;height:4px;border-radius:2px;background:var(--ink-2)}
+.flow .phs .gapl{text-align:center;font-size:11.5px;font-weight:700;color:var(--ink-3);white-space:nowrap}
+.flow .overlay{position:absolute;top:0;bottom:0;left:220px;width:var(--pw);pointer-events:none;z-index:0}
+.flow .overlay i{position:absolute;top:46px;bottom:0;width:1px;background:rgba(255,255,255,.07)}
+.flow .overlay .gap{position:absolute;top:46px;bottom:0;background:repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 5px, transparent 5px 11px);border-left:1px dashed rgba(255,255,255,.12);border-right:1px dashed rgba(255,255,255,.12)}
+.flow .overlay .nowb{position:absolute;top:0;bottom:0;background:color-mix(in srgb, var(--acc) 7%, transparent)}
+.flow > *{position:relative;z-index:1}
+.flow > .overlay{position:absolute;z-index:0}
+.ch .grid{stroke:rgba(255,255,255,.07);stroke-width:1}
+.ch .ref{stroke:var(--acc);stroke-width:1.2;stroke-dasharray:5 4;opacity:.75}
+.ch .zero{stroke:rgba(255,255,255,.2);stroke-width:1}
+.ch .ln{fill:none;stroke:#E9E3D8;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.ch .pt{fill:#E9E3D8}
+.ch .reft{font-family:var(--f-kr);font-size:12px;font-weight:700;fill:var(--acc)}
+.flow-foot{display:flex;align-items:center;gap:18px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:nowrap}
+.lg{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.lg .sw{width:14px;height:14px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.lg .sw.split{display:flex;overflow:hidden}
+.lg .sw.split i{flex:1}
+.lg .sw.q{border:1px dashed rgba(255,255,255,.35);box-shadow:none}
+.lg .sw.void{border:1px dashed rgba(255,255,255,.2);box-shadow:none;background:repeating-linear-gradient(135deg, rgba(255,255,255,.12) 0 2px, transparent 2px 5px)}
+.lg .dd{display:flex;gap:3px}
+.lg .dd u{width:4px;height:4px;border-radius:2px;background:var(--ink-2)}
+.flow-foot .tools{margin-left:auto;display:flex;gap:10px}
+.tbtn{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border:1px solid var(--line-2);border-radius:18px;font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap;background:transparent;cursor:pointer;font-family:var(--f-kr)}
+.tblwrap{margin-top:20px;border-top:1px solid var(--line-2)}
+.tblwrap[hidden]{display:none}
+.tblwrap table{width:100%;border-collapse:collapse;font-size:13.5px}
+.tblwrap th{text-align:right;font-size:12px;font-weight:700;color:var(--ink-3);padding:12px 0 8px;border-bottom:1px solid var(--line-2)}
+.tblwrap td{text-align:right;font-family:var(--f-mono);color:var(--ink);padding:9px 0;border-bottom:1px solid var(--line)}
+.tblwrap th:first-child,.tblwrap td:first-child{text-align:left;color:var(--ink-2)}
+
+/* ---------- index list ---------- */
+.ix{margin-top:8px}
+.ix li{display:grid;grid-template-columns:64px 112px 132px 1fr 104px 140px;align-items:center;min-height:60px;border-bottom:1px solid var(--line);font-size:15px}
+.ix .no{font-family:var(--f-num);font-weight:500;font-size:17px;color:var(--ink-3);letter-spacing:.04em}
+.ix .dt{font-family:var(--f-mono);font-weight:500;font-size:14px;color:var(--ink)}
+.ix .dt i{font-style:normal;font-family:var(--f-kr);font-weight:600;font-size:13px;color:var(--ink-3);margin-left:6px}
+.ix .ph{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink-2)}
+.ix .h{font-weight:600;color:var(--ink);padding-right:28px;line-height:1.45}
+.ix .h.note{color:var(--ink-3);font-weight:500}
+.ix .bd{font-family:var(--f-mono);font-size:14px;color:var(--ink);text-align:right;padding-right:28px}
+.ix .bd small{color:var(--ink-3);font-size:12px;margin-left:1px}
+.ix .run{font-size:12.5px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.ix .run.off{color:var(--acc)}
+.ix li.now .no{color:var(--acc)}
+.ix li.now{background:linear-gradient(90deg, color-mix(in srgb, var(--acc) 7%, transparent), transparent 55%)}
+.ix li[hidden]{display:none}
+.ix-more{display:flex;justify-content:center;margin-top:26px}
+.ix-hd{display:grid;grid-template-columns:64px 112px 132px 1fr 104px 140px;font-size:12px;font-weight:700;color:var(--ink-3);padding:16px 0 10px;border-bottom:1px solid var(--line-2)}
+.ix-hd span:nth-child(5){text-align:right;padding-right:28px}
+
+/* ---------- colophon ---------- */
+.colo{margin-top:var(--sec);border-top:1px solid var(--line);background:linear-gradient(180deg,#0E0F13 0%,var(--bg) 100%)}
+.colo .grid{display:grid;grid-template-columns:1fr 392px;gap:72px;padding:64px 0 56px}
+.colo h3{display:flex;align-items:baseline;gap:12px;font-size:17px;font-weight:800;color:var(--ink)}
+.colo h3 .en{font-size:12px}
+.colo .lead{margin-top:14px;font-size:14px;color:var(--ink-2);line-height:1.7;max-width:780px;text-wrap:pretty}
+.upd{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;row-gap:18px;margin-top:26px}
+.upd div{display:grid;grid-template-columns:54px 1fr;gap:12px;padding-top:14px;border-top:1px solid var(--line)}
+.upd dt{font-size:13px;font-weight:700;color:var(--acc);white-space:nowrap}
+.upd dt.t{font-family:var(--f-mono);font-weight:500}
+.upd dd{font-size:13.5px;color:var(--ink-2);line-height:1.65;text-wrap:pretty}
+.side > div + div{margin-top:40px}
+.doc{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;margin-top:16px;padding:18px 18px;border:1px solid var(--line-2);border-radius:10px;background:var(--bg-raise)}
+.doc b{display:block;font-size:16px;font-weight:800;color:var(--ink)}
+.doc span{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.doc .mono{font-size:12px;color:var(--ink-3);margin-top:4px}
+.doc .ic{width:44px;height:44px;border-radius:8px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;color:var(--acc)}
+.side .note{margin-top:12px;font-size:13px;color:var(--ink-3);line-height:1.65}
+.sib{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding:16px 18px;border:1px solid var(--line-2);border-radius:10px;font-size:15px;font-weight:700;color:var(--ink)}
+.sib span{font-size:12.5px;font-weight:600;color:var(--ink-3);display:block;margin-top:2px}
+.foot{border-top:1px solid var(--line);padding:22px 0 30px}
+.foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:24px;font-size:12.5px;color:var(--ink-3)}
+.foot b{font-family:var(--f-num);font-weight:500;letter-spacing:.16em;color:var(--ink-2);font-size:13px;margin-right:10px}
+/* ---------- phone (390px): one column; shelves and the date axis scroll sideways inside their own band ---------- */
+@media (max-width:760px){
+  :root{--w:calc(100vw - 32px);--cv:116px;--gap:12px;--hl:27px;--h2:23px;--sec:72px}
+  .top{height:auto}
+  .top .wrap{flex-wrap:wrap;height:auto;padding:14px 0 0;row-gap:10px}
+  .brand span{display:none}
+  .search{margin-left:auto;height:36px}
+  .search select{padding:0 24px 0 12px}
+  .search input{width:96px;padding:0 4px 0 10px}
+  .search button{width:36px}
+  .nav{order:3;width:100%;margin:0;gap:20px;height:44px;overflow-x:auto}
+  .hero{height:auto;padding-bottom:40px;background:radial-gradient(ellipse 360px 420px at 50% 300px, color-mix(in srgb, var(--cbg) 55%, transparent), transparent 72%),var(--bg)}
+  .hero .wrap{height:auto}
+  .stage{position:relative;width:100%;height:494px}
+  .hero-cover{left:50%;margin-left:-130px;top:76px;width:260px}
+  .halo{top:60px;width:420px;height:460px;margin-left:-210px}
+  .beam{width:600px;margin-left:-300px;height:396px}
+  .counter{top:458px;height:36px}
+  .pool{left:calc(50% - 450px)}
+  .today{position:static;height:auto;padding-top:34px;display:block}
+  .dateline .d{font-size:40px}
+  .hl{margin-top:20px}
+  .stats{margin-top:24px}
+  .stat{padding:14px 10px 0}
+  .stat .k{font-size:11px;white-space:normal}
+  .stat .v{font-size:24px}
+  .stat .v small{font-size:14px}
+  .stat .s{font-size:11.5px;white-space:normal}
+  .stat svg{width:100%;height:auto}
+  .acts{flex-wrap:wrap;margin-top:26px}
+  .btn{height:46px;padding:0 20px}
+  .next{margin:6px 0 0;width:100%}
+  .shelf.first .intro{position:static;width:auto;height:auto;padding-bottom:0;margin-bottom:28px}
+  .facts{margin-top:20px;flex-wrap:wrap;row-gap:12px}
+  .facts div{padding:0 14px}
+  .shelf.first .lab{margin-left:0}
+  .rack{overflow-x:auto;margin:0 -16px;padding:0 16px}
+  .shelf.first .slots,.shelf.first .tags{justify-content:flex-start}
+  .ledge{margin:0;width:max-content;min-width:100%}
+  .ledge .tags{padding:0}
+  .tag{font-size:11.5px;gap:4px}
+  .tag .x{font-size:10.5px;padding:0 5px}
+  .dsk{display:none}
+  .sh{display:block}
+  .sh p{text-align:left;margin-top:10px}
+  .flow-scroll{overflow-x:auto;margin:0 -16px;padding:0 16px}
+  .flow{width:1296px}
+  .flow-foot{flex-wrap:wrap;row-gap:10px}
+  .flow-foot .tools{margin-left:0}
+  .ix-hd{display:none}
+  .ix li{grid-template-columns:34px 1fr auto;grid-template-areas:"no dt bd" "no h h" "no ph run";row-gap:4px;padding:14px 0}
+  .ix .no{grid-area:no;align-self:start}
+  .ix .dt{grid-area:dt}.ix .h{grid-area:h;padding-right:0}.ix .ph{grid-area:ph}
+  .ix .bd{grid-area:bd;padding-right:0}.ix .run{grid-area:run;text-align:right}
+  .colo .grid{grid-template-columns:1fr;gap:48px;padding:48px 0}
+  .upd{grid-template-columns:1fr}
+  .foot .wrap{flex-direction:column;align-items:flex-start;gap:8px}
+}
+</style>
+</head><body>
+<div id="app"></div>
+<script src="../data.js"></script>
+<script>
+(function(){
+<<MZ>>
+<<COMMON>>
+
+/* ===== colour: page accent follows today's cover frame, kept readable on the night ground ===== */
+var PAGE_BG='#0B0C0F';
+function hx(h){h=String(h).replace('#',''); return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function toHex(c){return '#'+c.map(function(v){v=Math.max(0,Math.min(255,Math.round(v))); return (v<16?'0':'')+v.toString(16);}).join('').toUpperCase();}
+function mixHex(a,b,t){var x=hx(a),y=hx(b); return toHex([0,1,2].map(function(i){return x[i]*(1-t)+y[i]*t;}));}
+function readableOn(c,bg,min){for(var i=0;i<30&&BK.contrast(c,bg)<min;i++) c=mixHex(c,'#FFFFFF',.08); return c;}
+var P=pal(L), ACC=readableOn(P.fr,PAGE_BG,4.5);
+var ACCINK=BK.contrast('#FFFFFF',ACC)>=BK.contrast('#17110E',ACC)?'#FFFFFF':'#17110E';
+var rs=document.documentElement.style;
+rs.setProperty('--acc',ACC); rs.setProperty('--acc-ink',ACCINK); rs.setProperty('--cbg',P.dark?P.bg:mixHex(PAGE_BG,P.bg,.18));
+
+/* ===== small helpers ===== */
+function pad2(n){return (n<10?'0':'')+n;}
+function dateOf(n){var d=new Date(n*864e5); return d.getUTCFullYear()+'-'+pad2(d.getUTCMonth()+1)+'-'+pad2(d.getUTCDate());}
+function md(d){var a=d.split('-'); return (+a[1])+'월 '+(+a[2])+'일';}
+function dshort(d){var a=d.split('-'); return (+a[1])+'.'+(+a[2]);}
+var WDL={'일':'일요일','월':'월요일','화':'화요일','수':'수요일','목':'목요일','금':'금요일','토':'토요일'};
+var IC={
+  search:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
+  chev:'<svg width="10" height="8" viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2l3.5 3.5L8.5 2"/></svg>',
+  out:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 16L17 7"/><path d="M9 7h8v8"/></svg>',
+  down:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13"/><path d="M6 12l6 6 6-6"/></svg>',
+  clock:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+  doc:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></svg>',
+  table:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M3.5 10h17M3.5 14.5h17M9.5 5v14"/></svg>',
+  dl:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 19.5h14"/></svg>',
+  plus:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
+};
+/* phase mark: one colour, two halves for a straddling call, dashed "?" when none */
+function phm(phase,cls){
+  var ps=parts(phase); cls=cls||'';
+  if(!ps.length) return '<span class="phm none '+cls+'" title="국면 미기록">?</span>';
+  return '<span class="phm'+(ps.length>1?' two':'')+' '+cls+'" title="'+esc(phaseText(phase))+'">'+ps.map(function(p){return '<i style="background:'+PCOL[p]+';color:'+PINK[p]+'">'+p+'</i>';}).join('')+'</span>';
+}
+function phName(phase){var ps=parts(phase); if(!ps.length) return '미기록'; return ps.length>1?ps.join('→'):PHN[ps[0]];}
+function splitHL(h){var i=h.indexOf(', '); return (i>4&&i<h.length-4)?[h.slice(0,i+1),h.slice(i+2)]:['',h];}
+/* the cover fills its wrapper; the wrapper fills a parent sized by CSS (--cv-hero, --cv) */
+function cv(b){return '<div style="width:100%">'+cover(b)+'</div>';}
+
+/* ===== calendar of the archive ===== */
+var DM=dayMap(), FIRST=B[0].date, DAYS=[];
+for(var n=dn(FIRST); n<=dn(L.date); n++) DAYS.push(dateOf(n));
+var VOID=DAYS.filter(function(d){return !DM[d];});               /* days with no brief: 9/18, 9/19 */
+var MULTI=DAYS.filter(function(d){return DM[d]&&DM[d].length>1;}); /* 9/3, 9/5, 9/24 */
+var ST=stats();
+function dvMap(key){var m={}; daily(key).forEach(function(p){m[p.d]=p.v;}); return m;}
+var DV={btcd:dvMap('btcd'), stable1m:dvMap('stable1m'), btc1m:dvMap('btc1m'), stableD:dvMap('stableD')};
+function lastOfDay(d){var a=DM[d]; return a?a[a.length-1]:null;}
+/* how long today's phase has held, counting only days with a brief */
+var streakFrom=null, streakN=0, curP=lastPh(L);
+for(var i=DAYS.length-1;i>=0;i--){var b=lastOfDay(DAYS[i]); if(!b) continue; var ps=parts(b.phase); if(ps.length===1&&ps[0]===curP){streakFrom=DAYS[i]; streakN++;} else break;}
+var NEXTD=dateOf(dn(L.date)+1);
+
+/* ===== mini trend for the hero: same date axis, broken where there is no brief ===== */
+function mini(key,w,h){
+  var m=DV[key], xs=DAYS.length, vs=DAYS.map(function(d){return d in m?m[d]:null;}), nn=vs.filter(function(v){return v!=null;});
+  var lo=Math.min.apply(null,nn), hi=Math.max.apply(null,nn), rg=(hi-lo)||1, pd=5;
+  function X(i){return pd+(w-2*pd)*i/(xs-1);} function Y(v){return pd+(h-2*pd)*(1-(v-lo)/rg);}
+  var d='', pen=false, last=null;
+  vs.forEach(function(v,i){ if(v==null){pen=false; return;} d+=(pen?'L':'M')+X(i).toFixed(1)+' '+Y(v).toFixed(1); pen=true; last=[X(i),Y(v)]; });
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" aria-hidden="true"><path d="'+d+'" fill="none" stroke="#CFC9BF" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" opacity=".85"/>'+
+    '<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="6" fill="'+ACC+'" opacity=".25"/><circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="3.2" fill="'+ACC+'"/></svg>';
+}
+
+/* ===== top bar ===== */
+function topbar(){
+  return '<header class="top"><div class="wrap">'+
+    '<a class="brand" href="#today"><b>CRYPTO BRIEF</b><span>크립토 브리핑 서고</span></a>'+
+    '<nav class="nav"><a class="on" href="#today">오늘의 호</a><a href="#stand">가판대</a><a href="#flow">국면과 지표</a><a href="#index">발행 목록</a><a href="#about">서고 안내</a></nav>'+
+    '<form class="search" role="search" onsubmit="return false">'+
+      '<label><select aria-label="찾을 범위"><option>전체</option><option>헤드라인</option><option>날짜</option><option>메모</option></select><span class="chev">'+IC.chev+'</span></label>'+
+      '<span class="sep"></span><input type="search" placeholder="날짜나 낱말로 지난 호 찾기" aria-label="검색어">'+
+      '<button type="submit" aria-label="찾기">'+IC.search+'</button></form>'+
+  '</div></header>';
+}
+
+/* ===== hero ===== */
+function lampSvg(){
+  return '<svg width="160" height="74" viewBox="0 0 160 74" aria-hidden="true"><defs>'+
+    '<linearGradient id="hood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2B31"/><stop offset="1" stop-color="#17181C"/></linearGradient>'+
+    '<radialGradient id="rim" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFFBF5"/><stop offset=".55" stop-color="'+ACC+'" stop-opacity=".9"/><stop offset="1" stop-color="'+ACC+'" stop-opacity="0"/></radialGradient></defs>'+
+    '<line x1="80" y1="0" x2="80" y2="30" stroke="#33343A" stroke-width="2"/>'+
+    '<path d="M68 30h24l26 34H42z" fill="url(#hood)" stroke="#3A3B42" stroke-width="1"/>'+
+    '<ellipse cx="80" cy="64.5" rx="46" ry="7" fill="url(#rim)"/>'+
+    '<ellipse cx="80" cy="64" rx="36" ry="2.2" fill="#FFF8EE"/></svg>';
+}
+function hero(){
+  var hl=splitHL(L.headline||L.note||''), d=deltas(L), dw=WDL[wd(L.date)];
+  var dB=d.dB==null?'–':(Number(Math.abs(d.dB).toFixed(2))===0?'전날과 같음':'전날보다 <b>'+sg(d.dB,2)+'%p</b>');
+  var prev=parts(L.prevPhase).join('→');
+  var chips='<span class="chip ph">'+phm(L.phase,'lg')+esc(phaseText(L.phase))+'</span>'+
+    (L.provisional?'<span class="chip">임시 기준</span>':'')+
+    (prev?'<span class="chip">전날 국면 '+esc(prev)+(prev===parts(L.phase).join('→')?' · 그대로':'')+'</span>':'');
+  return '<section class="hero" id="today"><div class="wrap">'+
+    '<div class="stage"><div class="lamp">'+lampSvg()+'</div><div class="beam"></div><div class="halo"></div>'+
+      '<a class="hero-cover" href="'+esc(L.url)+'" target="_blank" rel="noopener" aria-label="제'+vol(L)+'호 브리핑 열기">'+cv(L)+'</a></div>'+
+    '<div class="today">'+
+      '<p class="kicker">오늘의 호 <em>제'+vol(L)+'호</em></p>'+
+      '<div class="dateline"><span class="d">'+L.date.replace(/-/g,'.')+'</span><span class="w">'+dw+'<small>'+esc(runLabel(L))+'</small></span></div>'+
+      '<h1 class="hl">'+(hl[0]?esc(hl[0])+' ':'')+'<em>'+esc(hl[1])+'</em></h1>'+
+      '<div class="chips">'+chips+'</div>'+
+      '<div class="stats">'+
+        '<div class="stat"><p class="k">BTC.D</p><p class="v">'+f(L.btcd,2)+'<small>%</small></p><p class="s">'+dB+'</p>'+mini('btcd',196,38)+'</div>'+
+        '<div class="stat"><p class="k">ΣSTABLECOIN.D 1개월</p><p class="v">'+sg(L.stable1m,3)+'<small>%p</small></p><p class="s">점유율 <b>'+f(L.stableD,3)+'%</b></p>'+mini('stable1m',196,38)+'</div>'+
+        '<div class="stat"><p class="k">BTCUSD 1개월</p><p class="v">'+sg(L.btc1m,2)+'<small>%</small></p><p class="s">D·E 전제는 0 아래</p>'+mini('btc1m',196,38)+'</div>'+
+      '</div>'+
+      '<div class="acts"><a class="btn pri" href="'+esc(L.url)+'" target="_blank" rel="noopener">브리핑 열기 '+IC.out+'</a>'+
+        '<a class="btn ghost" href="#stand">지난 호 둘러보기 '+IC.down+'</a>'+
+        '<span class="next">'+IC.clock+'다음 호 <b>'+md(NEXTD)+' '+WDL[wd(NEXTD)]+' 06:10</b></span></div>'+
+    '</div>'+
+  '</div><div class="counter"><div class="pool"></div></div></section>';
+}
+
+/* ===== the stand: one shelf per week (Mon–Sun), newest first ===== */
+function weekKey(d){var n=dn(d), w=new Date(n*864e5).getUTCDay(); return dateOf(n-((w+6)%7));} /* Monday */
+function shelves(){
+  var weeks={}, order=[];
+  DAYS.forEach(function(d){var k=weekKey(d); if(!(k in weeks)){weeks[k]=[]; order.push(k);} weeks[k].push(d);});
+  order.reverse();
+  var out='';
+  order.forEach(function(k,wi){
+    var ds=weeks[k].slice().reverse(), items=[];
+    if(wi===0) items.push({next:true,d:NEXTD});
+    ds.forEach(function(d){
+      if(!DM[d]){items.push({vd:d}); return;}
+      DM[d].slice().reverse().forEach(function(b){items.push({b:b,d:d,n:DM[d].length});});
+    });
+    var nIss=items.filter(function(x){return x.b;}).length, nVoid=items.filter(function(x){return x.vd;}).length;
+    var first=wi===0, rng=dshort(ds[ds.length-1])+' – '+dshort(ds[0]);
+    var lab=(first?'이번 주':'')+'<b>'+rng+'</b><i>'+nIss+'호'+(nVoid?' · 브리핑 없는 날 '+nVoid+'일':'')+'</i>';
+    var slots='', tags='';
+    items.forEach(function(x){
+      if(x.next){
+        slots+='<div class="slot"><div class="hole next"><b>다음 호</b><span>'+md(x.d)+' '+wd(x.d)+'요일<br>06:10 발행</span></div></div>';
+        tags+='<div class="tag"><span class="dt">'+mdot(x.d)+'</span><span class="wd">'+wd(x.d)+'</span><span class="x">제'+(B.length+1)+'호<span class="dsk"> 자리</span></span></div>';
+      } else if(x.vd){
+        slots+='<div class="slot"><div class="hole"><span>브리핑<br>없음</span></div></div>';
+        tags+='<div class="tag void"><span class="dt">'+mdot(x.vd)+'</span><span class="wd">'+wd(x.vd)+'</span></div>';
+      } else {
+        var b=x.b, now=b===L;
+        slots+='<a class="slot cv" href="'+esc(b.url)+'" target="_blank" rel="noopener" title="제'+vol(b)+'호 · '+esc(b.headline||b.note)+'">'+cv(b)+'</a>';
+        tags+='<div class="tag"><span class="dt">'+mdot(b.date)+'</span><span class="wd">'+wd(b.date)+'</span>'+
+          (now?'<span class="x now">오늘</span>':(x.n>1?'<span class="x">'+b.seq+'회</span>':''))+phm(b.phase)+'</div>';
+      }
+    });
+    var intro='';
+    if(first){
+      intro='<div class="intro"><h2>가판대 <span class="en">ALL ISSUES</span></h2>'+
+        '<p>한 칸이 한 호, 한 줄이 한 주입니다. 최신 호부터 꽂혀 있고, 표지를 누르면 그날 브리핑이 열립니다.</p>'+
+        '<div class="facts"><div><b>'+ST.n+'</b><span>호</span></div><div><b>'+(DAYS.length-VOID.length)+'</b><span>발행한 날</span></div>'+
+        '<div><b>'+VOID.length+'</b><span>브리핑 없는 날</span></div><div><b>'+MULTI.length+'</b><span>여러 번 발행한 날</span></div></div></div>';
+    }
+    out+='<div class="shelf'+(first?' first':'')+'">'+intro+
+      '<div class="lab">'+lab+'</div>'+
+      '<div class="rack"><div class="back"></div><div class="slots">'+slots+'</div>'+
+      '<div class="ledge"><div class="tags">'+tags+'</div></div></div></div>';
+  });
+  return '<section class="sec stand" id="stand"><div class="wrap">'+out+'</div></section>';
+}
+
+/* ===== flow: phase strip and the three indicators share one date axis ===== */
+var PW=944, NC=DAYS.length, CW=PW/NC;
+function chart(key,o){
+  var H=o.h, pt=10, pb=10, m=DV[key];
+  function X(i){return CW*i+CW/2;} function Y(v){return pt+(H-pt-pb)*(1-(v-o.lo)/(o.hi-o.lo));}
+  var s='<svg class="ch" width="'+PW+'" height="'+H+'" viewBox="0 0 '+PW+' '+H+'" aria-hidden="true">';
+  o.ticks.forEach(function(t){ if(o.ref&&t===o.ref.v) return; s+='<line class="'+(t===0?'zero':'grid')+'" x1="0" x2="'+PW+'" y1="'+Y(t).toFixed(1)+'" y2="'+Y(t).toFixed(1)+'"/>'; });
+  if(o.ref){var ry=Y(o.ref.v).toFixed(1); s+='<line class="ref" x1="0" x2="'+PW+'" y1="'+ry+'" y2="'+ry+'"/><text class="reft" x="'+(o.ref.x||8)+'" y="'+(Y(o.ref.v)+(o.ref.below?17:-7)).toFixed(1)+'">'+o.ref.t+'</text>';}
+  var d='', pen=false, pts='', last=null;
+  DAYS.forEach(function(day,i){var v=day in m?m[day]:null; if(v==null){pen=false; return;} var x=X(i), y=Y(v); d+=(pen?'L':'M')+x.toFixed(1)+' '+y.toFixed(1); pen=true; pts+='<circle class="pt" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="2.2"/>'; last=[x,y];});
+  s+='<path class="ln" d="'+d+'"/>'+pts;
+  s+='<circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="9" fill="'+ACC+'" opacity=".22"/><circle cx="'+last[0].toFixed(1)+'" cy="'+last[1].toFixed(1)+'" r="4.2" fill="'+ACC+'"/></svg>';
+  var tk='<div class="ticks">'+o.ticks.map(function(t){return '<span style="top:'+(Y(t)-7).toFixed(1)+'px">'+o.tf(t)+'</span>';}).join('')+'</div>';
+  return {svg:s,ticks:tk};
+}
+function flow(){
+  var axis='<div class="axis">'+DAYS.map(function(d,i){var w=wd(d), c=(d===L.date?'now':(!DM[d]?'void':(w==='월'?'mon':''))); return '<span class="'+c+'">'+(+d.slice(8))+'<small>'+w+'</small></span>';}).join('')+'</div>';
+  var cells='', skip={};
+  DAYS.forEach(function(d,i){
+    if(skip[d]) return;
+    if(!DM[d]){ /* a run of days without a brief becomes one labelled gap */
+      var j=i; while(j<DAYS.length&&!DM[DAYS[j]]) j++;
+      for(var k=i+1;k<j;k++) skip[DAYS[k]]=1;
+      cells+='<span class="gapl" style="grid-column:span '+(j-i)+'">'+(j-i>1?'브리핑 없음':'')+'</span>'; return; }
+    var b=lastOfDay(d), ps=parts(b.phase), now=d===L.date, dots=DM[d].length>1?'<span class="dots">'+DM[d].map(function(){return '<u></u>';}).join('')+'</span>':'';
+    if(!ps.length){cells+='<span class="c none'+(now?' now':'')+'" title="'+mdot(d)+' 국면 미기록">?'+dots+'</span>'; return;}
+    cells+='<span class="c'+(ps.length>1?' two':'')+(now?' now':'')+'" title="'+mdot(d)+' '+esc(phaseText(b.phase))+'">'+ps.map(function(p){return '<i style="background:'+PCOL[p]+';color:'+PINK[p]+'">'+p+'</i>';}).join('')+dots+'</span>';
+  });
+  var c1=chart('btcd',{h:108,lo:58.95,hi:60.45,ticks:[59,59.5,60],tf:function(t){return t.toFixed(1);}});
+  var c2=chart('stable1m',{h:118,lo:-2.45,hi:1.35,ticks:[-2,-1,0,1],tf:function(t){return t===0?'0':sg(t,1);},ref:{v:1,t:'E 판정 임시 기준 +1.0%p',below:true}});
+  var c3=chart('btc1m',{h:118,lo:-3,hi:27,ticks:[0,10,20],tf:function(t){return t===0?'0':sg(t,0);},ref:{v:0,t:'0 아래로 내려가야 D·E 판정의 전제가 선다',below:false}});
+  var d=deltas(L);
+  /* overlay: Monday rules, the no-brief band, today's column */
+  var ov='<div class="overlay">';
+  DAYS.forEach(function(day,i){ if(i>0&&wd(day)==='월') ov+='<i style="left:'+(CW*i).toFixed(1)+'px"></i>'; });
+  if(VOID.length){var a=DAYS.indexOf(VOID[0]), z=DAYS.indexOf(VOID[VOID.length-1]); ov+='<span class="gap" style="left:'+(CW*a).toFixed(1)+'px;width:'+(CW*(z-a+1)).toFixed(1)+'px"></span>';}
+  ov+='<span class="nowb" style="left:'+(CW*(NC-1)).toFixed(1)+'px;width:'+CW.toFixed(1)+'px"></span></div>';
+  var g='<div class="flow">'+ov+
+    '<div></div><div></div>'+axis+'<div></div>'+
+    '<div class="cell-l trk"><b>국면</b><span>하루 한 칸</span></div><div class="trk"></div><div class="phs trk">'+cells+'</div><div class="val trk"><b>'+esc(parts(L.phase).join('→'))+' · '+esc(PHN[lastPh(L)])+'</b><span>'+(streakFrom?dshort(streakFrom)+' 이후 발행한<br>'+streakN+'일 모두 '+esc(curP):'')+'</span></div>'+
+    '<div class="cell-l trk"><b>BTC.D</b><span>비트코인 점유율, %</span></div><div class="trk">'+c1.ticks+'</div><div class="trk">'+c1.svg+'</div><div class="val trk"><b>'+f(L.btcd,2)+'%</b><span>전날 '+sg(d.dB,2)+'%p</span></div>'+
+    '<div class="cell-l trk"><b>ΣSTABLECOIN.D 1개월</b><span>스테이블코인 점유율의<br>1개월 변화, %p</span></div><div class="trk">'+c2.ticks+'</div><div class="trk">'+c2.svg+'</div><div class="val trk"><b>'+sg(L.stable1m,3)+'%p</b><span>점유율 '+f(L.stableD,3)+'%</span></div>'+
+    '<div class="cell-l trk"><b>BTCUSD 1개월</b><span>비트코인 가격의<br>1개월 변화, %</span></div><div class="trk">'+c3.ticks+'</div><div class="trk">'+c3.svg+'</div><div class="val trk"><b>'+sg(L.btc1m,2)+'%</b><span>'+mdot(L.date)+' 기준</span></div>'+
+  '</div>';
+  var legend=['A','B','C','D','E'].map(function(p){return '<span class="lg"><span class="sw" style="background:'+PCOL[p]+'"></span>'+p+' · '+esc(PHN[p])+'</span>';}).join('')+
+    '<span class="lg"><span class="sw split"><i style="background:'+PCOL.A+'"></i><i style="background:'+PCOL.C+'"></i></span>걸친 판정</span>'+
+    '<span class="lg"><span class="sw q"></span>미기록</span>'+
+    '<span class="lg"><span class="sw void"></span>브리핑 없음</span>'+
+    '<span class="lg"><span class="dd"><u></u><u></u></span>여러 번 발행한 날</span>';
+  var tools='<span class="tools"><button class="tbtn" id="tblbtn" type="button" aria-expanded="false" aria-controls="tbl">'+IC.table+'표로 보기 · '+ST.days+'일</button>'+
+    '<a class="tbtn" id="csv" download="crypto-brief-indicators-2026-09.csv" href="#">'+IC.dl+'CSV</a></span>';
+  return '<section class="sec" id="flow"><div class="wrap">'+
+    '<header class="sh"><h2>국면과 지표 <span class="en">SEPTEMBER FLOW</span></h2>'+
+    '<p>'+dshort(FIRST)+'부터 '+dshort(L.date)+'까지 하루 한 칸. 국면과 세 지표가 한 날짜 축을 씁니다.<br>여러 번 발행한 날은 마지막 회차를 씁니다.</p></header>'+
+    '<div class="flow-scroll">'+g+'</div><div class="flow-foot">'+legend+tools+'</div><div class="tblwrap" id="tbl" hidden>'+table()+'</div>'+
+  '</div></section>';
+}
+function table(){
+  var rows=daily('btcd').map(function(p){var d=p.d; return '<tr><td>'+mdot(d)+' '+wd(d)+'</td><td>'+f(DV.btcd[d],2)+'</td><td>'+(d in DV.stableD?f(DV.stableD[d],3):'–')+'</td><td>'+(d in DV.stable1m?sg(DV.stable1m[d],3):'–')+'</td><td>'+(d in DV.btc1m?sg(DV.btc1m[d],2):'–')+'</td></tr>';}).reverse().join('');
+  return '<table><thead><tr><th>날짜</th><th>BTC.D %</th><th>ΣSTABLECOIN.D %</th><th>ΣSTABLECOIN.D 1개월 %p</th><th>BTCUSD 1개월 %</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function csv(){
+  var lines=['date,btc_d,stablecoin_d,stablecoin_d_1m_pp,btcusd_1m_pct'];
+  daily('btcd').forEach(function(p){var d=p.d; lines.push([d,DV.btcd[d],d in DV.stableD?DV.stableD[d]:'',d in DV.stable1m?DV.stable1m[d]:'',d in DV.btc1m?DV.btc1m[d]:''].join(','));});
+  return 'data:text/csv;charset=utf-8,'+encodeURIComponent(lines.join('\n'));
+}
+
+/* ===== index ===== */
+var SHOW=8;
+function ixRow(b,hide){
+  var run=runLabel(b), off=!(b.run==='본실행');
+  return '<li class="'+(b===L?'now':'')+'"'+(hide?' hidden':'')+'><span class="no">'+vol(b)+'</span>'+
+    '<span class="dt">'+mdot(b.date)+'<i>'+wd(b.date)+(DM[b.date].length>1?' · '+b.seq+'회':'')+'</i></span>'+
+    '<span class="ph">'+phm(b.phase)+esc(phName(b.phase))+'</span>'+
+    '<a class="h'+(b.headline?'':' note')+'" href="'+esc(b.url)+'" target="_blank" rel="noopener">'+esc(b.headline||b.note||b.title)+'</a>'+
+    '<span class="bd">'+(b.btcd==null?'–':f(b.btcd,2)+'<small>%</small>')+'</span>'+
+    '<span class="run'+(off&&b.run?' off':'')+'">'+esc(run)+'</span></li>';
+}
+function index(){
+  var list=B.slice().reverse();
+  return '<section class="sec" id="index"><div class="wrap">'+
+    '<header class="sh"><h2>발행 목록 <span class="en">INDEX</span></h2><p>최신 호부터 '+SHOW+'호를 보입니다. 검색은 위 막대에서 범위를 고른 뒤 날짜나 낱말로 찾습니다.</p></header>'+
+    '<div class="ix-hd"><span>호</span><span>날짜</span><span>국면</span><span>헤드라인</span><span>BTC.D</span><span>실행</span></div>'+
+    '<ol class="ix">'+list.map(function(b,i){return ixRow(b,i>=SHOW);}).join('')+'</ol>'+
+    '<div class="ix-more"><button class="tbtn" id="more" type="button">'+IC.plus+'나머지 '+(list.length-SHOW)+'호 펼치기</button></div>'+
+  '</div></section>';
+}
+
+/* ===== colophon ===== */
+function colophon(){
+  var upd=[['06:10','본실행이 브리핑을 발행한 직후 서고에 그날 건을 등록한다. 등록이 실패하면 한 번 더 시도하고, 그래도 실패하면 실행 보고와 앱 알림에 사유를 남긴다.',1],
+    ['07:40','안전판은 그날 브리핑이 이미 있어서 종료하는 날에도, 종료하기 전에 서고에 그날 건이 있는지 확인한다. 없으면 그날 브리핑을 읽어 등록한다.',1],
+    ['수동','직접 요청해 만든 브리핑도 스킬에 적힌 같은 절차로 등록한다. 같은 날 주소가 다른 브리핑을 또 발행하면 2회차로 남는다.'],
+    ['표지','표지는 이 페이지가 등록된 기록으로 직접 그린다. 실행이 표지를 따로 만들거나 저장하지 않으므로, 등록 절차는 그대로다.'],
+    ['정정','발행한 브리핑의 수치를 고치면 서고의 기록도 함께 고친다.'],
+    ['보관','브리핑 원본은 각각의 아티팩트로 남고, 서고 기록은 이 페이지의 데이터베이스에 쌓인다. 지표 표는 CSV로 내려받을 수 있다.']];
+  return '<section class="colo" id="about"><div class="wrap grid">'+
+    '<div><h3>갱신 방식 <span class="en">HOW IT UPDATES</span></h3>'+
+      '<p class="lead">이 서고는 손으로 고치지 않는다. 브리핑을 발행한 실행이 서고의 데이터베이스에 한 건을 등록하고, 이 페이지는 그 기록으로 목록과 타임라인과 표를 계산한다.</p>'+
+      '<dl class="upd">'+upd.map(function(u){return '<div><dt class="'+(u[2]?'t':'')+'">'+u[0]+'</dt><dd>'+u[1]+'</dd></div>';}).join('')+'</dl></div>'+
+    '<div class="side"><div><h3>부속 문서 <span class="en">1건</span></h3>'+
+      '<a class="doc" href="https://claude.ai/code/artifact/f371939a-b726-438b-98e2-92abf515976c" target="_blank" rel="noopener"><span class="ic">'+IC.doc+'</span><span><b>UNI·ARB 관통 해부</b><span>브리핑에서 파생된 종목 심층 분석</span><span class="mono">2026.09.08</span></span><span style="color:var(--ink-2)">'+IC.out+'</span></a>'+
+      '<p class="note">브리핑에서 갈라져 나온 심층 문서다. 새 문서는 요청하면 Claude가 이 자리에 등록한다.</p></div>'+
+      '<div><h3>형제 서고</h3><a class="sib" href="#"><span style="margin:0;font-size:15px;font-weight:700;color:var(--ink)">매크로 리스크 서고</span><span style="margin:0;color:var(--ink-2)">'+IC.out+'</span></a></div></div>'+
+  '</div><div class="foot"><div class="wrap"><span><b>CRYPTO BRIEF</b>크립토 브리핑 서고 · 매일 아침 06:10 발행</span><span>이 서고는 브리핑을 정리한 색인이며 투자 자문이 아닙니다. 수치는 각 브리핑이 조회한 시점의 값입니다.</span></div></div></section>';
+}
+
+document.getElementById('app').innerHTML=topbar()+hero()+shelves()+flow()+index()+colophon();
+var a=document.getElementById('csv'); if(a) a.href=csv();
+var tb=document.getElementById('tblbtn'), tw=document.getElementById('tbl');
+if(tb&&tw) tb.addEventListener('click',function(){tw.hidden=!tw.hidden; tb.setAttribute('aria-expanded',String(!tw.hidden));});
+var mb=document.getElementById('more');
+if(mb) mb.addEventListener('click',function(){document.querySelectorAll('.ix li[hidden]').forEach(function(li){li.hidden=false;}); mb.parentNode.style.display='none';});
+ready();
+})();
+</script></body></html>

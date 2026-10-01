@@ -1,0 +1,878 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>크립토 브리핑 서고</title>
+<!-- 페이지 글꼴: Gothic A1 400·500·700·800, Oswald 500, IBM Plex Mono 400·500 -->
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/500.css">
+<!-- 표지 부품이 스스로 쓰는 글꼴(표지를 원래대로 그리기 위해서만): Gothic A1 600, Oswald 600, Outfit 700·800 -->
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/800.css">
+<link rel="stylesheet" href="../mz.css">
+<style>
+:root {
+  /* ── 바탕 ── */
+  --bg: #0B0C0F;                 /* 페이지 바탕. 거의 검은 무채색 */
+  --bg-raise: #15171C;           /* 검색창, 읽기 창, 표 머리처럼 한 단 떠 있는 면 */
+  --bg-hover: #1C1F25;           /* 목록 행·흐름 날짜 열에 포인터를 올렸을 때 */
+  --topbar-bg: rgba(11, 12, 15, 0.88); /* 고정 상단 막대. 뒤 내용을 흐리게 비친다 */
+
+  /* ── 글자 (괄호는 --bg 대비 명암비) ── */
+  --text-1: #F2EFEA;             /* 헤드라인, 제목, 본문 (약 17) */
+  --text-2: #B9B4AC;             /* 보조 설명, 꼬리표, 증감 (약 9.5) */
+  --text-3: #8A867F;             /* 축 눈금, 범례 등 가장 약한 글자 (약 5.4). 글자는 이보다 어둡게 쓰지 않는다 */
+
+  /* ── 선 ── */
+  --line-1: #23252B;             /* 구역·행 구분 머리카락선 */
+  --line-2: #3A3D45;             /* 입력창·버튼 테두리 */
+  --line-grid: #1C1E24;          /* 차트 눈금선 */
+  --line-ref: #8A867F;           /* 차트 기준선(+1.0%p, 0) */
+  --ref-dash: 4 4;               /* 기준선 점선 간격 (SVG stroke-dasharray) */
+
+  /* ── 강조: 그날 표지의 테두리색. 아래 값은 9/30 표지(복숭아) ── */
+  --accent: #F2B39F;
+  --accent-text: #F2B39F;        /* 바탕 위 강조 글자. 테두리색이 --bg 대비 4.5 미만인 날은 흰색과 섞어 4.5 이상으로 올린다 */
+  --accent-ink: #1B110D;         /* 강조색 면 위 글자 (약 10) */
+  --accent-glow: color-mix(in srgb, var(--accent) 18%, transparent); /* 히어로 표지 뒤 번짐, 다음 호 자리의 빛 */
+  --accent-soft: color-mix(in srgb, var(--accent) 22%, transparent); /* 검색어 강조 바탕 */
+
+  /* ── 조명 ── */
+  --light-beam: rgba(255, 240, 225, 0.075);  /* 히어로 위에서 떨어지는 빛 기둥 */
+  --light-shelf: rgba(255, 240, 225, 0.045); /* 선반마다 위에서 비추는 띠 조명 */
+  --vignette: rgba(0, 0, 0, 0.55);           /* 히어로 가장자리 어둠 */
+
+  /* ── 선반과 빈 자리 ── */
+  --shelf-top: #2C2F36;          /* 선반 윗면 */
+  --shelf-face: #16181D;         /* 선반 앞면 */
+  --shelf-top-height: 4px;
+  --shelf-height: 14px;          /* 윗면을 포함한 전체 두께 */
+  --slot-empty-border: 1px dashed #3A3D45;     /* 브리핑 없는 날의 빈 자리·빈 칸 */
+  --slot-next-border: 1px dashed var(--accent); /* 다음 호 자리·칸 */
+
+  /* ── 국면 (지금 쓰는 색 그대로). -ink는 그 칸 위 글자색 ── */
+  --phase-a: #CB8242;
+  --phase-a-ink: #0B0C0F;
+  --phase-b: #A96CAF;
+  --phase-b-ink: #0B0C0F;
+  --phase-c: #056F15;
+  --phase-c-ink: #FFFFFF;
+  --phase-d: #594D99;
+  --phase-d-ink: #FFFFFF;
+  --phase-e: #2B97FF;
+  --phase-e-ink: #0B0C0F;
+  --phase-none: #3A3D45;         /* 국면이 없는 호의 '?' 칸 */
+  --phase-none-ink: #F2EFEA;
+
+  /* ── 차트 ── */
+  --chart-line: #E6E1D9;         /* 지표 선 */
+  --chart-line-width: 1.5px;
+  --chart-point: 4px;            /* 날마다 찍는 점 지름 */
+  --chart-point-today: 8px;      /* 오늘 점 지름. 색은 --accent */
+
+  /* ── 글꼴 ── */
+  --font-sans: "Gothic A1", sans-serif;                 /* 헤드라인, 제목, 본문 */
+  --font-display: "Oswald", "Gothic A1", sans-serif;    /* 날짜, 큰 숫자, 국면 글자 */
+  --font-mono: "IBM Plex Mono", "Gothic A1", monospace; /* 꼬리표, 축, 표 숫자 */
+
+  /* ── 글자 크기 ── */
+  --fs-hero-headline: 48px;
+  --fs-metric: 36px;             /* 히어로 지표 값 */
+  --fs-hero-date: 32px;
+  --fs-section-title: 30px;
+  --fs-phase-letter: 30px;       /* 히어로 국면 칸 글자 */
+  --fs-phase-name: 22px;         /* 히어로 국면 이름 */
+  --fs-lead: 18px;
+  --fs-body: 16px;
+  --fs-table: 15px;
+  --fs-small: 14px;
+  --fs-label: 13px;              /* 고정폭 라벨, 선반 꼬리표 */
+  --fs-micro: 12px;              /* 차트 눈금, 흐름 칸 아래 날짜, 회차 번호 */
+
+  /* ── 굵기 ── */
+  --fw-body: 400;
+  --fw-medium: 500;
+  --fw-strong: 700;
+  --fw-heavy: 800;               /* 헤드라인, 구역 제목 */
+  --fw-display: 500;             /* Oswald 숫자 */
+
+  /* ── 줄 높이와 자간 ── */
+  --lh-headline: 1.24;
+  --lh-title: 1.3;
+  --lh-body: 1.6;
+  --lh-label: 1.4;
+  --lh-numeral: 1;
+  --ls-headline: -0.02em;
+  --ls-display: 0.01em;
+  --ls-mono: 0.02em;
+
+  /* ── 간격 ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --section-gap: 128px;          /* 구역 사이 */
+  --section-head-gap: 40px;      /* 구역 머리와 내용 사이 */
+
+  /* ── 둥글기 ── */
+  --radius-s: 4px;               /* 국면 칸, 칩 */
+  --radius-m: 8px;               /* 버튼, 입력창, 읽기 창 */
+  --radius-pill: 999px;          /* 실행 값 알약 */
+
+  /* ── 그림자 (표지에는 아래·뒤로만) ── */
+  --shadow-cover-hero: 0 48px 80px -28px rgba(0, 0, 0, 0.9), 0 14px 24px -12px rgba(0, 0, 0, 0.7);
+  --shadow-cover: 0 18px 26px -14px rgba(0, 0, 0, 0.85);
+  --shadow-cover-hover: 0 28px 36px -16px rgba(0, 0, 0, 0.9);
+  --shadow-ledge: 0 12px 20px -8px rgba(0, 0, 0, 0.75);  /* 선반·받침 아래 */
+  --shadow-popover: 0 16px 40px rgba(0, 0, 0, 0.6);       /* 읽기 창, 범위 선택 목록 */
+
+  /* ── 레이아웃 ── */
+  --page-width: 1440px;
+  --content-width: 1280px;
+  --gutter: 80px;
+  --viewport-check-height: 900px; /* 완료 기준의 '첫 화면' 높이 */
+  --topbar-height: 64px;
+  --search-width: 360px;         /* 범위 선택 + 입력 */
+  --control-height: 40px;        /* 검색창, 작은 버튼 */
+  --button-height: 52px;         /* 히어로 버튼 */
+  --hero-pad-top: 56px;
+  --hero-stage-width: 560px;     /* 빛 기둥 + 표지 */
+  --hero-col-gap: 80px;
+  --hero-text-width: 640px;
+  --phase-cell-hero: 56px;       /* 히어로 국면 칸 한 변 */
+  --phase-chip: 28px;            /* 목록 국면 칸 한 변 */
+
+  /* ── 표지 (비율 68:100 고정) ── */
+  --cover-aspect: 68 / 100;
+  --cover-hero: 440px;
+  --cover-shelf: 140px;
+  --cover-min: 96px;             /* 이보다 작게 그리지 않는다 */
+  --gap-day: 20px;               /* 가판대에서 날과 날 사이 */
+  --gap-same-day: 8px;           /* 같은 날 회차 사이 */
+  --shelf-row-gap: 56px;         /* 선반과 선반 사이 */
+  --tag-gap: 10px;               /* 선반과 꼬리표 사이 */
+
+  /* ── 국면·지표 흐름 ── */
+  --flow-label-width: 176px;     /* 줄 이름과 단위 */
+  --flow-day-width: 36px;        /* 하루 한 열. 9/2~10/1의 30열 */
+  --flow-week-gap: 6px;          /* 월요일 앞에 더하는 간격. 가판대의 주 단위와 리듬을 맞춘다 */
+  --flow-cell-gap: 4px;
+  --flow-cell-height: 40px;
+  --flow-track-height: 112px;    /* 지표 한 줄 높이 */
+  --flow-track-gap: 16px;
+
+  /* ── 발행 목록 ── */
+  --list-row-height: 60px;
+  --col-no: 56px;
+  --col-date: 120px;
+  --col-phase: 64px;
+  --col-num: 104px;              /* 지표 한 열 */
+  --col-run: 112px;
+
+  /* ── 움직임 ── */
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 700ms;             /* 빛 기둥이 켜지는 시간 */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --lift-hover: 4px;             /* 표지를 올렸을 때 떠오르는 높이 */
+  --focus-width: 2px;            /* 초점 테두리. 색은 --accent */
+  --focus-offset: 3px;
+
+  /* ── 이 페이지에서 더한 값 (<check>에 보고) ── */
+  --hairline: 1px;               /* 머리카락선·테두리 두께 */
+  --mark-width: 2px;             /* 지금 메뉴 밑줄, 오늘 칸 테두리의 선 두께 */
+  --topbar-blur: 12px;           /* 상단 막대 뒤 내용 흐림 */
+  --beam-spread: 20deg;          /* 빛 기둥이 퍼지는 각 */
+  --beam-soft: 5deg;             /* 빛 기둥 가장자리 번짐 */
+  --beam-apex: -1150px;          /* 빛 기둥 꼭짓점(막대 위 바깥)의 높이 */
+  --dot-issue: 4px;              /* 흐름 칸 아래 회차 점 지름 */
+  --icon: 16px;                  /* 선 아이콘 크기 */
+  --icon-stroke: 1.5px;          /* 선 아이콘 획 두께 */
+  --section-desc-width: 560px;   /* 구역 머리 오른쪽 설명 폭 */
+  --popover-width: 288px;        /* 흐름 읽기 창 폭 */
+}
+
+/* ───────── 바탕 ───────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text-1); font-family: var(--font-sans); font-size: var(--fs-body);
+  font-weight: var(--fw-body); line-height: var(--lh-body); word-break: keep-all; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+p, h1, h2, h3, dl, dd { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: var(--focus-width) solid var(--accent); outline-offset: var(--focus-offset); }
+.wrap { width: var(--content-width); margin-inline: auto; }
+.mono { font-family: var(--font-mono); letter-spacing: var(--ls-mono); }
+.sr { position: absolute; width: var(--hairline); height: var(--hairline); overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+svg.ic { width: var(--icon); height: var(--icon); flex: none; fill: none; stroke: currentColor; stroke-width: var(--icon-stroke); stroke-linecap: round; stroke-linejoin: round; }
+
+/* ───────── 상단 막대 ───────── */
+.tb { position: sticky; top: 0; z-index: 30; height: var(--topbar-height); background: var(--topbar-bg);
+  -webkit-backdrop-filter: blur(var(--topbar-blur)); backdrop-filter: blur(var(--topbar-blur)); border-bottom: var(--hairline) solid var(--line-1); }
+.tb-in { height: 100%; display: flex; align-items: center; gap: var(--space-6); }
+.logo { display: flex; align-items: baseline; gap: var(--space-2); white-space: nowrap; }
+.logo b { font-weight: var(--fw-heavy); font-size: var(--fs-body); letter-spacing: var(--ls-mono); }
+.logo span { font-size: var(--fs-label); color: var(--text-2); }
+.nav { margin-left: auto; display: flex; gap: var(--space-6); height: 100%; }
+.nav a { position: relative; display: flex; align-items: center; font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--text-2); white-space: nowrap; }
+.nav a:hover { color: var(--text-1); }
+.nav a.on { color: var(--text-1); }
+.nav a.on::after { content: ""; position: absolute; left: 0; right: 0; bottom: calc(-1 * var(--hairline)); height: var(--mark-width); background: var(--text-1); }
+.search { display: flex; align-items: center; width: var(--search-width); height: var(--control-height); margin: 0;
+  border: var(--hairline) solid var(--line-2); border-radius: var(--radius-m); background: var(--bg-raise); }
+.search:focus-within { border-color: var(--accent); }
+.scope { position: relative; height: 100%; display: flex; align-items: center; border-right: var(--hairline) solid var(--line-2); }
+.scope select { appearance: none; -webkit-appearance: none; height: 100%; padding: 0 calc(var(--space-3) + var(--icon)) 0 var(--space-3);
+  background: transparent; border: 0; border-radius: var(--radius-m) 0 0 var(--radius-m); color: var(--text-1); font: inherit; font-size: var(--fs-small); cursor: pointer; }
+.scope select:focus { outline: none; }
+.scope option { background: var(--bg-raise); color: var(--text-1); }
+.scope .ic { position: absolute; right: var(--space-2); color: var(--text-2); pointer-events: none; }
+.search > .ic { margin: 0 var(--space-2) 0 var(--space-3); color: var(--text-2); }
+.search input { flex: 1; min-width: 0; height: 100%; padding: 0 var(--space-3) 0 0; background: transparent; border: 0;
+  color: var(--text-1); font: inherit; font-size: var(--fs-small); }
+.search input::placeholder { color: var(--text-3); }
+.search input:focus { outline: none; }
+.search input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+/* ───────── 오늘의 호 (히어로) ───────── */
+.hero { position: relative; padding: var(--hero-pad-top) 0 0; scroll-margin-top: var(--topbar-height); }
+.hero-bg { position: absolute; inset: 0; pointer-events: none; }
+.vig { position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, transparent 40%, var(--vignette) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent); mask-image: linear-gradient(to bottom, black 70%, transparent); }
+.hero-grid { position: relative; display: grid; grid-template-columns: var(--hero-stage-width) var(--hero-text-width); column-gap: var(--hero-col-gap); align-items: center; }
+.stage { position: relative; display: flex; flex-direction: column; align-items: center; }
+.beam { position: absolute; top: calc(-1 * var(--hero-pad-top)); left: 50%; height: calc(100% + var(--hero-pad-top));
+  width: calc(var(--hero-stage-width) + 2 * var(--space-8)); transform: translateX(-50%); pointer-events: none;
+  background: conic-gradient(from calc(180deg - var(--beam-spread) / 2) at 50% var(--beam-apex),
+    transparent 0deg, var(--light-beam) var(--beam-soft), var(--light-beam) calc(var(--beam-spread) - var(--beam-soft)), transparent var(--beam-spread));
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 180%); mask-image: linear-gradient(to bottom, black, transparent 180%);
+  animation: beam-on var(--dur-slow) var(--ease-out) both; }
+@keyframes beam-on { from { opacity: 0; } to { opacity: 1; } }
+.glow { position: absolute; inset: calc(-1 * var(--space-8)) calc(-1 * var(--space-6)); pointer-events: none;
+  background: radial-gradient(closest-side, var(--accent-glow), transparent); }
+.cv { position: relative; display: block; width: var(--cover-shelf); box-shadow: var(--shadow-cover);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); }
+.cv:hover { transform: translateY(calc(-1 * var(--lift-hover))); box-shadow: var(--shadow-cover-hover); }
+.cv-hero { width: var(--cover-hero); box-shadow: var(--shadow-cover-hero); }
+.cv-hero:hover { box-shadow: var(--shadow-cover-hero), var(--shadow-cover-hover); }
+.plinth { position: relative; width: calc(var(--cover-hero) + 2 * var(--space-5)); height: var(--shelf-height);
+  background: linear-gradient(var(--shelf-top) 0 var(--shelf-top-height), var(--shelf-face) var(--shelf-top-height)); box-shadow: var(--shadow-ledge); }
+
+.hero-text { position: relative; }
+.eyebrow { display: flex; align-items: center; gap: var(--space-3); font-family: var(--font-mono); font-size: var(--fs-label);
+  letter-spacing: var(--ls-mono); line-height: var(--lh-label); color: var(--text-2); }
+.eyebrow i { width: var(--space-5); height: var(--hairline); background: var(--text-3); }
+.dateline { display: flex; align-items: baseline; gap: var(--space-3); margin-top: var(--space-4); }
+.dateline b { font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-hero-date); line-height: var(--lh-numeral); letter-spacing: var(--ls-display); }
+.dateline span { font-size: var(--fs-body); font-weight: var(--fw-medium); color: var(--text-2); }
+.hl { margin-top: var(--space-5); font-weight: var(--fw-heavy); font-size: var(--fs-hero-headline); line-height: var(--lh-headline);
+  letter-spacing: var(--ls-headline); color: var(--text-1); text-wrap: balance; }
+.hl span { display: block; text-wrap: wrap; }
+.hl span:last-child { text-wrap: balance; }
+.today-ph { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-7); }
+.today-ph .lab { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-mono); line-height: var(--lh-label); color: var(--text-2); }
+.today-ph .name { font-weight: var(--fw-heavy); font-size: var(--fs-phase-name); line-height: var(--lh-title); }
+.today-sub { margin-top: var(--space-3); font-size: var(--fs-small); color: var(--text-2); }
+.metrics { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; margin-top: var(--space-6); }
+.metric { padding: 0 var(--space-6); border-left: var(--hairline) solid var(--line-1); }
+.metric:first-child { padding-left: 0; border-left: 0; }
+.metric dt { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-mono); line-height: var(--lh-label); color: var(--text-2); white-space: nowrap; }
+.metric .val { margin-top: var(--space-2); font-family: var(--font-display); font-weight: var(--fw-display); font-size: var(--fs-metric);
+  line-height: var(--lh-numeral); letter-spacing: var(--ls-display); white-space: nowrap; }
+.metric .val small { margin-left: var(--space-1); font-size: var(--fs-lead); color: var(--text-2); }
+.metric .cmp { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--fs-small); line-height: var(--lh-label); color: var(--text-2); white-space: nowrap; }
+.metric .cmp + .cmp { margin-top: var(--space-1); }
+svg.refg { width: var(--space-4); height: var(--space-2); flex: none; }
+svg.refg line { stroke: var(--line-ref); stroke-width: var(--hairline); stroke-dasharray: var(--ref-dash); }
+.cta { display: flex; gap: var(--space-3); margin-top: var(--space-7); }
+.btn { display: inline-flex; align-items: center; gap: var(--space-2); height: var(--button-height); padding: 0 var(--space-5);
+  border-radius: var(--radius-m); font-size: var(--fs-body); font-weight: var(--fw-strong); white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-out); }
+.btn-fill { background: var(--accent); color: var(--accent-ink); }
+.btn-line { border: var(--hairline) solid var(--line-2); color: var(--text-1); }
+.btn-line:hover { background: var(--bg-hover); }
+
+/* ───────── 국면 칸 (어디서나 같은 모양, 크기만 다름) ───────── */
+.ph { display: inline-flex; align-items: center; justify-content: center; flex: none; overflow: hidden; border-radius: var(--radius-s);
+  background: var(--ph); color: var(--ph-ink); font-family: var(--font-display); font-weight: var(--fw-display); font-style: normal; line-height: var(--lh-numeral); }
+.ph-hero { width: var(--phase-cell-hero); height: var(--phase-cell-hero); font-size: var(--fs-phase-letter); }
+.ph-chip { width: var(--phase-chip); height: var(--phase-chip); font-size: var(--fs-small); }
+.ph-flow { width: calc(var(--flow-day-width) - var(--flow-cell-gap)); height: calc(var(--flow-day-width) - var(--flow-cell-gap)); font-size: var(--fs-small); }
+.ph-none { --ph: var(--phase-none); --ph-ink: var(--phase-none-ink); }
+.ph-split { background: none; }
+.ph-chip.ph-split, .ph-flow.ph-split { font-size: var(--fs-micro); }
+.ph-split i { flex: 1 1 0; align-self: stretch; display: flex; align-items: center; justify-content: center; background: var(--ph); color: var(--ph-ink); font-style: normal; }
+.ph-empty { background: none; border: var(--slot-empty-border); }
+.ph-next { background: var(--accent-glow); border: var(--slot-next-border); }
+.ph.is-today { outline: var(--mark-width) solid var(--accent); outline-offset: var(--hairline); }
+
+/* ───────── 구역 머리 (모든 구역 같은 꼴) ───────── */
+.sec { padding-top: var(--section-gap); scroll-margin-top: calc(var(--topbar-height) - var(--section-gap) + var(--space-7)); }
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-7);
+  padding-bottom: var(--space-4); margin-bottom: var(--section-head-gap); border-bottom: var(--hairline) solid var(--line-1); }
+.sec-title { display: flex; align-items: baseline; gap: var(--space-4); white-space: nowrap; }
+.sec-title h2 { font-size: var(--fs-section-title); font-weight: var(--fw-heavy); line-height: var(--lh-title); letter-spacing: var(--ls-headline); }
+.sec-title .aux { font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--text-2); }
+.sec-desc { max-width: var(--section-desc-width); font-size: var(--fs-small); line-height: var(--lh-body); color: var(--text-2); text-align: right; }
+.sec-desc span { display: block; }
+
+/* ───────── 가판대 ───────── */
+.week + .week { margin-top: var(--shelf-row-gap); }
+.rack { position: relative; padding: var(--space-5) 0 var(--shelf-height); }
+.rack::before { content: ""; position: absolute; top: 0; bottom: var(--shelf-height); left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter));
+  background: linear-gradient(to bottom, transparent, var(--light-shelf) 32%, var(--light-shelf)); pointer-events: none; }
+.rack::after { content: ""; position: absolute; z-index: 0; bottom: 0; height: var(--shelf-height); left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter));
+  background: linear-gradient(var(--shelf-top) 0 var(--shelf-top-height), var(--shelf-face) var(--shelf-top-height)); box-shadow: var(--shadow-ledge); }
+.week-head { position: relative; display: flex; align-items: baseline; gap: var(--space-3); margin-bottom: var(--space-4);
+  font-size: var(--fs-small); line-height: var(--lh-label); color: var(--text-2); }
+.week-head b { font-weight: var(--fw-strong); color: var(--text-1); }
+.week-head .rng { font-size: var(--fs-label); }
+.slots { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: var(--gap-day); }
+.dslot { display: flex; gap: var(--gap-same-day); }
+.empty-slot, .next-slot { width: var(--cover-shelf); aspect-ratio: var(--cover-aspect); }
+.empty-slot { border: var(--slot-empty-border); }
+.next-slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-1); text-align: center;
+  border: var(--slot-next-border); background: radial-gradient(ellipse at 50% 45%, var(--accent-glow), transparent 75%); }
+.next-slot b { font-size: var(--fs-body); font-weight: var(--fw-strong); color: var(--accent-text); }
+.next-slot span { font-size: var(--fs-label); line-height: var(--lh-label); color: var(--text-1); }
+.next-slot small { font-size: var(--fs-micro); line-height: var(--lh-label); color: var(--text-2); }
+.tags { display: flex; gap: var(--gap-day); margin-top: var(--tag-gap); }
+.tagd { width: calc(var(--n) * var(--cover-shelf) + (var(--n) - 1) * var(--gap-same-day)); }
+.tag { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-mono); line-height: var(--lh-label); color: var(--text-2); white-space: nowrap; }
+.tag.is-today, .tag.is-next { color: var(--accent-text); }
+.subs { display: flex; gap: var(--gap-same-day); min-height: calc(var(--fs-micro) * var(--lh-label)); margin-top: var(--space-1); }
+.subs span { width: var(--cover-shelf); font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-mono); line-height: var(--lh-label); color: var(--text-3); white-space: nowrap; }
+
+/* ───────── 국면·지표 ───────── */
+.flow { position: relative; }
+.fl-hl { position: absolute; z-index: 0; top: calc(-1 * var(--space-2)); bottom: calc(-1 * var(--space-2)); width: var(--flow-day-width);
+  border-radius: var(--radius-s); background: var(--bg-hover); opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) var(--ease-out); }
+.fl-hl.on { opacity: 1; }
+.fl-row { position: relative; z-index: 1; }
+.fl-phase { height: var(--flow-cell-height); }
+.fl-axis { height: var(--space-5); margin-top: var(--space-1); }
+.fl-track { height: var(--flow-track-height); margin-top: var(--flow-track-gap); }
+.fl-axis + .fl-track { margin-top: var(--space-3); }
+.fl-lab { position: absolute; left: 0; top: 0; width: calc(var(--flow-label-width) - var(--space-8)); line-height: var(--lh-label); }
+.fl-lab b { display: block; font-family: var(--font-mono); font-size: var(--fs-label); font-weight: var(--fw-medium); letter-spacing: var(--ls-mono); color: var(--text-1); }
+.fl-lab span { display: block; margin-top: var(--space-1); font-size: var(--fs-micro); color: var(--text-3); }
+.fl-phase .fl-lab { display: flex; align-items: baseline; gap: var(--space-2); height: calc(var(--flow-day-width) - var(--flow-cell-gap)); padding-top: var(--space-2); }
+.fl-phase .fl-lab b { font-family: var(--font-sans); font-size: var(--fs-small); font-weight: var(--fw-strong); }
+.fl-phase .fl-lab span { margin: 0; }
+.fl-day, .fl-num { position: absolute; top: 0; width: var(--flow-day-width);
+  left: calc(var(--flow-label-width) + var(--i) * var(--flow-day-width) + var(--w) * var(--flow-week-gap)); }
+.fl-day { height: 100%; display: flex; flex-direction: column; align-items: center; gap: var(--space-1); }
+.fl-day .dots { display: flex; gap: var(--space-1); }
+.fl-day .dots i { width: var(--dot-issue); height: var(--dot-issue); border-radius: 50%; background: var(--text-2); }
+.fl-num { text-align: center; font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-mono); line-height: var(--space-5); color: var(--text-3); }
+.fl-num.is-today { color: var(--text-1); }
+.fl-num.is-next { color: var(--text-2); }
+.fl-axis .fl-lab { line-height: var(--space-5); font-size: var(--fs-micro); color: var(--text-3); }
+.tick { position: absolute; right: calc(100% - var(--flow-label-width) + var(--space-3)); transform: translateY(-50%);
+  font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-mono); line-height: var(--lh-numeral); color: var(--text-3); white-space: nowrap; }
+.tick.ref { color: var(--text-2); }
+.refname { position: absolute; left: calc(var(--flow-label-width) + var(--space-2)); transform: translateY(-100%); padding-bottom: var(--space-1);
+  font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-mono); line-height: var(--lh-numeral); color: var(--text-2); white-space: nowrap; }
+.refname.below { transform: none; padding: var(--space-1) 0 0; }
+svg.trk { position: absolute; left: var(--flow-label-width); top: 0; overflow: visible; }
+svg.trk .grid { stroke: var(--line-grid); stroke-width: var(--hairline); }
+svg.trk .week { stroke: var(--line-grid); stroke-width: var(--hairline); }
+svg.trk .ref { stroke: var(--line-ref); stroke-width: var(--hairline); stroke-dasharray: var(--ref-dash); }
+svg.trk .ln { fill: none; stroke: var(--chart-line); stroke-width: var(--chart-line-width); stroke-linejoin: round; stroke-linecap: round; }
+svg.trk .pt { fill: var(--chart-line); r: calc(var(--chart-point) / 2); }
+svg.trk .pt.is-today { fill: var(--accent); r: calc(var(--chart-point-today) / 2); }
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6); margin-top: var(--space-7);
+  padding-top: var(--space-5); border-top: var(--hairline) solid var(--line-1); }
+.lg { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--fs-label); line-height: var(--lh-label); color: var(--text-2); white-space: nowrap; }
+.lg .dots { display: inline-flex; gap: var(--space-1); }
+.lg .dots i { width: var(--dot-issue); height: var(--dot-issue); border-radius: 50%; background: var(--text-2); }
+.pop { position: absolute; z-index: 5; width: var(--popover-width); padding: var(--space-4); border: var(--hairline) solid var(--line-2);
+  border-radius: var(--radius-m); background: var(--bg-raise); box-shadow: var(--shadow-popover); pointer-events: none; }
+.pop[hidden] { display: none; }
+.pop .pd { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-mono); color: var(--text-2); }
+.pop .pph { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); font-size: var(--fs-small); font-weight: var(--fw-strong); }
+.pop dl { margin-top: var(--space-3); display: grid; grid-template-columns: 1fr auto; gap: var(--space-1) var(--space-4); }
+.pop dt { font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-mono); color: var(--text-2); }
+.pop dd { font-family: var(--font-mono); font-size: var(--fs-label); text-align: right; }
+.pop .ph-line { margin-top: var(--space-3); font-size: var(--fs-small); line-height: var(--lh-label); color: var(--text-1); }
+
+/* ───────── 발행 목록 ───────── */
+.tbl-head, .row { display: grid; align-items: center;
+  grid-template-columns: var(--col-no) var(--col-date) var(--col-phase) minmax(0, 1fr) repeat(4, var(--col-num)) var(--col-run); }
+.tbl-head { min-height: var(--space-7); border-radius: var(--radius-m) var(--radius-m) 0 0; background: var(--bg-raise);
+  font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-mono); line-height: var(--lh-label); color: var(--text-2); }
+.tbl-head > span { padding-block: var(--space-3); }
+.tbl-head .num, .tbl-head .grp i { text-align: right; padding-right: var(--space-5); }
+.tbl-head .grp { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; }
+.tbl-head .grp b { grid-column: 1 / -1; margin: 0 var(--space-5) var(--space-1) var(--space-6); padding-bottom: var(--space-1);
+  border-bottom: var(--hairline) solid var(--line-2); font-weight: inherit; text-align: center; }
+.tbl-head .grp i { font-style: normal; }
+.tbl-head .run, .row .c-run { justify-self: end; }
+.tbl-head .run { padding-right: var(--space-4); }
+.c-no { padding-left: var(--space-4); }
+.row { min-height: var(--list-row-height); border-bottom: var(--hairline) solid var(--line-1); transition: background-color var(--dur-fast) var(--ease-out); }
+a.row:hover { background: var(--bg-hover); }
+.row .c-no { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-mono); color: var(--text-2); }
+.c-date { display: flex; flex-direction: column; line-height: var(--lh-label); }
+.c-date b { font-family: var(--font-mono); font-size: var(--fs-table); font-weight: var(--fw-medium); letter-spacing: var(--ls-mono); }
+.c-date small { font-size: var(--fs-micro); color: var(--text-3); }
+.c-hl { padding: var(--space-2) var(--space-6) var(--space-2) 0; font-size: var(--fs-table); font-weight: var(--fw-medium); line-height: var(--lh-label); }
+.c-hl .t { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.c-hl .t.one { -webkit-line-clamp: 1; }
+.c-hl .note { display: flex; align-items: baseline; gap: var(--space-2); color: var(--text-2); font-weight: var(--fw-body); }
+.c-hl .note + .note, .c-hl .t + .note { margin-top: var(--space-1); }
+.c-hl .note span:last-child { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.memo { flex: none; padding: 0 var(--space-1); border: var(--hairline) solid var(--line-2); border-radius: var(--radius-s);
+  font-size: var(--fs-micro); font-weight: var(--fw-medium); line-height: var(--lh-label); color: var(--text-2); }
+.c-num { padding-right: var(--space-5); text-align: right; font-family: var(--font-mono); font-size: var(--fs-table); letter-spacing: var(--ls-mono); }
+.c-num.lead { color: var(--text-1); }
+.c-num.sub { color: var(--text-2); }
+.na { color: var(--text-3); }
+.pill { display: inline-flex; align-items: center; height: var(--space-5); padding: 0 var(--space-2); border: var(--hairline) solid var(--line-2);
+  border-radius: var(--radius-pill); font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: var(--ls-mono); color: var(--text-2); white-space: nowrap; }
+.row-gap .c-hl { color: var(--text-2); font-weight: var(--fw-body); }
+mark { background: var(--accent-soft); color: var(--text-1); border-radius: var(--radius-s); }
+.tbl-foot { display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-4); font-size: var(--fs-small); color: var(--text-2); }
+.btn-s { display: inline-flex; align-items: center; gap: var(--space-2); height: var(--control-height); padding: 0 var(--space-4);
+  border: var(--hairline) solid var(--line-2); border-radius: var(--radius-m); background: transparent; color: var(--text-1);
+  font-size: var(--fs-small); font-weight: var(--fw-medium); cursor: pointer; transition: background-color var(--dur-fast) var(--ease-out); }
+.btn-s:hover { background: var(--bg-hover); }
+.empty { padding: var(--space-9) 0; text-align: center; border-bottom: var(--hairline) solid var(--line-1); }
+.empty .msg { font-size: var(--fs-lead); font-weight: var(--fw-strong); color: var(--text-1); }
+.empty .acts { display: flex; justify-content: center; gap: var(--space-3); margin-top: var(--space-5); }
+.empty .eg { margin-top: var(--space-5); font-size: var(--fs-small); color: var(--text-2); }
+.empty .eg b { font-family: var(--font-mono); font-weight: var(--fw-medium); color: var(--text-1); }
+
+/* ───────── 안내 ───────── */
+.info-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: var(--hero-col-gap); }
+.info-side > * + .sub-h { margin-top: var(--space-8); }
+.sub-h { display: flex; align-items: baseline; gap: var(--space-3); font-size: var(--fs-lead); font-weight: var(--fw-heavy); line-height: var(--lh-title); }
+.sub-h span { font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--text-2); }
+.info-lead { margin-top: var(--space-3); font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-2); }
+.upd { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5) var(--space-6); margin-top: var(--space-6); }
+.upd > div { padding-top: var(--space-4); border-top: var(--hairline) solid var(--line-1); }
+.upd dt { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: var(--fw-medium); letter-spacing: var(--ls-mono); line-height: var(--lh-label); color: var(--text-1); }
+.upd dd { margin-top: var(--space-2); font-size: var(--fs-small); line-height: var(--lh-body); color: var(--text-2); }
+.doc { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-5); margin-top: var(--space-6);
+  padding: var(--space-5) 0; border-top: var(--hairline) solid var(--line-1); border-bottom: var(--hairline) solid var(--line-1);
+  transition: background-color var(--dur-fast) var(--ease-out); }
+.doc:hover { background: var(--bg-hover); }
+.doc-sib { grid-template-columns: minmax(0, 1fr) auto; margin-top: var(--space-4); }
+.doc .dd { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: var(--ls-mono); color: var(--text-2); white-space: nowrap; }
+.doc b { display: block; font-size: var(--fs-lead); font-weight: var(--fw-strong); line-height: var(--lh-title); }
+.doc .ds { display: block; margin-top: var(--space-1); font-size: var(--fs-small); color: var(--text-2); }
+.doc .go { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--fs-small); color: var(--text-2); white-space: nowrap; }
+.foot { margin-top: var(--section-gap); border-top: var(--hairline) solid var(--line-1); }
+.foot-in { display: flex; align-items: center; justify-content: space-between; padding: var(--space-6) 0 var(--space-8); font-size: var(--fs-small); color: var(--text-2); }
+.foot a { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--text-1); font-weight: var(--fw-medium); }
+.foot a:hover { text-decoration: underline; text-underline-offset: var(--space-1); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .beam { animation: none; }
+  .cv, .btn, .btn-s, .row, .doc, .fl-hl { transition: none; }
+  .cv:hover { transform: none; }
+}
+</style>
+</head><body>
+<div id="app"></div>
+<script src="../data.js"></script>
+<script>
+(function(){
+<<MZ>>
+<<COMMON>>
+
+/* ───────── 토큰 값(px)은 :root에서 읽는다. 차트 좌표만 JS로 계산한다 ───────── */
+var RS = getComputedStyle(document.documentElement);
+function tk(name){ return parseFloat(RS.getPropertyValue(name)) || 0; }
+var DAYW = tk('--flow-day-width'), WGAP = tk('--flow-week-gap'), LBLW = tk('--flow-label-width'),
+    TRKH = tk('--flow-track-height'), CONTW = tk('--content-width'), PADY = tk('--space-3'), POPW = tk('--popover-width');
+
+/* ───────── 날짜 도우미 ───────── */
+function dAdd(d, n){ return new Date((dn(d) + n) * 864e5).toISOString().slice(0, 10); }
+function wdIdx(d){ return new Date(dn(d) * 864e5).getUTCDay(); }
+function kDate(d){ var a = d.split('-'); return (+a[0]) + '년 ' + (+a[1]) + '월 ' + (+a[2]) + '일'; }
+function tagDate(d){ return mdot(d) + ' ' + wd(d); }
+var TODAY = L.date, FIRST = B[0].date, NEXT = dAdd(TODAY, 1), NEXT_TIME = '06:10';
+var DM = dayMap(), ST = stats();
+var MISSING = []; for (var d0 = FIRST; d0 <= TODAY; d0 = dAdd(d0, 1)) if (!DM[d0]) MISSING.push(d0);
+
+/* ───────── 선 아이콘 ───────── */
+var IC = {
+  search: '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.75"/><path d="M10.5 10.5 14 14"/></svg>',
+  down:   '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 6.5 8 10l3.5-3.5"/></svg>',
+  right:  '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 3.5 11 8l-4.5 4.5"/></svg>',
+  arrow:  '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>',
+  save:   '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>'
+};
+var REFG = '<svg class="refg" viewBox="0 0 16 8" aria-hidden="true"><line x1="0" y1="4" x2="16" y2="4"/></svg>';
+
+/* ───────── 국면 칸: 히어로·흐름·목록 모두 같은 모양 ───────── */
+function phVars(k){ k = k.toLowerCase(); return 'style="--ph:var(--phase-' + k + ');--ph-ink:var(--phase-' + k + '-ink)"'; }
+function phCell(p, size, extra){
+  var ps = parts(p), cls = 'ph ph-' + size + (extra ? ' ' + extra : '');
+  if (!ps.length) return '<span class="' + cls + ' ph-none" title="국면 미기록">?</span>';
+  if (ps.length === 1) return '<span class="' + cls + '" ' + phVars(ps[0]) + ' title="국면 ' + ps[0] + ' · ' + esc(PHN[ps[0]]) + '">' + ps[0] + '</span>';
+  var a = ps[0], z = ps[ps.length - 1];
+  return '<span class="' + cls + ' ph-split" title="국면 ' + a + '→' + z + ' · 걸친 판정"><i ' + phVars(a) + '>' + a + '</i><i ' + phVars(z) + '>' + z + '</i></span>';
+}
+function phName(p){ var ps = parts(p); return !ps.length ? '국면 미기록' : ps.length === 1 ? PHN[ps[0]] : ps.join('→') + ' 걸친 판정'; }
+
+/* ───────── 표지 링크 (표지 안쪽은 건드리지 않는다) ───────── */
+function coverText(b){ return b.headline || b.note || b.title; }
+function coverAlt(b){ return '제' + vol(b) + '호 ' + kDate(b.date) + (DM[b.date].length > 1 ? ' ' + b.seq + '회차' : '') + ' 표지: ' + coverText(b); }
+function coverLink(b, cls){
+  return '<a class="cv' + (cls ? ' ' + cls : '') + '" href="' + esc(b.url) + '" target="_blank" rel="noopener" aria-label="' + esc(coverAlt(b)) + '">' + cover(b) + '</a>';
+}
+function secHead(id, title, aux, desc){
+  return '<header class="sec-head"><div class="sec-title"><h2 id="' + id + '-h">' + title + '</h2><span class="aux" id="' + id + '-aux">' + aux + '</span></div>'
+    + '<p class="sec-desc">' + [].concat(desc).map(function(t){ return '<span>' + t + '</span>'; }).join('') + '</p></header>';
+}
+
+/* ───────── 상단 막대 ───────── */
+var NAV = [['today', '오늘의 호'], ['shelf', '가판대'], ['flow', '국면·지표'], ['list', '발행 목록'], ['info', '안내']];
+var topBar = '<header class="tb"><div class="wrap tb-in">'
+  + '<a class="logo" href="#today"><b>크립토 브리핑</b><span>서고</span></a>'
+  + '<nav class="nav" aria-label="구역">' + NAV.map(function(n, i){ return '<a href="#' + n[0] + '" data-sec="' + n[0] + '"' + (i ? '' : ' class="on" aria-current="true"') + '>' + n[1] + '</a>'; }).join('') + '</nav>'
+  + '<form class="search" role="search" onsubmit="return false">'
+  +   '<label class="sr" for="q-scope">검색 범위</label>'
+  +   '<span class="scope"><select id="q-scope"><option value="all">전체</option><option value="headline">헤드라인</option><option value="note">메모</option><option value="date">날짜</option></select>' + IC.down + '</span>'
+  +   IC.search + '<label class="sr" for="q">검색어</label><input id="q" type="search" placeholder="날짜나 낱말로 찾기" autocomplete="off">'
+  + '</form></div></header>';
+
+/* ───────── 오늘의 호 ───────── */
+function splitHL(h){ var i = h.lastIndexOf(', '); return (i >= 4 && h.length - i - 2 >= 6) ? [h.slice(0, i + 1), h.slice(i + 2)] : [h]; }
+var dl = deltas(L), Lps = parts(L.phase);
+var subBits = [];
+if (L.provisional) subBits.push('임시 기준');
+if (L.prevPhase) { var pp = parts(L.prevPhase).join('→'); subBits.push(pp === Lps.join('→') ? '전날 국면 ' + pp + '와 같음' : '전날 국면 ' + pp + '에서 바뀜'); }
+function dayCmp(v){ if (v == null) return ''; return Number(Math.abs(v).toFixed(2)) === 0 ? '전날과 같음' : (v > 0 ? '▲ ' : '▼ ') + '전날 ' + sg(v, 2) + '%p'; }
+var METRICS = [
+  { k: 'BTC.D', v: L.btcd == null ? null : f(L.btcd, 2), u: '%', lines: [dayCmp(dl.dB)] },
+  { k: 'ΣSTABLECOIN.D 1개월', v: L.stable1m == null ? null : sg(L.stable1m, 3), u: '%p',
+    lines: [L.stableD == null ? '' : '수준 ' + f(L.stableD, 3) + '%',
+            L.stable1m == null ? '' : REFG + 'E 임시 기준 +1.0%p ' + (L.stable1m < 1 ? '아래' : '도달')] },
+  { k: 'BTCUSD 1개월', v: L.btc1m == null ? null : sg(L.btc1m, 2), u: '%',
+    lines: [L.btc1m == null ? '' : REFG + (L.btc1m < 0 ? '0 아래 · D·E 전제 충족' : '0 위 · D·E 전제 미충족')] }
+];
+var hero = '<section class="hero" id="today" aria-labelledby="today-h">'
+  + '<div class="hero-bg" aria-hidden="true"><i class="vig"></i></div>'
+  + '<div class="wrap hero-grid">'
+  +   '<div class="stage"><i class="beam" aria-hidden="true"></i><i class="glow" aria-hidden="true"></i>' + coverLink(L, 'cv-hero') + '<i class="plinth" aria-hidden="true"></i></div>'
+  +   '<div class="hero-text">'
+  +     '<p class="eyebrow"><i></i>오늘의 호</p>'
+  +     '<p class="dateline"><b>' + L.date.replace(/-/g, '.') + '</b><span>' + wd(L.date) + '요일 · 제' + vol(L) + '호 · ' + esc(runLabel(L)) + '</span></p>'
+  +     '<h1 class="hl" id="today-h">' + splitHL(L.headline || L.note).map(function(s){ return '<span>' + esc(s) + '</span>'; }).join(' ') + '</h1>'
+  +     '<div class="today-ph">' + phCell(L.phase, 'hero') + '<div><p class="lab">오늘의 국면</p><p class="name">' + esc(phName(L.phase)) + '</p></div></div>'
+  +     (subBits.length ? '<p class="today-sub">' + subBits.join(' · ') + '</p>' : '')
+  +     '<dl class="metrics">' + METRICS.map(function(m){
+          return '<div class="metric"><dt>' + m.k + '</dt><dd class="val">' + (m.v == null ? '<span class="na">—</span>' : m.v + '<small>' + m.u + '</small>') + '</dd>'
+            + m.lines.filter(Boolean).map(function(t){ return '<dd class="cmp">' + t + '</dd>'; }).join('') + '</div>';
+        }).join('') + '</dl>'
+  +     '<div class="cta"><a class="btn btn-fill" href="' + esc(L.url) + '" target="_blank" rel="noopener">브리핑 펼치기' + IC.right + '</a>'
+  +       '<a class="btn btn-line" href="#shelf">지난 호 넘겨 보기</a></div>'
+  +   '</div>'
+  + '</div></section>';
+
+/* ───────── 가판대: 월요일 시작 주 단위 선반, 최신 주가 맨 위 ───────── */
+function mondayOf(d){ return dAdd(d, -((wdIdx(d) + 6) % 7)); }
+var WEEKS = [];
+for (var mon = mondayOf(NEXT); mon >= mondayOf(FIRST); mon = dAdd(mon, -7)) {
+  var days = [];
+  for (var j = 0; j < 7; j++) { var dd = dAdd(mon, j); if (dd >= FIRST && dd <= NEXT) days.push(dd); }
+  WEEKS.push({ mon: mon, days: days });
+}
+function weekRel(i){ return i === 0 ? '이번 주' : i === 1 ? '지난주' : i + '주 전'; }
+var shelfHTML = WEEKS.map(function(w, wi){
+  var n = 0, gaps = 0, slots = '', tags = '';
+  w.days.forEach(function(d){
+    var iss = DM[d] || [];
+    if (d === NEXT) {
+      slots += '<div class="dslot"><div class="next-slot" aria-label="다음 호 ' + tagDate(d) + ' ' + NEXT_TIME + ' 예정"><b>다음 호</b><span class="mono">' + tagDate(d) + '</span><small class="mono">' + NEXT_TIME + ' 예정</small></div></div>';
+      tags += '<div class="tagd" style="--n:1"><p class="tag is-next">' + tagDate(d) + '</p><p class="subs"></p></div>';
+    } else if (!iss.length) {
+      gaps++;
+      slots += '<div class="dslot"><div class="empty-slot" aria-label="' + tagDate(d) + ' 브리핑 없음"></div></div>';
+      tags += '<div class="tagd" style="--n:1"><p class="tag">' + tagDate(d) + '</p><p class="subs"><span>브리핑 없음</span></p></div>';
+    } else {
+      n += iss.length;
+      slots += '<div class="dslot">' + iss.map(function(b){ return coverLink(b); }).join('') + '</div>';
+      var isT = d === TODAY;
+      tags += '<div class="tagd" style="--n:' + iss.length + '"><p class="tag' + (isT ? ' is-today' : '') + '">' + tagDate(d) + (iss.length > 1 ? ' · ' + iss.length + '회' : '') + (isT ? ' · 오늘' : '') + '</p>'
+        + '<p class="subs">' + (iss.length > 1 ? iss.map(function(b){ return '<span>' + b.seq + '회차</span>'; }).join('') : '') + '</p></div>';
+    }
+  });
+  var first = w.days[0], last = dAdd(w.mon, 6);
+  var extra = [];
+  if (gaps) extra.push('브리핑 없는 날 ' + gaps + '일');
+  if (first === FIRST) extra.push('서고 첫 주');
+  return '<div class="week"><div class="rack"><p class="week-head"><b>' + weekRel(wi) + '</b><span class="mono rng">' + mdot(first) + ' – ' + mdot(first === FIRST ? w.days[w.days.length - 1] : last) + '</span>'
+    + '<span>' + n + '호' + (extra.length ? ' · ' + extra.join(' · ') : '') + '</span></p>'
+    + '<div class="slots">' + slots + '</div></div>'
+    + '<div class="tags">' + tags + '</div></div>';
+}).join('');
+var shelf = '<section class="sec wrap" id="shelf" aria-labelledby="shelf-h">'
+  + secHead('shelf', '가판대', '2026년 9월 · ' + ST.n + '호',
+      ['9월에 꽂힌 표지 ' + ST.n + '장을 한 주에 한 선반씩, 같은 날 호는 붙여 세웠습니다.', '표지를 누르면 그날 브리핑이 열립니다.'])
+  + shelfHTML + '</section>';
+
+/* ───────── 국면·지표: 국면 칸 한 줄 + 지표 세 줄, 같은 날짜 축 ───────── */
+var FD = []; for (var d1 = FIRST; d1 <= NEXT; d1 = dAdd(d1, 1)) FD.push(d1);
+var MONC = [], mc = 0; FD.forEach(function(d, i){ if (i > 0 && wdIdx(d) === 1) mc++; MONC.push(mc); });
+function colL(i){ return i * DAYW + MONC[i] * WGAP; }          /* 플롯 안 열의 왼쪽 */
+function colC(i){ return colL(i) + DAYW / 2; }                  /* 열 가운데 */
+var PLOTW = colL(FD.length - 1) + DAYW;
+var dayVars = function(i){ return 'style="--i:' + i + ';--w:' + MONC[i] + '"'; };
+
+var phaseRow = '<div class="fl-row fl-phase"><div class="fl-lab"><b>국면</b><span>마지막 회차</span></div>' + FD.map(function(d, i){
+  var iss = DM[d], cell;
+  if (d === NEXT) cell = '<span class="ph ph-flow ph-next" title="다음 호 · ' + tagDate(d) + ' ' + NEXT_TIME + ' 예정"></span>';
+  else if (!iss) cell = '<span class="ph ph-flow ph-empty" title="' + tagDate(d) + ' · 브리핑 없음"></span>';
+  else cell = phCell(iss[iss.length - 1].phase, 'flow', d === TODAY ? 'is-today' : '');
+  var dots = iss && iss.length > 1 ? '<span class="dots" aria-label="' + iss.length + '회 발행">' + new Array(iss.length + 1).join('<i></i>') + '</span>' : '';
+  return '<div class="fl-day" ' + dayVars(i) + '>' + cell + dots + '</div>';
+}).join('') + '</div>';
+var axisRow = '<div class="fl-row fl-axis"><div class="fl-lab">' + (+FIRST.slice(5, 7)) + '월</div>' + FD.map(function(d, i){
+  var lab = d.slice(5, 7) === FIRST.slice(5, 7) ? String(+d.slice(8)) : (+d.slice(5, 7)) + '.' + (+d.slice(8));
+  return '<span class="fl-num' + (d === TODAY ? ' is-today' : d === NEXT ? ' is-next' : '') + '" ' + dayVars(i) + '>' + lab + '</span>';
+}).join('') + '</div>';
+
+var TRACKS = [
+  { key: 'btcd', name: 'BTC.D', unit: '%', ticks: [59, 59.5, 60], fmt: function(v){ return v.toFixed(1); } },
+  { key: 'stable1m', name: 'ΣSTABLECOIN.D', unit: '1개월 변화 · %p', ticks: [-2, -1, 0], fmt: function(v){ return v === 0 ? '0' : sg(v, 1); },
+    ref: 1, refTick: '+1.0', refName: 'E 판정 임시 기준 +1.0%p', refPos: 'above' },
+  { key: 'btc1m', name: 'BTCUSD', unit: '1개월 변화 · %', ticks: [10, 20], fmt: function(v){ return String(v); },
+    ref: 0, refTick: '0', refName: '0 · 이 아래로 내려가야 D·E 판정의 전제가 선다', refPos: 'above' }
+];
+function trackRow(t){
+  var pts = daily(t.key).map(function(p){ return { i: FD.indexOf(p.d), v: p.v, d: p.d }; }).filter(function(p){ return p.i >= 0; });
+  var vals = pts.map(function(p){ return p.v; }).concat(t.ticks); if (t.ref != null) vals.push(t.ref);
+  var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), pad = (hi - lo) * 0.06; lo -= pad; hi += pad;
+  var y = function(v){ return PADY + (TRKH - 2 * PADY) * (hi - v) / (hi - lo); };
+  var s = '<svg class="trk" width="' + PLOTW + '" height="' + TRKH + '" viewBox="0 0 ' + PLOTW + ' ' + TRKH + '" aria-hidden="true">';
+  FD.forEach(function(d, i){ if (i > 0 && MONC[i] !== MONC[i - 1]) { var x = (colL(i) - WGAP / 2).toFixed(1); s += '<line class="week" x1="' + x + '" x2="' + x + '" y1="0" y2="' + TRKH + '"/>'; } });
+  t.ticks.forEach(function(v){ var yy = y(v).toFixed(1); s += '<line class="grid" x1="0" x2="' + PLOTW + '" y1="' + yy + '" y2="' + yy + '"/>'; });
+  if (t.ref != null) { var ry = y(t.ref).toFixed(1); s += '<line class="ref" x1="0" x2="' + PLOTW + '" y1="' + ry + '" y2="' + ry + '"/>'; }
+  var path = '';
+  pts.forEach(function(p, k){ path += ((k && p.i - pts[k - 1].i === 1) ? 'L' : 'M') + colC(p.i).toFixed(1) + ' ' + y(p.v).toFixed(1); });
+  s += '<path class="ln" d="' + path + '"/>';
+  pts.forEach(function(p){ s += '<circle class="pt' + (p.d === TODAY ? ' is-today' : '') + '" cx="' + colC(p.i).toFixed(1) + '" cy="' + y(p.v).toFixed(1) + '"/>'; });
+  s += '</svg>';
+  var ticks = t.ticks.map(function(v){ return '<span class="tick" style="top:' + y(v).toFixed(1) + 'px">' + t.fmt(v) + '</span>'; }).join('');
+  if (t.ref != null) ticks += '<span class="tick ref" style="top:' + y(t.ref).toFixed(1) + 'px">' + t.refTick + '</span>'
+    + '<span class="refname' + (t.refPos === 'below' ? ' below' : '') + '" style="top:' + y(t.ref).toFixed(1) + 'px">' + t.refName + '</span>';
+  return '<div class="fl-row fl-track"><div class="fl-lab"><b>' + t.name + '</b><span>' + t.unit + '</span></div>' + ticks + s + '</div>';
+}
+var legend = '<div class="legend">'
+  + ['A', 'B', 'C', 'D', 'E'].map(function(k){ return '<span class="lg">' + phCell(k, 'chip') + esc(PHN[k]) + '</span>'; }).join('')
+  + '<span class="lg">' + phCell('C→D', 'chip') + '걸친 판정</span>'
+  + '<span class="lg">' + phCell(null, 'chip') + '국면 미기록</span>'
+  + '<span class="lg"><span class="ph ph-chip ph-empty"></span>브리핑 없음</span>'
+  + '<span class="lg"><span class="dots"><i></i><i></i><i></i></span>그날 발행 횟수</span>'
+  + '<span class="lg">' + REFG + '판정 기준선</span>'
+  + '</div>';
+var flow = '<section class="sec wrap" id="flow" aria-labelledby="flow-h">'
+  + secHead('flow', '국면·지표', '하루 한 칸 · 지표 기록 ' + ST.days + '일',
+      ['하루 한 칸입니다. 브리핑이 없는 날은 빈칸으로 두고,', '여러 번 발행한 날은 마지막 회차의 판정과 값을 씁니다.'])
+  + '<div class="flow" id="flow-plot"><i class="fl-hl" id="fl-hl"></i>' + phaseRow + axisRow + TRACKS.map(trackRow).join('')
+  + '<div class="pop" id="fl-pop" hidden></div></div>' + legend + '</section>';
+
+/* ───────── 발행 목록: 31호 전체 + 지표 열, 검색이 거른다 ───────── */
+var ORDER = [];       /* 최신 날부터. 같은 날은 늦은 회차부터, 빈 날은 이어진 날끼리 한 줄 */
+(function(){
+  var gap = [];
+  for (var d = TODAY; d >= FIRST; d = dAdd(d, -1)) {
+    if (DM[d]) {
+      if (gap.length) { ORDER.push({ gap: gap.slice().reverse() }); gap = []; }
+      DM[d].slice().reverse().forEach(function(b, k){ ORDER.push({ b: b, first: k === 0, n: DM[d].length }); });
+    } else gap.push(d);
+  }
+  if (gap.length) ORDER.push({ gap: gap.slice().reverse() });
+})();
+function reEsc(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function qRegex(q){ return new RegExp(reEsc(q).replace(/[-−]/g, '[-−]'), 'gi'); }
+function hilite(text, re){ var t = String(text || ''); if (!re) return esc(t); var out = '', last = 0; t.replace(re, function(m, i){ out += esc(t.slice(last, i)) + '<mark>' + esc(m) + '</mark>'; last = i + m.length; return m; }); return out + esc(t.slice(last)); }
+function dateKey(q){
+  var s = q.replace(/\s+/g, '').replace(/[\/\-년월]/g, '.').replace(/일/g, '').replace(/\.+$/, ''), m;
+  if ((m = s.match(/^(\d{4})\.(\d{1,2})\.(\d{1,2})$/))) return m[1] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[3]).slice(-2);
+  if ((m = s.match(/^(\d{1,2})\.(\d{1,2})$/))) return '-' + ('0' + m[1]).slice(-2) + '-' + ('0' + m[2]).slice(-2);
+  return null;
+}
+function matchDate(b, q, scope){
+  var k = dateKey(q); if (k) return b.date.slice(-k.length) === k;
+  if (scope === 'date' && /^\d{1,2}$/.test(q)) return +b.date.slice(8) === +q;
+  return false;
+}
+function numCell(v, txt, cls){ return '<span class="c-num ' + cls + '">' + (v == null ? '<span class="na">—</span>' : txt) + '</span>'; }
+function rowHTML(it, re, dateHit, showDate, noteHit){
+  var b = it.b, today = b.date === TODAY;
+  var dCell = showDate
+    ? '<b>' + (dateHit ? '<mark>' + mdot(b.date) + '</mark>' : mdot(b.date)) + '</b><small>' + wd(b.date) + (it.n > 1 ? ' · ' + b.seq + '회차' : '') + (today ? ' · 오늘' : '') + '</small>'
+    : '<small>' + b.seq + '회차</small>';
+  var hl;
+  if (b.headline) {
+    hl = '<span class="t' + (noteHit ? ' one' : '') + '">' + hilite(b.headline, re) + '</span>';
+    if (noteHit) hl += '<span class="note"><span class="memo">메모</span><span>' + hilite(b.note, re) + '</span></span>';
+  } else hl = '<span class="note"><span class="memo">메모</span><span>' + hilite(b.note || b.title, re) + '</span></span>';
+  var run = runLabel(b);
+  return '<a class="row" href="' + esc(b.url) + '" target="_blank" rel="noopener">'
+    + '<span class="c-no">' + vol(b) + '</span>'
+    + '<span class="c-date">' + dCell + '</span>'
+    + '<span class="c-ph">' + phCell(b.phase, 'chip') + '</span>'
+    + '<span class="c-hl">' + hl + '</span>'
+    + numCell(b.btcd, f(b.btcd, 2), 'lead')
+    + numCell(b.stableD, f(b.stableD, 3), 'sub')
+    + numCell(b.stable1m, sg(b.stable1m, 3), 'lead')
+    + numCell(b.btc1m, sg(b.btc1m, 2), 'lead')
+    + '<span class="c-run">' + (run === '실행 기록 없음' ? '<span class="na">—</span>' : '<span class="pill">' + esc(run) + '</span>') + '</span></a>';
+}
+function gapHTML(g){
+  var a = g[0], z = g[g.length - 1];
+  return '<div class="row row-gap"><span class="c-no"></span>'
+    + '<span class="c-date"><b>' + mdot(a) + (g.length > 1 ? '–' + z.slice(8) : '') + '</b><small>' + wd(a) + (g.length > 1 ? '–' + wd(z) : '') + ' · ' + g.length + '일</small></span>'
+    + '<span class="c-ph"><span class="ph ph-chip ph-empty"></span></span>'
+    + '<span class="c-hl">브리핑 없음</span><span></span><span></span><span></span><span></span><span></span></div>';
+}
+var SCOPE_NAME = { all: '전체', headline: '헤드라인', note: '메모', date: '날짜' };
+function renderList(q, scope){
+  var body = document.getElementById('tbl-body'), aux = document.getElementById('list-aux');
+  q = (q || '').trim();
+  if (!q) {
+    body.innerHTML = ORDER.map(function(it){ return it.gap ? gapHTML(it.gap) : rowHTML(it, null, false, it.first, false); }).join('');
+    aux.textContent = ST.n + '호 전체';
+    return;
+  }
+  var re = qRegex(q), hits = [], lastDate = null;
+  ORDER.forEach(function(it){
+    if (it.gap) return;
+    var b = it.b; re.lastIndex = 0;
+    var inH = (scope === 'all' || scope === 'headline') && !!b.headline && qRegex(q).test(b.headline);
+    var inN = (scope === 'all' || scope === 'note') && !!b.note && qRegex(q).test(b.note);
+    var inD = (scope === 'all' || scope === 'date') && matchDate(b, q, scope);
+    if (inH || inN || inD) hits.push({ it: it, inH: inH, inN: inN, inD: inD });
+  });
+  aux.textContent = '검색 결과 ' + hits.length + '호 · ' + SCOPE_NAME[scope];
+  if (!hits.length) {
+    body.innerHTML = '<div class="empty" role="status"><p class="msg">‘' + esc(q) + '’에 맞는 호가 없습니다.</p>'
+      + '<div class="acts"><button type="button" class="btn-s" data-act="all">범위를 전체로</button><button type="button" class="btn-s" data-act="clear">검색 지우기</button></div>'
+      + '<p class="eg">날짜로 찾으려면 <b>09.24</b>처럼 적어 보세요.</p></div>';
+    return;
+  }
+  body.innerHTML = hits.map(function(h){
+    var show = h.it.b.date !== lastDate; lastDate = h.it.b.date;
+    var useRe = (scope === 'date') ? null : qRegex(q);
+    var noteHit = h.inN && !h.inH && !!h.it.b.headline;
+    return rowHTML(h.it, (h.inH || h.inN) ? useRe : null, h.inD, show, noteHit);
+  }).join('');
+}
+var list = '<section class="sec wrap" id="list" aria-labelledby="list-h">'
+  + secHead('list', '발행 목록', ST.n + '호 전체',
+      ['최신 호부터 날짜, 판정 국면, 헤드라인, 지표, 발행 실행 순입니다.', '위쪽 검색창이 이 목록을 거르고, 행을 누르면 그날 브리핑이 열립니다.'])
+  + '<div class="tbl"><div class="tbl-head" aria-hidden="true"><span class="c-no">호</span><span>날짜</span><span>국면</span><span>헤드라인 · 메모</span>'
+  +   '<span class="num">BTC.D<br>%</span><span class="grp"><b>ΣSTABLECOIN.D</b><i>수준 %</i><i>1개월 %p</i></span><span class="num">BTCUSD<br>1개월 %</span><span class="run">실행</span></div>'
+  +   '<div id="tbl-body"></div></div>'
+  + '<div class="tbl-foot"><span>' + ST.n + '호 · 발행한 날 ' + Object.keys(DM).length + '일 · 브리핑 없는 날 ' + MISSING.length + '일 · 지표 기록 ' + ST.days + '일</span>'
+  +   '<button type="button" class="btn-s" id="csv">' + IC.save + '지표 표 CSV 내려받기</button></div>'
+  + '</section>';
+
+/* ───────── 안내: 갱신 방식(발행 시각·실행 값으로만), 부속 문서, 형제 서고 ───────── */
+var UPD = [
+  ['06:10 본실행', '본실행이 브리핑을 발행한 직후 서고에 그날 건을 등록합니다. 등록이 실패하면 한 번 더 시도하고, 그래도 실패하면 실행 보고와 앱 알림에 사유를 남깁니다.'],
+  ['안전판', '그날 브리핑이 이미 있어서 종료하는 날에도, 종료하기 전에 서고에 그날 건이 있는지 확인합니다. 없으면 그날 브리핑을 읽어 등록합니다.'],
+  ['수동 실행', '직접 요청해 만든 브리핑도 스킬에 적힌 같은 절차로 등록합니다. 같은 날 주소가 다른 브리핑을 또 발행하면 2회차로 남습니다.'],
+  ['표지', '표지는 이 페이지가 등록된 기록으로 직접 그립니다. 실행이 표지를 따로 만들거나 저장하지 않으므로, 등록 절차는 그대로입니다.'],
+  ['정정', '발행한 브리핑의 수치를 고치면 서고의 기록도 함께 고칩니다.'],
+  ['보관', '브리핑 원본은 각각의 아티팩트로 남고, 서고 기록은 이 페이지의 데이터베이스에 쌓입니다. 지표 표는 CSV로 내려받을 수 있습니다.']
+];
+var DOC = { title: 'UNI·ARB 관통 해부', date: '2026-09-08', desc: '브리핑에서 파생된 종목 심층 분석', url: 'https://claude.ai/code/artifact/f371939a-b726-438b-98e2-92abf515976c' };
+var info = '<section class="sec wrap" id="info" aria-labelledby="info-h">'
+  + secHead('info', '안내', '갱신 방식 · 부속 문서', ['이 서고는 브리핑을 정리한 색인이며 투자 자문이 아닙니다.', '수치는 각 브리핑이 조회한 시점의 값입니다.'])
+  + '<div class="info-grid"><div>'
+  +   '<h3 class="sub-h">갱신 방식</h3>'
+  +   '<p class="info-lead">이 서고는 손으로 고치지 않습니다. 브리핑을 발행한 실행이 서고의 데이터베이스에 한 건을 등록하고, 이 페이지는 그 기록으로 가판대와 국면·지표, 발행 목록을 계산합니다.</p>'
+  +   '<dl class="upd">' + UPD.map(function(u){ return '<div><dt>' + u[0] + '</dt><dd>' + u[1] + '</dd></div>'; }).join('') + '</dl>'
+  + '</div><div class="info-side">'
+  +   '<h3 class="sub-h">부속 문서<span>1건</span></h3>'
+  +   '<p class="info-lead">브리핑에서 갈라져 나온 심층 문서입니다. 새 문서는 요청하면 Claude가 이 자리에 등록합니다.</p>'
+  +   '<a class="doc" href="' + DOC.url + '" target="_blank" rel="noopener"><span class="dd">' + tagDate(DOC.date) + '</span>'
+  +     '<span><b>' + DOC.title + '</b><span class="ds">' + DOC.desc + '</span></span><span class="go">열기' + IC.right + '</span></a>'
+  +   '<h3 class="sub-h">형제 서고</h3>'
+  +   '<a class="doc doc-sib" href="#" aria-label="형제 서고: 매크로 리스크 서고"><span><b>매크로 리스크 서고</b></span><span class="go">가기' + IC.arrow + '</span></a>'
+  + '</div></div></section>'
+  + '<footer class="foot"><div class="wrap foot-in"><span>크립토 브리핑 서고 · 매일 아침 06:10에 한 호씩 꽂힙니다.</span>'
+  +   '<a href="#" aria-label="형제 서고: 매크로 리스크 서고">매크로 리스크 서고' + IC.arrow + '</a></div></footer>';
+
+document.getElementById('app').innerHTML = topBar + '<main>' + hero + shelf + flow + list + '</main>' + info;
+renderList('', 'all');
+
+/* ───────── 동작: 검색, 메뉴 위치, 흐름 읽기 창, CSV ───────── */
+var qEl = document.getElementById('q'), scEl = document.getElementById('q-scope'), listSec = document.getElementById('list');
+var wasEmpty = true;
+function runSearch(){
+  var q = qEl.value.trim();
+  renderList(q, scEl.value);
+  if (q && wasEmpty) { var r = listSec.getBoundingClientRect(); if (r.top > window.innerHeight * 0.6 || r.bottom < 0) listSec.scrollIntoView({ block: 'start' }); }
+  wasEmpty = !q;
+}
+qEl.addEventListener('input', runSearch);
+scEl.addEventListener('change', runSearch);
+qEl.addEventListener('keydown', function(e){ if (e.key === 'Escape') { qEl.value = ''; runSearch(); } if (e.key === 'Enter') listSec.scrollIntoView({ block: 'start' }); });
+document.getElementById('tbl-body').addEventListener('click', function(e){
+  var t = e.target.closest('[data-act]'); if (!t) return;
+  if (t.getAttribute('data-act') === 'all') scEl.value = 'all'; else qEl.value = '';
+  runSearch(); qEl.focus();
+});
+
+var navLinks = [].slice.call(document.querySelectorAll('.nav a'));
+function setNav(id){ navLinks.forEach(function(a){ var on = a.getAttribute('data-sec') === id; a.classList.toggle('on', on); if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) setNav(e.target.id); }); }, { rootMargin: '-45% 0px -50% 0px' });
+  NAV.forEach(function(n){ var el = document.getElementById(n[0]); if (el) io.observe(el); });
+}
+
+var plot = document.getElementById('flow-plot'), hlEl = document.getElementById('fl-hl'), pop = document.getElementById('fl-pop');
+function popHTML(d){
+  var iss = DM[d];
+  if (d === NEXT) return '<p class="pd">' + tagDate(d) + ' · 다음 호</p><p class="ph-line">' + NEXT_TIME + ' 발행 예정</p>';
+  if (!iss) return '<p class="pd">' + tagDate(d) + '</p><p class="ph-line">브리핑 없음</p>';
+  var b = iss[iss.length - 1];
+  return '<p class="pd">' + tagDate(d) + (iss.length > 1 ? ' · ' + iss.length + '회 중 마지막' : '') + ' · 제' + vol(b) + '호</p>'
+    + '<div class="pph">' + phCell(b.phase, 'chip') + esc(phName(b.phase)) + '</div>'
+    + '<dl><dt>BTC.D</dt><dd>' + (b.btcd == null ? '—' : f(b.btcd, 2) + '%') + '</dd>'
+    + '<dt>ΣSTABLECOIN.D 1개월</dt><dd>' + (b.stable1m == null ? '—' : sg(b.stable1m, 3) + '%p') + '</dd>'
+    + '<dt>BTCUSD 1개월</dt><dd>' + (b.btc1m == null ? '—' : sg(b.btc1m, 2) + '%') + '</dd></dl>'
+    + '<p class="ph-line">' + esc(b.headline || b.note) + '</p>';
+}
+plot.addEventListener('mousemove', function(e){
+  var r = plot.getBoundingClientRect(), x = e.clientX - r.left - LBLW, idx = -1;
+  for (var i = 0; i < FD.length; i++) if (x >= colL(i) && x < colL(i) + DAYW) { idx = i; break; }
+  if (idx < 0) { hlEl.classList.remove('on'); pop.hidden = true; return; }
+  hlEl.style.left = (LBLW + colL(idx)) + 'px'; hlEl.classList.add('on');
+  pop.innerHTML = popHTML(FD[idx]); pop.hidden = false;
+  var px = LBLW + colL(idx) + DAYW + tk('--space-3'); if (px + POPW > CONTW) px = LBLW + colL(idx) - tk('--space-3') - POPW;
+  pop.style.left = px + 'px'; pop.style.top = tk('--flow-cell-height') + 'px';
+});
+plot.addEventListener('mouseleave', function(){ hlEl.classList.remove('on'); pop.hidden = true; });
+
+document.getElementById('csv').addEventListener('click', function(){
+  var head = ['호', '날짜', '회차', '국면', '전날 국면', '임시 기준', '헤드라인', '메모', 'BTC.D(%)', 'ΣSTABLECOIN.D(%)', 'ΣSTABLECOIN.D 1개월(%p)', 'BTCUSD 1개월(%)', '실행', '링크'];
+  var cell = function(v){ v = v == null ? '' : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+  var rows = B.map(function(b){ return [vol(b), b.date, b.seq, b.phase || '', b.prevPhase || '', b.provisional ? '예' : '', b.headline, b.note, b.btcd, b.stableD, b.stable1m, b.btc1m, runLabel(b), b.url].map(cell).join(','); });
+  var blob = new Blob(['﻿' + [head.join(',')].concat(rows).join('\r\n')], { type: 'text/csv;charset=utf-8' });
+  var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'crypto-brief-archive.csv'; document.body.appendChild(a); a.click(); a.remove();
+});
+
+ready();
+})();
+</script></body></html>

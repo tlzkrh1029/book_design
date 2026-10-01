@@ -1,0 +1,710 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>크립토 브리핑 서고</title>
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/900.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/bodoni-moda/400-italic.css">
+<link rel="stylesheet" href="../mz.css">
+<style>
+:root {
+  /* ── 색: 종이와 잉크 한 벌. 페이지에는 이것 말고 색이 없다(색은 표지에만) ── */
+  --paper: #F3F0E8;             /* 페이지 바탕 */
+  --paper-sunk: #E8E3D8;        /* 한 단계 짙은 종이: 휴간 칸, 빈 지면, 표 줄 hover */
+  --ink: #141414;               /* 잉크: 검은 칠, 차트 선과 막대, 국면 무늬 */
+  --text-1: #141414;            /* 제호, 헤드라인, 수치 (--paper 위 16.2:1) */
+  --text-2: #38352F;            /* 본문, 표 내용 (--paper 위 10.7:1) */
+  --text-3: #5E5A51;            /* 캡션, 날짜, 보조 줄, 입력칸 안내 (--paper 6.0:1, --paper-sunk 5.4:1) */
+  --text-on-ink: #F3F0E8;       /* 검은 칠 위 글자: 읽기 버튼, A 국면 칸 */
+  --line-ink: #141414;          /* 가로 구조 괘선: 굵은 괘선, 겹괘, 가는 괘선 */
+  --line-soft: #C9C3B6;         /* 단 사이 세로 괘선, 표 줄 사이 괘선 */
+  --line-faint: #DCD6CA;        /* 차트 눈금선 */
+  --line-dash: #9C968A;         /* 빈 지면(다음 호·휴간)의 점선 테두리. 글자에는 쓰지 않는다 */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.06'/%3E%3C/svg%3E");
+                                /* 종이 결. body와 위에 남는 메뉴 줄에 background: var(--paper-grain), var(--paper) */
+
+  /* ── 국면 무늬: 잉크 한 색으로 국면을 가른다. background 값으로 그대로 쓴다 ── */
+  --phase-a: var(--ink);                                                                                  /* A BTC! · 검정 칠 */
+  --phase-b: radial-gradient(circle, var(--ink) 0 1.2px, transparent 1.6px) 0 0 / 5px 5px, var(--paper);  /* B 알트시즌? · 망점 */
+  --phase-c: repeating-linear-gradient(135deg, var(--ink) 0 2px, transparent 2px 6px), var(--paper);      /* C 선별적 · 사선 */
+  --phase-d: repeating-linear-gradient(0deg, var(--ink) 0 2px, transparent 2px 6px), var(--paper);        /* D STICKY BTC.D · 가로줄 */
+  --phase-e: repeating-linear-gradient(45deg, var(--ink) 0 1.5px, transparent 1.5px 7px), repeating-linear-gradient(135deg, var(--ink) 0 1.5px, transparent 1.5px 7px), var(--paper);  /* E 튀어? · 엇갈린 빗금 */
+  --phase-none: var(--paper);                                                                             /* ? 국면 미기록 · 빈 칸에 --rule-hair 잉크 테두리 */
+  --phase-off: var(--paper-sunk);                                                                         /* 휴간 · 무늬 없음 */
+
+  /* ── 글꼴 ── */
+  --font-serif: "Noto Serif KR", serif;                   /* 제호, 헤드라인, 면 제목, 지난 호 제목, 표의 헤드라인 */
+  --font-sans: "Gothic A1", sans-serif;                   /* 메뉴, 꼬리표, 캡션, 버튼, 설명 */
+  --font-data: "IBM Plex Mono", "Gothic A1", monospace;   /* 호수, 날짜, 수치, 축. 한글 글자는 Gothic A1로 넘어간다 */
+  --font-figure: "Oswald", "Gothic A1", sans-serif;       /* 큰 수치, 국면 글자 */
+  --font-latin-italic: "Bodoni Moda", serif;              /* 영문 부제 한 줄만, font-style: italic */
+
+  /* ── 글자 크기 ── */
+  --fs-nameplate: 104px;        /* 제호 '크립토 브리핑' */
+  --fs-headline: 60px;          /* 1면 헤드라인 */
+  --fs-headline-long: 52px;     /* 헤드라인이 걸친 폭에서 석 줄을 넘을 때 */
+  --fs-stamp: 64px;             /* 1면 국면 글자 */
+  --fs-figure: 44px;            /* 1면 지표 수치 */
+  --fs-section: 36px;           /* 면 제목 */
+  --fs-title-m: 26px;           /* 1면 국면 이름, 빈 지면의 '휴간'·'제32호' */
+  --fs-figure-s: 26px;          /* 3면 이름 단의 최신 값 */
+  --fs-subtitle: 24px;          /* 영문 부제 */
+  --fs-title-s: 17px;           /* 지난 호 제목 */
+  --fs-cta: 16px;               /* 읽기 버튼 */
+  --fs-body: 16px;              /* 판권, 설명 문장 */
+  --fs-phase-letter: 16px;      /* 3면 칸 밑 국면 글자 */
+  --fs-ui: 15px;                /* 메뉴, 검색 입력 */
+  --fs-subtitle-kr: 14px;       /* 한글 부제 */
+  --fs-table: 14px;             /* 4면 표 */
+  --fs-label: 13px;             /* 꼬리표, 지표 이름, 표 머리 */
+  --fs-data: 13px;              /* 날짜 줄, 캡션, 보조 줄 */
+  --fs-micro: 12px;             /* 날짜 번호, 축 눈금, '3회', 'C→D'. 가장 작은 글자 */
+
+  /* ── 굵기 ── */
+  --fw-nameplate: 900;
+  --fw-headline: 800;
+  --fw-section: 800;
+  --fw-title: 700;              /* --fs-title-m, --fs-title-s */
+  --fw-table-title: 500;        /* 4면 헤드라인 */
+  --fw-stamp: 600;              /* Oswald */
+  --fw-figure: 500;             /* Oswald */
+  --fw-ui: 700;                 /* 메뉴, 버튼, 꼬리표 */
+  --fw-subtitle: 400;           /* Bodoni Moda italic */
+  --fw-body: 400;
+  --fw-data: 400;
+  --fw-data-strong: 500;        /* 캡션의 호수 */
+
+  /* ── 행간과 자간 ── */
+  --lh-nameplate: 1.05;
+  --lh-headline: 1.2;
+  --lh-section: 1.2;
+  --lh-figure: 1;
+  --lh-title: 1.45;
+  --lh-body: 1.7;
+  --lh-table: 1.5;
+  --lh-ui: 1.4;
+  --ls-nameplate: -0.02em;
+  --ls-headline: -0.025em;
+  --ls-label: 0.06em;
+  --ls-subtitle-kr: 0.12em;
+
+  /* ── 간격 (4px 단위) ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --section-gap: var(--space-9);   /* 면과 면 사이 */
+
+  /* ── 괘선 ── */
+  --rule-heavy: 4px;            /* 면 머리와 판권 위 */
+  --rule-mid: 2px;              /* 지표 상자와 표 머리 위, 지금 메뉴 밑줄 */
+  --rule-hair: 1px;             /* 가는 괘선 */
+  --rule-double-gap: 3px;       /* 겹괘 = 굵은 괘선 + 이 틈 + 가는 괘선 (제호 위아래) */
+
+  /* ── 모서리 ── */
+  --radius: 0px;                /* 버튼, 칸, 입력칸, 빈 지면 모두 직각 */
+
+  /* ── 그림자: 표지에만 ── */
+  --shadow-cover: 0 1px 1px rgba(20, 20, 20, 0.16), 0 8px 16px -8px rgba(20, 20, 20, 0.40);         /* --cover-thumb 표지 */
+  --shadow-cover-lead: 0 1px 2px rgba(20, 20, 20, 0.16), 0 24px 40px -20px rgba(20, 20, 20, 0.50);  /* 1면 대표 표지 */
+  --shadow-cover-hover: 0 2px 3px rgba(20, 20, 20, 0.18), 0 16px 26px -12px rgba(20, 20, 20, 0.46); /* 작은 표지 hover */
+
+  /* ── 판 짜기 ── */
+  --page-width: 1440px;
+  --page-margin: 72px;
+  --content-width: 1296px;      /* 1440 − 72 × 2 */
+  --fold-height: 900px;         /* 첫 화면 높이(완료 기준 검사용) */
+  --nav-height: 52px;           /* 스크롤해도 위에 남는 메뉴 줄 */
+  --search-width: 360px;        /* 범위 선택 + 입력칸 */
+  --front-cover-col: 480px;     /* 1면 왼쪽 단: 대표 표지 */
+  --front-story-col: 390px;     /* 1면 가운데 단: 읽기 버튼, 국면, 지표 */
+  --front-rail-col: 330px;      /* 1면 오른쪽 단: 지난 호, 다음 호 */
+  --front-col-gap: 48px;        /* 480 + 48 + 390 + 48 + 330 = 1296. 둘째 틈 가운데에 --line-soft 세로 괘선 */
+  --index-columns: 8;           /* 2면 색인: 8 × 141 + 7 × 24 = 1296 */
+  --index-gap-x: 24px;
+  --index-gap-y: 40px;
+  --chart-label-col: 228px;     /* 3면 왼쪽 이름 단 */
+  --chart-label-gap: 24px;
+  --day-col: 36px;              /* 3면 하루 칸: 228 + 24 + 29일 × 36 = 1296 */
+  --day-gap: 4px;               /* 칸 사이 틈. 국면 칸 폭 = 32px */
+  --phase-band-height: 28px;    /* 3면 국면 띠 높이 */
+  --chart-row-height: 136px;    /* 3면 차트 한 줄 높이 */
+  --phase-swatch: 56px;         /* 1면 국면 무늬 견본 */
+  --legend-swatch: 14px;        /* 범례와 표의 국면 무늬 견본 */
+  --table-row-min: 40px;        /* 4면 한 줄 최소 높이 */
+  --cta-height: 52px;           /* 읽기 버튼 */
+  --cta-pad-x: 24px;
+
+  /* ── 표지 크기 (비율 68:100, 높이 = 폭 × 100 ÷ 68) ── */
+  --cover-ratio: 68 / 100;
+  --cover-lead: 480px;          /* 1면 대표 표지 (높이 약 706px) */
+  --cover-thumb: 141px;         /* 1면 오른쪽 단, 2면 색인, 빈 지면 (높이 약 207px) */
+
+  /* ── 움직임과 상태 ── */
+  --dur: 180ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --lift: -2px;                 /* 표지 hover 때 위로 */
+  --underline: 1px;
+  --underline-hover: 2px;
+  --underline-offset: 4px;
+  --focus-ring: 2px solid var(--ink);
+  --focus-offset: 4px;          /* 표지에 닿지 않게 떨어뜨려 그린다 */
+
+  /* ── 차트 ── */
+  --chart-line: 2px;            /* BTC.D 선 굵기 */
+  --chart-bar: 50%;             /* 하루 칸 폭에 대한 막대 폭 */
+  --chart-dash: 6px 4px;        /* 기준선 점선 (stroke-dasharray) */
+  --chart-dot: 6px;             /* 최신 값 점 지름 */
+}
+
+/* ───────── 바탕 ───────── */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0; background:var(--paper-grain), var(--paper); color:var(--text-2); font-family:var(--font-sans); font-size:var(--fs-body); font-weight:var(--fw-body); line-height:var(--lh-body); word-break:keep-all; overflow-wrap:break-word; -webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ol,ul,dl,dt,dd,figure,figcaption{margin:0; padding:0; font:inherit}
+ol,ul{list-style:none}
+a{color:inherit; text-decoration:none}
+button,input,select{font:inherit; color:inherit; margin:0}
+.d{font-family:var(--font-data)}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap}
+.ico{display:block; width:1em; height:1em; flex:none; fill:none; stroke:currentColor; stroke-width:var(--rule-mid); stroke-linecap:square}
+
+/* 링크: 글 링크는 1px 밑줄이 hover 때 2px로, 제목 링크는 hover 때만 2px 밑줄 */
+.lnk{display:inline-flex; align-items:center; gap:var(--space-1); text-decoration:underline; text-decoration-thickness:var(--underline); text-underline-offset:var(--underline-offset); transition:text-decoration-thickness var(--dur) var(--ease)}
+.lnk:hover{text-decoration-thickness:var(--underline-hover)}
+.ta{text-decoration:none; text-underline-offset:var(--underline-offset)}
+.ta:hover,.ta:focus-visible{text-decoration:underline; text-decoration-thickness:var(--underline-hover)}
+:focus-visible{outline:var(--focus-ring); outline-offset:var(--focus-offset)}
+
+.page{width:var(--page-width); margin:0 auto; padding:0 var(--page-margin) var(--space-8)}
+
+/* ───────── 머리: 날짜 줄, 겹괘, 제호 ───────── */
+.mast{padding-top:var(--space-4)}
+.dateline{display:grid; grid-template-columns:1fr auto 1fr; align-items:baseline; column-gap:var(--space-5); padding-bottom:var(--space-3); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-2)}
+.dl-c{text-align:center}
+.dl-r{display:flex; justify-content:flex-end; align-items:baseline; gap:var(--space-4)}
+.dl-r .lnk{font-family:var(--font-sans); font-weight:var(--fw-ui); color:var(--text-1)}
+.dbl{height:calc(var(--rule-heavy) + var(--rule-double-gap) + var(--rule-hair)); border-top:var(--rule-heavy) solid var(--line-ink); border-bottom:var(--rule-hair) solid var(--line-ink)}
+.dbl.close{border-top-width:var(--rule-hair); border-bottom-width:var(--rule-heavy)}
+.nameplate{margin:var(--space-4) 0 var(--space-1); text-align:center; font-family:var(--font-serif); font-weight:var(--fw-nameplate); font-size:var(--fs-nameplate); line-height:var(--lh-nameplate); letter-spacing:var(--ls-nameplate); color:var(--text-1)}
+.subline{display:flex; justify-content:center; align-items:baseline; gap:var(--space-4); padding-bottom:var(--space-4)}
+.sub-en{font-family:var(--font-latin-italic); font-style:italic; font-weight:var(--fw-subtitle); font-size:var(--fs-subtitle); line-height:var(--lh-ui); color:var(--text-1)}
+.sub-sep{align-self:center; width:var(--rule-hair); height:var(--fs-subtitle-kr); background:var(--line-soft)}
+.sub-kr{font-family:var(--font-sans); font-size:var(--fs-subtitle-kr); line-height:var(--lh-ui); letter-spacing:var(--ls-subtitle-kr); color:var(--text-3)}
+
+/* ───────── 위에 남는 메뉴 줄 ───────── */
+.bar{position:sticky; top:0; z-index:30; margin:0 calc(var(--page-margin) * -1); padding:0 var(--page-margin); background:var(--paper-grain), var(--paper)}
+.bar-in{height:var(--nav-height); display:flex; align-items:center; justify-content:space-between; gap:var(--space-6); border-bottom:var(--rule-hair) solid var(--line-ink)}
+.menu{display:flex; gap:var(--space-6); font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-ui); line-height:var(--lh-ui); color:var(--text-1)}
+.menu a{text-underline-offset:var(--underline-offset)}
+.menu a:hover{text-decoration:underline; text-decoration-thickness:var(--underline-hover)}
+.menu a[aria-current]{text-decoration:underline; text-decoration-thickness:var(--rule-mid)}
+.search{display:flex; align-items:center; gap:var(--space-2); width:var(--search-width); border-bottom:var(--rule-hair) solid var(--line-ink); font-size:var(--fs-ui); line-height:var(--lh-ui); color:var(--text-1)}
+.scope{position:relative; display:flex; align-items:center; flex:none}
+.scope select{appearance:none; -webkit-appearance:none; border:0; border-radius:var(--radius); background:transparent; font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-ui); line-height:var(--lh-ui); color:var(--text-1); padding:var(--space-1) var(--space-5) var(--space-1) 0; cursor:pointer}
+.scope .ico{position:absolute; right:var(--space-1); pointer-events:none}
+.search .sep{flex:none; width:var(--rule-hair); height:var(--fs-ui); background:var(--line-soft)}
+.search input{flex:1; min-width:0; border:0; border-radius:var(--radius); background:transparent; font-family:var(--font-sans); font-size:var(--fs-ui); line-height:var(--lh-ui); color:var(--text-1); padding:var(--space-1) 0}
+.search input::placeholder{color:var(--text-3); opacity:1}
+.search:hover,.search:focus-within{box-shadow:inset 0 calc(var(--rule-hair) * -1) 0 var(--ink)}
+.search{transition:box-shadow var(--dur) var(--ease)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none}
+
+/* ───────── 꼬리표 줄과 면 머리 ───────── */
+.flag{display:inline-block; background:var(--ink); color:var(--text-on-ink); font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); line-height:var(--lh-ui); letter-spacing:var(--ls-label); padding:var(--space-1) var(--space-2)}
+.tagline{display:flex; align-items:center; justify-content:space-between; gap:var(--space-4); padding-bottom:var(--space-2); border-bottom:var(--rule-hair) solid var(--line-ink)}
+.tag-r{font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+.tag-l{font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); line-height:var(--lh-ui); letter-spacing:var(--ls-label); color:var(--text-1); padding:var(--space-1) 0}
+.tagline .lnk{font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); line-height:var(--lh-ui); color:var(--text-1)}
+
+.sec{margin-top:var(--section-gap); scroll-margin-top:calc(var(--nav-height) + var(--space-5))}
+.sec-head{display:flex; align-items:flex-end; justify-content:space-between; gap:var(--space-5); padding:var(--space-4) 0 var(--space-3); border-top:var(--rule-heavy) solid var(--line-ink); border-bottom:var(--rule-hair) solid var(--line-ink); margin-bottom:var(--space-6)}
+.sec-title{display:flex; align-items:center; gap:var(--space-4); font-family:var(--font-serif); font-weight:var(--fw-section); font-size:var(--fs-section); line-height:var(--lh-section); color:var(--text-1)}
+.sec-note{display:flex; align-items:baseline; gap:var(--space-4); padding-bottom:var(--space-1); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3); text-align:right}
+.sec-note .lnk{font-family:var(--font-sans); font-weight:var(--fw-ui); color:var(--text-1)}
+
+/* ───────── 표지 받침 ───────── */
+.cv{display:block; position:relative; transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease)}
+.cv-lead{width:var(--cover-lead); box-shadow:var(--shadow-cover-lead)}
+.cv-thumb{width:var(--cover-thumb); box-shadow:var(--shadow-cover)}
+.cv:hover{transform:translateY(var(--lift))}
+.cv-thumb:hover{box-shadow:var(--shadow-cover-hover)}
+.blank{width:var(--cover-thumb); aspect-ratio:var(--cover-ratio); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--space-1); border:var(--rule-hair) dashed var(--line-dash); border-radius:var(--radius); background:var(--paper-sunk); text-align:center}
+.bl-big{font-family:var(--font-serif); font-weight:var(--fw-title); font-size:var(--fs-title-m); line-height:var(--lh-title); color:var(--text-1)}
+.bl-small{font-family:var(--font-data); font-size:var(--fs-micro); line-height:var(--lh-ui); color:var(--text-3)}
+
+/* ───────── 1면 ───────── */
+.front{display:grid; grid-template-columns:var(--front-cover-col) var(--front-story-col) var(--front-rail-col); column-gap:var(--front-col-gap); grid-template-areas:"tag tag rail" "head head rail" "cover story rail"; grid-template-rows:auto auto 1fr; margin-top:var(--space-6); scroll-margin-top:calc(var(--nav-height) + var(--space-5))}
+.f-tag{grid-area:tag}
+.f-head{grid-area:head; margin:var(--space-5) 0 var(--space-6); font-family:var(--font-serif); font-weight:var(--fw-headline); font-size:var(--fs-headline); line-height:var(--lh-headline); letter-spacing:var(--ls-headline); color:var(--text-1); text-wrap:balance}
+.f-head.long{font-size:var(--fs-headline-long)}
+.f-head .memo{font-size:var(--fs-label); vertical-align:middle}
+.f-cover{grid-area:cover}
+.f-cap{display:flex; justify-content:space-between; gap:var(--space-4); margin-top:var(--space-5); font-family:var(--font-sans); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+.f-cap .d{font-weight:var(--fw-data-strong); color:var(--text-2)}
+.f-story{grid-area:story}
+.cta{display:flex; align-items:center; justify-content:space-between; height:var(--cta-height); padding:0 var(--cta-pad-x); background:var(--ink); color:var(--text-on-ink); border-radius:var(--radius); font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-cta); line-height:var(--lh-ui); text-underline-offset:var(--underline-offset)}
+.cta:hover .cta-t{text-decoration:underline; text-decoration-thickness:var(--underline-hover)}
+
+.today-ph{margin-top:var(--space-7)}
+.lab{font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); line-height:var(--lh-ui); letter-spacing:var(--ls-label); color:var(--text-1)}
+.ph-row{display:flex; align-items:center; gap:var(--space-4); margin-top:var(--space-3)}
+.sw{display:flex; flex:none}
+.sw > i{flex:1 1 0}
+.sw.none{background:var(--phase-none); box-shadow:inset 0 0 0 var(--rule-hair) var(--ink)}
+.sw-lg{width:var(--phase-swatch); height:var(--phase-swatch)}
+.sw-sm{width:var(--legend-swatch); height:var(--legend-swatch)}
+.ph-stamp{font-family:var(--font-figure); font-weight:var(--fw-stamp); font-size:var(--fs-stamp); line-height:var(--lh-figure); color:var(--text-1)}
+.ph-name{font-family:var(--font-serif); font-weight:var(--fw-title); font-size:var(--fs-title-m); line-height:var(--lh-title); color:var(--text-1)}
+.ph-sub{font-family:var(--font-sans); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+
+.ind{margin-top:var(--space-7); border-top:var(--rule-mid) solid var(--line-ink)}
+.ind-row{padding:var(--space-5) 0; border-bottom:var(--rule-hair) solid var(--line-soft)}
+.ind-row:last-child{border-bottom:0}
+.ind-val{display:flex; align-items:baseline; justify-content:space-between; gap:var(--space-4); margin-top:var(--space-2)}
+.ind-big{font-family:var(--font-figure); font-weight:var(--fw-figure); font-size:var(--fs-figure); line-height:var(--lh-figure); color:var(--text-1)}
+.ind-side{font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+.ind-sub{margin-top:var(--space-2); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+
+.f-rail{grid-area:rail; position:relative; display:flex; flex-direction:column}
+.f-rail::before{content:""; position:absolute; top:0; bottom:0; left:calc(var(--front-col-gap) / -2); border-left:var(--rule-hair) solid var(--line-soft)}
+.ri{display:grid; grid-template-columns:var(--cover-thumb) 1fr; column-gap:var(--space-4); align-items:start; padding:var(--space-7) 0; border-bottom:var(--rule-hair) solid var(--line-soft)}
+.ri:last-child{border-bottom:0; padding-bottom:0}
+.ri-meta{font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3); white-space:nowrap}
+.ri-title{margin-top:var(--space-2); font-family:var(--font-serif); font-weight:var(--fw-title); font-size:var(--fs-title-s); line-height:var(--lh-title); color:var(--text-1)}
+.ri-line{margin-top:var(--space-2); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+.ri-next .ri-line{font-family:var(--font-sans)}
+.memo{display:inline-block; margin-right:var(--space-2); padding:0 var(--space-1); border:var(--rule-hair) solid var(--line-ink); font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-micro); line-height:var(--lh-ui); letter-spacing:var(--ls-label); color:var(--text-1)}
+
+/* ───────── 2면 지난 호 ───────── */
+.idx{display:grid; grid-template-columns:repeat(var(--index-columns), var(--cover-thumb)); column-gap:var(--index-gap-x); row-gap:var(--index-gap-y)}
+.ix-cap{display:flex; justify-content:space-between; align-items:baseline; gap:var(--space-2); margin-top:var(--space-3); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3); white-space:nowrap}
+.ix-cap b{font-weight:var(--fw-data-strong); color:var(--text-1)}
+.ix-off .ix-cap{font-family:var(--font-sans)}
+.hoe{font-family:var(--font-data); font-size:var(--fs-micro); font-weight:var(--fw-data-strong); color:var(--text-1)}
+
+/* ───────── 3면 국면과 지표 ───────── */
+.legend{display:flex; flex-wrap:wrap; align-items:center; column-gap:var(--space-5); row-gap:var(--space-2); margin-bottom:var(--space-5); font-family:var(--font-sans); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-2)}
+.legend .lg{display:inline-flex; align-items:center; gap:var(--space-2)}
+.legend b{font-family:var(--font-figure); font-weight:var(--fw-stamp); color:var(--text-1)}
+.legend .lg-note{color:var(--text-3)}
+.tl{position:relative}
+.tl-off{position:absolute; z-index:0; top:0; bottom:0; background:var(--phase-off)}
+.tl-off span{position:absolute; left:0; right:0; top:0; height:var(--phase-band-height); display:flex; align-items:center; justify-content:center; font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); color:var(--text-2)}
+.tl-row{position:relative; z-index:1; display:grid; grid-template-columns:var(--chart-label-col) 1fr; column-gap:var(--chart-label-gap)}
+.tl-band{padding-bottom:var(--space-4)}
+.tl-chart{padding:var(--space-4) 0; border-top:var(--rule-hair) solid var(--line-soft)}
+.tl-chart:last-child{border-bottom:var(--rule-hair) solid var(--line-ink)}
+.tl-label{padding-right:var(--space-7)}
+.tl-band .tl-label{padding-right:0}
+.tl-name{font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); line-height:var(--lh-ui); letter-spacing:var(--ls-label); color:var(--text-1)}
+.tl-val{display:flex; align-items:baseline; gap:var(--space-2); margin-top:var(--space-2); font-family:var(--font-figure); font-weight:var(--fw-figure); font-size:var(--fs-figure-s); line-height:var(--lh-figure); color:var(--text-1)}
+.tl-val small{font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); color:var(--text-2)}
+.tl-side{margin-top:var(--space-2); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+.tl-sub{margin-top:var(--space-1); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+.days{display:grid}
+.day{display:flex; flex-direction:column; align-items:center}
+.cell{display:flex; width:calc(var(--day-col) - var(--day-gap)); height:var(--phase-band-height)}
+.cell > i{flex:1 1 0}
+.cell.none{background:var(--phase-none); box-shadow:inset 0 0 0 var(--rule-hair) var(--ink)}
+.cell.now{box-shadow:inset 0 0 0 var(--rule-hair) var(--ink); outline:var(--rule-hair) solid var(--ink); outline-offset:var(--rule-hair)}
+.lt{display:flex; align-items:center; height:var(--fs-phase-letter); margin-top:var(--space-2); font-family:var(--font-figure); font-weight:var(--fw-stamp); font-size:var(--fs-phase-letter); line-height:var(--lh-figure); color:var(--text-1); white-space:nowrap}
+.lt.two{font-size:var(--fs-micro)}
+.dn{margin-top:var(--space-1); font-family:var(--font-data); font-size:var(--fs-micro); line-height:var(--lh-ui); color:var(--text-3)}
+.dn.now{color:var(--text-1); font-weight:var(--fw-data-strong)}
+.dh{font-family:var(--font-data); font-size:var(--fs-micro); font-weight:var(--fw-data-strong); line-height:var(--lh-ui); color:var(--text-1); white-space:nowrap}
+.plot{position:relative; height:var(--chart-row-height)}
+.plot svg{display:block; overflow:visible}
+.tick{position:absolute; right:calc(100% + var(--space-2)); transform:translateY(-50%); font-family:var(--font-data); font-size:var(--fs-micro); line-height:var(--lh-ui); color:var(--text-3); white-space:nowrap}
+.chart .gl{stroke:var(--line-faint); stroke-width:var(--rule-hair)}
+.chart .base{stroke:var(--line-ink); stroke-width:var(--rule-hair)}
+.chart .ref{stroke:var(--ink); stroke-width:var(--rule-hair); stroke-dasharray:var(--chart-dash)}
+.chart .ln{fill:none; stroke:var(--ink); stroke-width:var(--chart-line); stroke-linejoin:round; stroke-linecap:round}
+.chart .bar{fill:var(--ink)}
+.chart .dot{fill:var(--ink)}
+.chart .rl{font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-micro); fill:var(--text-1)}
+.chart .ev{font-family:var(--font-data); font-weight:var(--fw-data-strong); font-size:var(--fs-micro); fill:var(--text-1)}
+.chart .na{font-family:var(--font-data); font-size:var(--fs-micro); fill:var(--text-3)}
+
+/* ───────── 4면 발행 목록 ───────── */
+.q-status{display:flex; align-items:baseline; gap:var(--space-4); margin-bottom:var(--space-4); font-family:var(--font-sans); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-2)}
+.q-status[hidden],.q-empty[hidden],.tbl[hidden],tr[hidden]{display:none}
+.textbtn{border:0; padding:0; background:none; cursor:pointer; font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-data); color:var(--text-1); text-decoration:underline; text-decoration-thickness:var(--underline); text-underline-offset:var(--underline-offset)}
+.textbtn:hover{text-decoration-thickness:var(--underline-hover)}
+.tbl{width:100%; border-collapse:collapse; font-size:var(--fs-table); line-height:var(--lh-table); color:var(--text-2)}
+.tbl th{padding:var(--space-3) var(--space-2); text-align:left; vertical-align:bottom; font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-label); line-height:var(--lh-ui); letter-spacing:var(--ls-label); color:var(--text-1); border-top:var(--rule-mid) solid var(--line-ink); border-bottom:var(--rule-hair) solid var(--line-ink)}
+.tbl td{height:var(--table-row-min); padding:var(--space-3) var(--space-2); vertical-align:top; border-bottom:var(--rule-hair) solid var(--line-soft)}
+.tbl th:first-child,.tbl td:first-child{padding-left:0}
+.tbl th:last-child,.tbl td:last-child{padding-right:0}
+.tbl tbody tr:hover{background:var(--paper-sunk)}
+.tbl .num{text-align:right; white-space:nowrap; font-family:var(--font-data)}
+.tbl .fit{width:1%; white-space:nowrap}
+.tbl td.c-no{font-family:var(--font-data); font-weight:var(--fw-data-strong); color:var(--text-1)}
+.tbl td.c-date,.tbl td.c-run{font-family:var(--font-data)}
+.tbl .c-run{padding-left:var(--space-5)}
+.c-ph-in{display:flex; align-items:center; gap:var(--space-2); font-family:var(--font-figure); font-weight:var(--fw-stamp); color:var(--text-1)}
+.tbl td.c-head{font-family:var(--font-serif); font-weight:var(--fw-table-title); color:var(--text-1)}
+.tbl td.c-head .memo{font-weight:var(--fw-ui)}
+.tbl tr.off td{background:var(--phase-off); color:var(--text-2)}
+.tbl tr.off td.c-off{font-family:var(--font-sans); font-weight:var(--fw-ui); color:var(--text-1)}
+.q-empty{padding:var(--space-7) 0; border-top:var(--rule-mid) solid var(--line-ink); border-bottom:var(--rule-hair) solid var(--line-soft); text-align:center}
+.qe-1{font-family:var(--font-serif); font-weight:var(--fw-title); font-size:var(--fs-title-m); line-height:var(--lh-title); color:var(--text-1)}
+.qe-2{margin-top:var(--space-2); font-family:var(--font-sans); font-size:var(--fs-body); line-height:var(--lh-body); color:var(--text-3)}
+.btn{margin-top:var(--space-5); display:inline-flex; align-items:center; height:var(--cta-height); padding:0 var(--cta-pad-x); border:0; border-radius:var(--radius); background:var(--ink); color:var(--text-on-ink); font-family:var(--font-sans); font-weight:var(--fw-ui); font-size:var(--fs-cta); cursor:pointer; text-underline-offset:var(--underline-offset)}
+.btn:hover{text-decoration:underline; text-decoration-thickness:var(--underline-hover)}
+
+/* ───────── 판권 ───────── */
+.colo-grid{display:grid; grid-template-columns:var(--front-cover-col) var(--front-story-col) var(--front-rail-col); column-gap:var(--front-col-gap)}
+.colo-upd{grid-column:1 / 3}
+.colo-side{position:relative}
+.colo-side::before{content:""; position:absolute; top:0; bottom:0; left:calc(var(--front-col-gap) / -2); border-left:var(--rule-hair) solid var(--line-soft)}
+.colo-p{font-size:var(--fs-body); line-height:var(--lh-body); color:var(--text-2)}
+.colo-p + .lab, .colo-side .lab + *{margin-top:var(--space-2)}
+.upd{display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(3, auto); grid-auto-flow:column; column-gap:var(--front-col-gap); row-gap:var(--space-5); margin-top:var(--space-5); padding-top:var(--space-5); border-top:var(--rule-hair) solid var(--line-soft)}
+.upd dt{font-family:var(--font-data); font-weight:var(--fw-data-strong); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-1)}
+.upd dd{margin-top:var(--space-1); font-size:var(--fs-body); line-height:var(--lh-body); color:var(--text-2)}
+.side-block + .side-block{margin-top:var(--space-6); padding-top:var(--space-5); border-top:var(--rule-hair) solid var(--line-soft)}
+.doc{display:block; margin-top:var(--space-4)}
+.doc-t{font-family:var(--font-serif); font-weight:var(--fw-title); font-size:var(--fs-title-s); line-height:var(--lh-title); color:var(--text-1)}
+.doc-m{display:block; margin-top:var(--space-1); font-family:var(--font-data); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+.sib{margin-top:var(--space-3); font-family:var(--font-serif); font-weight:var(--fw-title); font-size:var(--fs-title-s); line-height:var(--lh-title); color:var(--text-1)}
+.colo-foot{display:flex; justify-content:space-between; align-items:baseline; gap:var(--space-6); margin-top:var(--space-7); padding-top:var(--space-3); border-top:var(--rule-hair) solid var(--line-ink); font-family:var(--font-sans); font-size:var(--fs-data); line-height:var(--lh-ui); color:var(--text-3)}
+
+@media (prefers-reduced-motion: reduce){
+  .cv,.lnk{transition:none}
+  .cv:hover{transform:none}
+}
+</style>
+</head><body>
+<div id="app"></div>
+<script src="../data.js"></script>
+<script>
+(function(){
+<<MZ>>
+<<COMMON>>
+/* ───────── 기준값과 도우미 ───────── */
+var TODAY='2026-09-30';
+var CS=getComputedStyle(document.documentElement);
+function tk(n){return parseFloat(CS.getPropertyValue(n));}
+var DASH='—', MINUS='−';
+var REF_S='E 임시 기준 +1.0%p', REF_B='0 아래면 D·E 전제';
+var HINT='메뉴 줄의 찾기는 이 목록에서 맞는 호만 남깁니다.';
+var SIB_URL='#';
+function ymd(k){var t=new Date(k*864e5); return t.getUTCFullYear()+'-'+String(t.getUTCMonth()+1).padStart(2,'0')+'-'+String(t.getUTCDate()).padStart(2,'0');}
+function longD(d){var a=d.split('-').map(Number); return a[1]+'월 '+a[2]+'일 '+wd(d)+'요일';}
+function shortD(d){return mdot(d)+' '+wd(d);}
+function fx(v,dec,unit){return v==null?DASH:v.toFixed(dec)+(unit||'');}
+function sx(v,dec,unit){if(v==null) return DASH; var s=Math.abs(v).toFixed(dec); return (Number(s)===0?'':(v>0?'+':MINUS))+s+(unit||'');}
+function no(b){return '제'+vol(b)+'호';}
+function phTxt(p){var ps=parts(p); return ps.length?ps.join('→'):'?';}
+function sw(p,size){var ps=parts(p); if(!ps.length) return '<span class="sw '+size+' none" aria-hidden="true"></span>';
+  return '<span class="sw '+size+'" aria-hidden="true">'+ps.map(function(x){return '<i style="background:var(--phase-'+x.toLowerCase()+')"></i>';}).join('')+'</span>';}
+var IC={
+  search:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>',
+  arrow:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>',
+  chev:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+  up:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg>'
+};
+function prevTxt(b){var p=prevOf(b), dl=deltas(b).dB; if(!p||dl==null) return '전날 대비 '+DASH;
+  var basis=(dn(b.date)-dn(p.date)===1)?'전날':'직전 호'; if(Number(Math.abs(dl).toFixed(2))===0) return basis+'과 같음';
+  return basis+' 대비 '+sx(dl,2,'%p');}
+
+/* ───────── 계산한 사실 ───────── */
+var DM=dayMap(), DATES=Object.keys(DM).sort();
+var DAYS=[]; for(var k=dn(DATES[0]); k<=dn(L.date); k++) DAYS.push(ymd(k));
+var OFF=DAYS.filter(function(d){return !DM[d];});
+var OFFRUNS=[]; OFF.forEach(function(d){var r=OFFRUNS[OFFRUNS.length-1]; if(r&&dn(d)===dn(r[r.length-1])+1) r.push(d); else OFFRUNS.push([d]);});
+var MULTI=DATES.filter(function(d){return DM[d].length>1;});
+var ST=stats();
+var NEXT={vol:B.length+1, date:ymd(dn(L.date)+1)};
+var IS_TODAY=L.date===TODAY;
+function lastOf(d){var a=DM[d]; return a?a[a.length-1]:null;}
+function multi(b){return DM[b.date].length>1;}
+function offRange(r){return shortD(r[0])+(r.length>1?'–'+shortD(r[r.length-1]):'');}
+/* 최신 호부터 훑으며 휴간 묶음을 제자리에 끼운다 */
+function walk(onIssue,onOff){var list=B.slice().reverse();
+  list.forEach(function(b,i){onIssue(b); var nb=list[i+1]; if(!nb) return;
+    OFFRUNS.forEach(function(r){if(r[0]>nb.date&&r[r.length-1]<b.date) onOff(r);});});}
+
+/* ───────── 머리와 메뉴 줄 ───────── */
+function mastHTML(){
+  var a=L.date.split('-').map(Number);
+  return '<header class="mast">'
+   +'<div class="dateline"><span>'+a[0]+'년 '+longD(L.date)+'</span>'
+   +'<span class="dl-c">'+no(L)+' · 매일 아침 06:10 발행</span>'
+   +'<span class="dl-r"><span>모두 '+ST.n+'호 · 지표 기록 '+ST.days+'일</span><a class="lnk" href="'+SIB_URL+'">매크로 리스크 서고'+IC.arrow+'</a></span></div>'
+   +'<div class="dbl"></div>'
+   +'<h1 class="nameplate">크립토 브리핑</h1>'
+   +'<p class="subline"><span class="sub-en" lang="en">The Crypto Brief Archive</span><span class="sub-sep" aria-hidden="true"></span><span class="sub-kr">날짜별로 모아 두는 크립토 브리핑 서고</span></p>'
+   +'<div class="dbl close"></div>'
+   +'</header>';
+}
+function navHTML(){
+  var items=[['#p1','1면'],['#p2','2면 지난 호'],['#p3','3면 국면·지표'],['#p4','4면 발행 목록'],['#colophon','판권']];
+  return '<nav class="bar" aria-label="면 차례"><div class="bar-in">'
+   +'<ul class="menu">'+items.map(function(x,i){return '<li><a href="'+x[0]+'"'+(i===0?' aria-current="location"':'')+'>'+x[1]+'</a></li>';}).join('')+'</ul>'
+   +'<form class="search" id="q-form" role="search" autocomplete="off">'+IC.search
+   +'<label class="scope"><span class="sr">찾을 범위</span><select id="q-scope"><option value="all">전체</option><option value="head">헤드라인</option><option value="date">날짜</option><option value="phase">국면</option></select>'+IC.chev+'</label>'
+   +'<span class="sep" aria-hidden="true"></span>'
+   +'<label class="sr" for="q">날짜나 낱말로 찾기</label><input id="q" type="search" placeholder="날짜나 낱말로 찾기"></form>'
+   +'</div></nav>';
+}
+
+/* ───────── 1면 ───────── */
+function headOf(b){return b.headline?esc(b.headline):'<span class="memo">메모</span>'+esc(b.note||b.title);}
+function railItem(b){
+  var u=esc(b.url||'#');
+  return '<article class="ri"><a class="cv cv-thumb" href="'+u+'" aria-label="'+no(b)+' 표지, 브리핑 열기">'+cover(b)+'</a>'
+   +'<div><p class="ri-meta">'+no(b)+' · '+longD(b.date)+(multi(b)?' · '+b.seq+'회':'')+'</p>'
+   +'<h3 class="ri-title"><a class="ta" href="'+u+'">'+headOf(b)+'</a></h3>'
+   +'<p class="ri-line">국면 '+phTxt(b.phase)+' · BTC.D '+fx(b.btcd,2,'%')+'</p></div></article>';
+}
+function frontHTML(){
+  var b=L, u=esc(b.url||'#'), ps=parts(b.phase);
+  var tagR=no(b)+' · '+longD(b.date)+((b.run||b.window)?' · '+esc(runLabel(b)):'');
+  var phName=ps.length>1?'걸친 판정':ps.length?PHN[ps[0]]:'국면 미기록';
+  var phSub=[]; if(ps.length>1) phSub.push(ps.map(function(x){return x+' '+PHN[x];}).join(' → ')); if(b.provisional) phSub.push('임시 기준'); if(b.prevPhase) phSub.push('전날 국면 '+phTxt(b.prevPhase));
+  var rows=[
+    {n:'BTC.D', v:fx(b.btcd,2,'%'), s:prevTxt(b)},
+    {n:'ΣSTABLECOIN.D 1개월', v:sx(b.stable1m,3,'%p'), side:'ΣSTABLECOIN.D '+fx(b.stableD,3,'%'), s:REF_S},
+    {n:'BTCUSD 1개월', v:sx(b.btc1m,2,'%'), s:REF_B}
+  ];
+  var past=B.slice(0,-1).slice(-2).reverse();
+  return '<section id="p1" class="front" aria-label="1면">'
+   +'<div class="f-tag tagline"><span class="flag">'+(IS_TODAY?'오늘의 1면':'최신 호')+'</span><span class="tag-r">'+tagR+'</span></div>'
+   +'<h2 class="f-head"><a class="ta" href="'+u+'">'+headOf(b)+'</a></h2>'
+   +'<figure class="f-cover"><a class="cv cv-lead" href="'+u+'" aria-label="'+no(b)+' 표지, 브리핑 전문 읽기">'+cover(b)+'</a>'
+   +'<figcaption class="f-cap"><span><span class="d">'+no(b)+'</span> 표지 · '+longD(b.date)+'</span><span>표지를 누르면 브리핑 전문이 열립니다</span></figcaption></figure>'
+   +'<div class="f-story">'
+     +'<a class="cta" href="'+u+'"><span class="cta-t">브리핑 전문 읽기</span>'+IC.arrow+'</a>'
+     +'<div class="today-ph"><p class="lab">'+(IS_TODAY?'오늘 국면':'최신 호 국면')+'</p>'
+       +'<div class="ph-row">'+sw(b.phase,'sw-lg')+'<span class="ph-stamp">'+phTxt(b.phase)+'</span>'
+       +'<div><p class="ph-name">'+phName+'</p>'+(phSub.length?'<p class="ph-sub">'+phSub.join(' · ')+'</p>':'')+'</div></div></div>'
+     +'<div class="ind">'+rows.map(function(r){return '<div class="ind-row"><p class="lab">'+r.n+'</p>'
+        +'<p class="ind-val"><span class="ind-big">'+r.v+'</span>'+(r.side?'<span class="ind-side">'+r.side+'</span>':'')+'</p>'
+        +'<p class="ind-sub">'+r.s+'</p></div>';}).join('')+'</div>'
+   +'</div>'
+   +'<aside class="f-rail" aria-label="지난 호와 다음 호">'
+     +'<div class="tagline"><span class="tag-l">지난 호와 다음 호</span><a class="lnk" href="#p2">2면에서 모두 보기'+IC.arrow+'</a></div>'
+     +past.map(railItem).join('')
+     +'<article class="ri ri-next"><div class="blank" role="img" aria-label="'+'제'+NEXT.vol+'호 빈 지면"><span class="bl-big">제'+NEXT.vol+'호</span><span class="bl-small">발행 예정</span></div>'
+       +'<div><p class="ri-meta">제'+NEXT.vol+'호 · '+longD(NEXT.date)+'</p><h3 class="ri-title">06:10 발행 예정</h3>'
+       +'<p class="ri-line">발행되면 표지가 섭니다</p></div></article>'
+   +'</aside>'
+   +'</section>';
+}
+
+/* ───────── 면 머리 ───────── */
+function secHead(flag,title,note){
+  return '<header class="sec-head"><h2 class="sec-title"><span class="flag">'+flag+'</span>'+title+'</h2><div class="sec-note">'+note+'</div></header>';
+}
+
+/* ───────── 2면 지난 호 ───────── */
+function p2HTML(){
+  var cells=[];
+  walk(function(b){
+    var u=esc(b.url||'#'), m=multi(b);
+    cells.push('<li class="ix"><a class="cv cv-thumb" href="'+u+'" aria-label="'+no(b)+' 표지 · '+longD(b.date)+(m?' · '+b.seq+'회':'')+'">'+cover(b)+'</a>'
+      +'<p class="ix-cap"><span><b>'+no(b)+'</b>'+(m?' <span class="hoe">'+b.seq+'회</span>':'')+'</span><span>'+shortD(b.date)+'</span></p></li>');
+  },function(r){
+    cells.push('<li class="ix ix-off"><div class="blank" role="img" aria-label="휴간 · '+offRange(r)+'"><span class="bl-big">휴간</span><span class="bl-small">'+offRange(r)+'</span></div>'
+      +'<p class="ix-cap"><span>브리핑 없는 날</span><span class="d">'+r.length+'일</span></p></li>');
+  });
+  var mon=L.date.split('-').map(Number);
+  return '<section id="p2" class="sec" aria-label="2면 지난 호">'
+   +secHead('2면','지난 호',mon[0]+'년 '+mon[1]+'월 · '+ST.n+'호 · 발행 '+DATES.length+'일 · 휴간 '+OFF.length+'일 · 여러 번 발행 '+MULTI.length+'일 · 최신 호부터')
+   +'<ol class="idx">'+cells.join('')+'</ol></section>';
+}
+
+/* ───────── 3면 국면과 지표 ───────── */
+var DC=tk('--day-col'), RH=tk('--chart-row-height'), PAD=tk('--space-3'), BW=DC*tk('--chart-bar')/100, DOT=tk('--chart-dot');
+function perDay(key){var m={}; daily(key).forEach(function(p){m[p.d]=p.v;}); return DAYS.map(function(d){return (d in m)?m[d]:null;});}
+function scale(vals,step,incl,headroom){
+  var xs=vals.filter(function(v){return v!=null;}).concat(incl);
+  var h=step/2, lo=Math.floor(Math.min.apply(null,xs)/h)*h-(headroom[0]||0)*step, hi=Math.ceil(Math.max.apply(null,xs)/h)*h+(headroom[1]||0)*step, grid=[];
+  for(var g=Math.ceil(lo/step-1e-9)*step; g<=hi+1e-9; g+=step) grid.push(Math.round(g*1000)/1000);
+  return {lo:lo, hi:hi, grid:grid};
+}
+function px(v){return (Math.round(v)+0.5).toFixed(1);}
+function chartHTML(c){
+  var vals=perDay(c.key), sc=scale(vals,c.step,c.incl,c.headroom), W=DAYS.length*DC;
+  function Y(v){return PAD+(RH-2*PAD)*(sc.hi-v)/(sc.hi-sc.lo);}
+  function X(i){return i*DC+DC/2;}
+  var s='<svg class="chart" width="'+W+'" height="'+RH+'" viewBox="0 0 '+W+' '+RH+'" role="img" aria-label="'+esc(c.aria)+'">';
+  sc.grid.forEach(function(g){ if(c.ref&&g===c.ref.v) return; if(c.type==='bar'&&g===0) return; s+='<line class="gl" x1="0" x2="'+W+'" y1="'+px(Y(g))+'" y2="'+px(Y(g))+'"/>'; });
+  if(c.type==='bar'&&!(c.ref&&c.ref.v===0)) s+='<line class="base" x1="0" x2="'+W+'" y1="'+px(Y(0))+'" y2="'+px(Y(0))+'"/>';
+  if(c.ref){var ry=px(Y(c.ref.v)); s+='<line class="ref" x1="0" x2="'+W+'" y1="'+ry+'" y2="'+ry+'"/>'
+     +'<text class="rl" x="0" y="'+(c.ref.pos==='above'?(+ry-PAD/2).toFixed(1):(+ry+PAD+tk('--space-1')).toFixed(1))+'">'+esc(c.ref.label)+'</text>';}
+  var last=-1; vals.forEach(function(v,i){if(v!=null) last=i;});
+  if(c.type==='line'){
+    var seg=[], segs=[]; vals.forEach(function(v,i){ if(v==null){ if(seg.length) segs.push(seg); seg=[]; } else seg.push([X(i),Y(v)]); }); if(seg.length) segs.push(seg);
+    segs.forEach(function(q){ if(q.length===1){ s+='<circle class="dot" cx="'+q[0][0].toFixed(1)+'" cy="'+q[0][1].toFixed(1)+'" r="'+(tk('--chart-line')).toFixed(1)+'"/>'; return; }
+      s+='<path class="ln" d="'+q.map(function(p,j){return (j?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1);}).join('')+'"/>'; });
+  } else {
+    var y0=Y(0);
+    vals.forEach(function(v,i){ if(v==null) return; var y=Y(v); s+='<rect class="bar" x="'+(X(i)-BW/2).toFixed(1)+'" y="'+Math.min(y,y0).toFixed(1)+'" width="'+BW.toFixed(1)+'" height="'+Math.abs(y-y0).toFixed(1)+'"/>'; });
+  }
+  var mid=(sc.hi+sc.lo)/2, g0=sc.grid.filter(function(g){return g<=mid+1e-9;}).pop(), g1=sc.grid.filter(function(g){return g>mid+1e-9;})[0];
+  var naY=(g0!=null&&g1!=null)?Y((g0+g1)/2):RH/2;
+  vals.forEach(function(v,i){ if(v==null&&DM[DAYS[i]]) s+='<text class="na" x="'+X(i).toFixed(1)+'" y="'+(naY+tk('--space-1')).toFixed(1)+'" text-anchor="middle">'+DASH+'</text>'; });
+  if(last>=0){ var lv=vals[last], ly=Y(lv), up=c.type==='line'||lv>=0;
+    if(c.type==='line') s+='<circle class="dot" cx="'+X(last).toFixed(1)+'" cy="'+ly.toFixed(1)+'" r="'+(DOT/2).toFixed(1)+'"/>';
+    s+='<text class="ev" x="'+W+'" y="'+(up?ly-PAD+tk('--space-1')/2:ly+PAD+tk('--space-1')).toFixed(1)+'" text-anchor="end">'+c.fmt(lv)+'</text>'; }
+  s+='</svg>';
+  var ticks=sc.grid.map(function(g){return '<span class="tick" style="top:'+Y(g).toFixed(1)+'px">'+c.tick(g)+'</span>';}).join('');
+  return '<div class="tl-row tl-chart"><div class="tl-label"><p class="tl-name">'+c.name+'</p><p class="tl-val">'+c.big+'</p>'
+    +(c.side?'<p class="tl-side">'+c.side+'</p>':'')+'<p class="tl-sub">'+c.sub+'</p></div>'
+    +'<div class="plot">'+s+ticks+'</div></div>';
+}
+function p3HTML(){
+  var off=OFFRUNS.map(function(r){var i=DAYS.indexOf(r[0]);
+    return '<div class="tl-off" style="left:calc(var(--chart-label-col) + var(--chart-label-gap) + var(--day-col) * '+i+' + var(--day-gap) / 2); width:calc(var(--day-col) * '+r.length+' - var(--day-gap))"><span>휴간</span></div>';}).join('');
+  var days=DAYS.map(function(d){
+    var b=lastOf(d), dd=+d.slice(8), now=d===TODAY;
+    if(!b) return '<div class="day" aria-label="'+shortD(d)+' 휴간"><span class="cell"></span><span class="lt"></span><span class="dn">'+dd+'</span></div>';
+    var ps=parts(b.phase), n=DM[d].length;
+    var cell=ps.length?'<span class="cell'+(now?' now':'')+'">'+ps.map(function(x){return '<i style="background:var(--phase-'+x.toLowerCase()+')"></i>';}).join('')+'</span>'
+                      :'<span class="cell none'+(now?' now':'')+'"></span>';
+    var lt='<span class="lt'+(ps.length>1?' two':'')+'">'+phTxt(b.phase)+'</span>';
+    var dh=n>1?'<span class="dh">'+n+'회</span>':(now?'<span class="dh">오늘</span>':'');
+    return '<div class="day" aria-label="'+shortD(d)+' 국면 '+phTxt(b.phase)+(n>1?' · '+n+'회':'')+'">'+cell+lt+'<span class="dn'+(now?' now':'')+'">'+dd+'</span>'+dh+'</div>';
+  }).join('');
+  var lp=parts(L.phase);
+  var band='<div class="tl-row tl-band"><div class="tl-label"><p class="tl-name">국면</p>'
+    +'<p class="tl-val">'+phTxt(L.phase)+(lp.length===1?'<small>'+PHN[lp[0]]+'</small>':'')+'</p>'
+    +'<p class="tl-sub">하루 한 칸 · 그날 마지막 호</p></div>'
+    +'<div class="days" style="grid-template-columns:repeat('+DAYS.length+', var(--day-col))">'+days+'</div></div>';
+  var charts=[
+    {key:'btcd', name:'BTC.D', type:'line', step:0.5, incl:[], headroom:[0,0], big:fx(L.btcd,2,'%'), sub:prevTxt(L),
+     fmt:function(v){return fx(v,2,'%');}, tick:function(g){return g.toFixed(2);}, aria:'BTC.D 하루 마지막 값 꺾은선'},
+    {key:'stable1m', name:'ΣSTABLECOIN.D 1개월', type:'bar', step:1, incl:[0,1], headroom:[0,0.5], big:sx(L.stable1m,3,'%p'), side:'ΣSTABLECOIN.D '+fx(L.stableD,3,'%'), sub:REF_S,
+     ref:{v:1, label:REF_S, pos:'above'}, fmt:function(v){return sx(v,3,'%p');}, tick:function(g){return sx(g,3,'');}, aria:'ΣSTABLECOIN.D 1개월 변화 막대, E 임시 기준 +1.0%p 기준선'},
+    {key:'btc1m', name:'BTCUSD 1개월', type:'bar', step:10, incl:[0], headroom:[0.5,0], big:sx(L.btc1m,2,'%'), sub:REF_B,
+     ref:{v:0, label:REF_B, pos:'below'}, fmt:function(v){return sx(v,2,'%');}, tick:function(g){return sx(g,2,'');}, aria:'BTCUSD 1개월 변화 막대, 0 기준선'}
+  ];
+  var legend='<p class="legend">'+['A','B','C','D','E'].map(function(x){return '<span class="lg">'+sw(x,'sw-sm')+'<b>'+x+'</b>'+PHN[x]+'</span>';}).join('')
+    +'<span class="lg">'+sw(null,'sw-sm')+'<b>?</b>국면 미기록</span>'
+    +'<span class="lg"><span class="sw sw-sm" style="background:var(--phase-off)" aria-hidden="true"></span>휴간</span>'
+    +'<span class="lg lg-note">걸친 판정은 왼쪽 반에 앞 국면, 오른쪽 반에 뒤 국면</span></p>';
+  return '<section id="p3" class="sec" aria-label="3면 국면과 지표">'
+   +secHead('3면','국면과 지표',shortD(DAYS[0])+'–'+shortD(DAYS[DAYS.length-1])+' · 하루 한 칸 · 지표 기록 '+ST.days+'일')
+   +legend+'<div class="tl">'+off+band+charts.map(chartHTML).join('')+'</div></section>';
+}
+
+/* ───────── 4면 발행 목록 ───────── */
+var KEYS={};
+function norm(s){return String(s==null?'':s).toLowerCase().replace(/[\s·,]/g,'').replace(/[−–—]/g,'-');}
+function dateKeys(d){var a=d.split('-').map(Number); return [d,mdot(d),a[1]+'.'+a[2],a[1]+'/'+a[2],a[1]+'월'+a[2]+'일',a[2]+'일',shortD(d),longD(d)].join(' ');}
+function rowHTML(b,k){
+  var u=esc(b.url||'#'), ps=parts(b.phase), m=multi(b), run=(b.run||b.window)?runLabel(b):'';
+  var head=b.headline?'<a class="ta" href="'+u+'">'+esc(b.headline)+'</a>':'<span class="memo">메모</span><a class="ta" href="'+u+'">'+esc(b.note||b.title)+'</a>';
+  var phase=ps.length?['국면'+ps.join('→'),ps.join('→'),ps.join(''),ps.map(function(x){return PHN[x];}).join(' '),ps.length>1?'걸친 판정':''].join(' '):'? 국면 미기록';
+  var hd=[b.headline,b.note,b.title].join(' ');
+  KEYS[k]={all:norm([no(b),vol(b)+'호',dateKeys(b.date),phase,hd,run,m?b.seq+'회':''].join(' ')), head:norm(hd), date:norm(dateKeys(b.date)), phase:norm(phase)};
+  return '<tr data-k="'+k+'"><td class="c-no fit">'+no(b)+'</td>'
+   +'<td class="c-date fit">'+shortD(b.date)+(m?' <span class="hoe">'+b.seq+'회</span>':'')+'</td>'
+   +'<td class="fit"><span class="c-ph-in">'+sw(b.phase,'sw-sm')+phTxt(b.phase)+'</span></td>'
+   +'<td class="c-head">'+head+'</td>'
+   +'<td class="num fit">'+fx(b.btcd,2,'%')+'</td><td class="num fit">'+fx(b.stableD,3,'%')+'</td><td class="num fit">'+sx(b.stable1m,3,'%p')+'</td><td class="num fit">'+sx(b.btc1m,2,'%')+'</td>'
+   +'<td class="c-run fit">'+(run?esc(run):DASH)+'</td></tr>';
+}
+function p4HTML(){
+  var rows=[], n=0;
+  walk(function(b){rows.push(rowHTML(b,'i'+(n++)));},function(r){
+    var k='o'+r[0]; KEYS[k]={all:norm('휴간 브리핑 없는 날 '+r.map(dateKeys).join(' ')), head:norm('휴간'), date:norm(r.map(dateKeys).join(' ')), phase:''};
+    rows.push('<tr class="off" data-k="'+k+'"><td class="c-off">휴간</td><td colspan="2" class="d">'+offRange(r)+'</td><td colspan="6">브리핑 없는 날 '+r.length+'일</td></tr>');
+  });
+  return '<section id="p4" class="sec" aria-label="4면 발행 목록">'
+   +secHead('4면','발행 목록','<span id="p4-note">'+ST.n+'호 · 휴간 '+OFF.length+'일 · 최신 호부터 · 한 호 한 줄</span><a class="lnk" id="csv" href="#" download="crypto-brief-'+L.date.slice(0,7)+'.csv">CSV로 내려받기</a>')
+   +'<p class="q-status" id="q-status"><span id="q-status-t">'+HINT+'</span><button type="button" class="textbtn" id="q-clear-2" hidden>검색 지우기</button></p>'
+   +'<table class="tbl" id="tbl"><thead><tr><th class="fit">호</th><th class="fit">날짜</th><th class="fit">국면</th><th>헤드라인</th>'
+   +'<th class="num fit">BTC.D</th><th class="num fit">ΣSTABLECOIN.D</th><th class="num fit">ΣSTABLECOIN.D<br>1개월</th><th class="num fit">BTCUSD<br>1개월</th><th class="fit c-run">실행</th></tr></thead>'
+   +'<tbody>'+rows.join('')+'</tbody></table>'
+   +'<div class="q-empty" id="q-empty" hidden><p class="qe-1">‘<span id="qe-term"></span>’에 맞는 호가 없습니다.</p>'
+   +'<p class="qe-2">범위를 ‘전체’로 바꾸거나 날짜를 09.24처럼 적어 보세요.</p><button type="button" class="btn" id="q-clear">검색 지우기</button></div>'
+   +'</section>';
+}
+
+/* ───────── 판권 ───────── */
+function coloHTML(){
+  var upd=[['06:10','본실행이 브리핑을 발행한 직후 서고에 그날 건을 등록한다. 등록이 실패하면 한 번 더 시도하고, 그래도 실패하면 실행 보고와 앱 알림에 사유를 남긴다.'],
+    ['07:40','안전판은 그날 브리핑이 이미 있어서 종료하는 날에도, 종료하기 전에 서고에 그날 건이 있는지 확인한다. 없으면 그날 브리핑을 읽어 등록한다.'],
+    ['수동','직접 요청해 만든 브리핑도 스킬에 적힌 같은 절차로 등록한다. 같은 날 주소가 다른 브리핑을 또 발행하면 2회차로 남는다.'],
+    ['표지','표지는 이 페이지가 등록된 기록으로 직접 그린다. 실행이 표지를 따로 만들거나 저장하지 않으므로, 등록 절차는 그대로다.'],
+    ['정정','발행한 브리핑의 수치를 고치면 서고의 기록도 함께 고친다.'],
+    ['보관','브리핑 원본은 각각의 아티팩트로 남고, 서고 기록은 이 페이지의 데이터베이스에 쌓인다. 지표 표는 CSV로 내려받을 수 있다.']];
+  return '<footer id="colophon" class="sec" aria-label="판권">'
+   +secHead('판권','갱신 방식과 부속 문서','<a class="lnk" href="#top">맨 위로'+IC.up+'</a>')
+   +'<div class="colo-grid">'
+   +'<section class="colo-upd"><p class="lab">갱신 방식</p><p class="colo-p" style="margin-top:var(--space-2)">이 서고는 손으로 고치지 않는다. 브리핑을 발행한 실행이 서고의 데이터베이스에 한 건을 등록하고, 이 페이지는 그 기록으로 목록과 타임라인과 표를 계산한다.</p>'
+   +'<dl class="upd">'+upd.map(function(x){return '<div><dt>'+x[0]+'</dt><dd>'+x[1]+'</dd></div>';}).join('')+'</dl></section>'
+   +'<section class="colo-side"><div class="side-block"><p class="lab">부속 문서</p><p class="colo-p">브리핑에서 갈라져 나온 심층 문서다. 새 문서는 요청하면 Claude가 이 자리에 등록한다.</p>'
+   +'<a class="doc ta" href="https://claude.ai/code/artifact/f371939a-b726-438b-98e2-92abf515976c"><span class="doc-t">UNI·ARB 관통 해부</span><span class="doc-m">'+shortD('2026-09-08')+' · 브리핑에서 파생된 종목 심층 분석</span></a></div>'
+   +'<div class="side-block"><p class="lab">형제 서고</p><a class="lnk sib" href="'+SIB_URL+'">매크로 리스크 서고'+IC.arrow+'</a></div></section>'
+   +'</div>'
+   +'<div class="colo-foot"><span>크립토 브리핑 서고 · 매일 아침 06:10 발행 실행이 한 호씩 등록합니다.</span><span>이 서고는 브리핑을 정리한 색인이며 투자 자문이 아닙니다. 수치는 각 브리핑이 조회한 시점의 값입니다.</span></div>'
+   +'</footer>';
+}
+
+/* ───────── 그리기 ───────── */
+document.getElementById('app').innerHTML='<div class="page" id="top">'+mastHTML()+navHTML()+'<main>'+frontHTML()+p2HTML()+p3HTML()+p4HTML()+'</main>'+coloHTML()+'</div>';
+
+/* 헤드라인이 걸친 폭에서 석 줄을 넘으면 --fs-headline-long */
+document.fonts.ready.then(function(){var h=document.querySelector('.f-head'); if(!h) return; var lh=parseFloat(getComputedStyle(h).lineHeight); if(h.getBoundingClientRect().height>lh*3+2) h.classList.add('long');});
+
+/* 검색: 범위 + 낱말, 4면에 맞는 호만 남긴다 */
+(function(){
+  var q=document.getElementById('q'), sc=document.getElementById('q-scope'), form=document.getElementById('q-form');
+  var tbl=document.getElementById('tbl'), rows=[].slice.call(tbl.querySelectorAll('tbody tr'));
+  var st=document.getElementById('q-status'), stT=document.getElementById('q-status-t'), em=document.getElementById('q-empty'), emT=document.getElementById('qe-term');
+  var SCN={all:'전체',head:'헤드라인',date:'날짜',phase:'국면'};
+  function run(){
+    var t=q.value.trim(), nt=norm(t), s=sc.value, n=0;
+    rows.forEach(function(tr){var key=KEYS[tr.getAttribute('data-k')], hit=!nt||(key&&key[s]&&key[s].indexOf(nt)>=0); tr.hidden=!hit; if(hit&&tr.getAttribute('data-k').charAt(0)==='i') n++;});
+    var cb=document.getElementById('q-clear-2');
+    if(!nt){st.hidden=false; stT.textContent=HINT; cb.hidden=true; em.hidden=true; tbl.hidden=false; return;}
+    if(n===0&&!rows.some(function(tr){return !tr.hidden;})){emT.textContent=t; em.hidden=false; tbl.hidden=true; st.hidden=true;}
+    else {em.hidden=true; tbl.hidden=false; st.hidden=false; cb.hidden=false; stT.textContent='‘'+t+'’ · 범위 '+SCN[s]+' · 맞는 호 '+n+'개';}
+  }
+  function clear(){q.value=''; run(); q.focus();}
+  q.addEventListener('input',run); sc.addEventListener('change',run);
+  q.addEventListener('keydown',function(e){if(e.key==='Escape'){q.value=''; run();}});
+  form.addEventListener('submit',function(e){e.preventDefault(); run(); document.getElementById('p4').scrollIntoView();});
+  document.getElementById('q-clear').addEventListener('click',clear);
+  document.getElementById('q-clear-2').addEventListener('click',clear);
+})();
+
+/* 지표 표 CSV */
+(function(){
+  var rows=[['호','날짜','회차','국면','헤드라인','메모','BTC.D(%)','ΣSTABLECOIN.D(%)','ΣSTABLECOIN.D 1개월(%p)','BTCUSD 1개월(%)','실행','링크']];
+  B.slice().reverse().forEach(function(b){rows.push([no(b),b.date,b.seq,b.phase||'',b.headline,b.note,b.btcd,b.stableD,b.stable1m,b.btc1m,(b.run||b.window)?runLabel(b):'',b.url]);});
+  var txt=rows.map(function(r){return r.map(function(c){c=c==null?'':String(c); return /[",\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c;}).join(',');}).join('\n');
+  try{document.getElementById('csv').href=URL.createObjectURL(new Blob(['﻿'+txt],{type:'text/csv'}));}catch(e){}
+})();
+
+/* 메뉴 줄의 지금 위치 */
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.menu a'));
+  function spy(){var lim=tk('--nav-height')+tk('--space-6'), cur=links[0];
+    links.forEach(function(a){var s=document.querySelector(a.getAttribute('href')); if(s&&s.getBoundingClientRect().top<=lim) cur=a;});
+    links.forEach(function(a){if(a===cur) a.setAttribute('aria-current','location'); else a.removeAttribute('aria-current');});}
+  var pend=false; addEventListener('scroll',function(){if(pend) return; pend=true; requestAnimationFrame(function(){pend=false; spy();});},{passive:true});
+})();
+
+ready();
+})();
+</script></body></html>

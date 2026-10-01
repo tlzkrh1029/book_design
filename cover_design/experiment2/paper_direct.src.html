@@ -1,0 +1,611 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>크립토 브리핑 서고</title>
+<!-- page type: Noto Serif KR (nameplate, headlines, body), Gothic A1 (decks, labels), Oswald (figures), IBM Plex Mono (dates, tables) -->
+<!-- covers also need Gothic A1 500-800, Outfit 500-800, Oswald 500-700 -->
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/noto-serif-kr/900.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/gothic-a1/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/outfit/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/600.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/oswald/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/ibm-plex-mono/500.css">
+<link rel="stylesheet" href="../mz.css">
+<style>
+/* ---------- tokens: newsprint and one ink. The covers are the only colour on the page. ---------- */
+:root{
+  --paper:#F2EEE5;          /* newsprint */
+  --ink:#161513;            /* text, rules, solid phase C */
+  --ink-2:#46423B;          /* secondary text, 8.5:1 on paper */
+  --ink-3:#69645A;          /* meta text, 5.1:1 on paper */
+  --hair:rgba(22,21,19,.24);/* column rules, hairlines */
+  --tint:rgba(22,21,19,.055);/* no-issue days */
+  --serif:'Noto Serif KR',serif;
+  --sans:'Gothic A1',sans-serif;
+  --num:'Oswald',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --page:1296px;            /* 1440 minus two 72px margins */
+  --col-gap:32px;           /* gutter on each side of a column rule */
+  --sec-gap:76px;           /* space before each section */
+  --np:132px;               /* nameplate */
+  --banner:76px;            /* lead headline */
+  --h-sec:34px;             /* section titles */
+  --body:16px;              /* serif body text */
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.6;
+  word-break:keep-all; overflow-wrap:break-word; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility}
+#app{position:relative; isolation:isolate; overflow:hidden}
+#app::before{content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; background-image:var(--grain,none); background-size:170px 170px; mix-blend-mode:multiply; opacity:.22}
+a{color:inherit; text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--ink); outline-offset:4px}
+.wrap{width:var(--page); margin:0 auto; padding-bottom:40px}
+h1,h2,h3,p,figure,ul,ol,dl,dd{margin:0}
+ul{padding:0; list-style:none}
+.cv{display:block; width:max-content}
+.cv>div{transition:transform .2s ease}
+.cv:hover>div{transform:translateY(-3px)}
+
+/* ---------- phase marks: ink textures instead of colour ---------- */
+.ph-A{background:radial-gradient(circle,var(--ink) 0 1.05px,transparent 1.35px) 0 0/4px 4px,var(--paper)}
+.ph-B{background:repeating-linear-gradient(45deg,var(--ink) 0 1.2px,transparent 1.2px 4.4px),var(--paper)}
+.ph-C{background:var(--ink); color:var(--paper)}
+.ph-D{background:repeating-linear-gradient(45deg,var(--ink) 0 1px,transparent 1px 4.6px),repeating-linear-gradient(-45deg,var(--ink) 0 1px,transparent 1px 4.6px),var(--paper)}
+.ph-E{background:repeating-linear-gradient(0deg,var(--ink) 0 1.2px,transparent 1.2px 4.2px),var(--paper)}
+.st{display:inline-flex; vertical-align:middle; height:var(--s,18px); min-width:var(--s,18px); border:1.5px solid var(--ink); overflow:hidden; flex-shrink:0}
+.st i{flex:1 0 var(--s,18px); width:calc(var(--s,18px) - 3px); display:flex; align-items:center; justify-content:center; font-style:normal}
+.st i+i{border-left:1.5px solid var(--ink)}
+.st b{font:800 calc(var(--s,18px)*.56)/1 var(--sans); padding:.12em .2em .1em}
+.st i:not(.ph-C) b{background:var(--paper)}
+.st-q{border-style:dashed; background:var(--paper)}
+.st-q i b{background:none; color:var(--ink-2)}
+
+/* ---------- masthead ---------- */
+.mast{padding-top:30px}
+.mast-top{display:grid; grid-template-columns:212px 1fr 212px; align-items:center; gap:24px; padding-bottom:16px}
+.np{text-align:center; font-family:var(--serif); font-weight:900; font-size:var(--np); line-height:1.04; letter-spacing:-.02em; white-space:nowrap}
+.ear{border-top:3px solid var(--ink); border-bottom:1px solid var(--ink); padding:11px 0 13px; height:118px; display:flex; flex-direction:column}
+.ear-k{font:800 11.5px/1 var(--sans); letter-spacing:.16em; color:var(--ink-2); margin-bottom:auto}
+.ear-b{display:flex; align-items:center; gap:13px}
+.ear-r .ear-b{justify-content:flex-start}
+.ear-t b{display:block; font:800 23px/1.15 var(--serif); letter-spacing:-.01em}
+.ear-t span{display:block; margin-top:5px; font:500 12.5px/1.35 var(--sans); color:var(--ink-2)}
+.ear .st{--s:54px; border-width:0}
+.ear .st b{font-size:31px; padding:0}
+.ear-r{text-align:right}
+.ear-r .ear-b{justify-content:flex-end}
+.ear-num{font:500 46px/1 var(--num); letter-spacing:-.01em}
+.folio{position:relative; border-top:4px solid var(--ink); margin-top:2px; padding:10px 0 9px; display:flex; justify-content:space-between; align-items:baseline;
+  font:500 12.5px/1.4 var(--mono); letter-spacing:.01em; border-bottom:1px solid var(--ink)}
+.folio::before{content:""; position:absolute; left:0; right:0; top:2px; height:1px; background:var(--ink)}
+.folio .mid{font:600 13px/1.4 var(--sans); letter-spacing:.06em}
+.idx{display:flex; align-items:center; justify-content:space-between; height:58px; border-bottom:3px solid var(--ink)}
+.idx ul{display:flex; gap:28px}
+.idx a{display:flex; align-items:baseline; gap:7px; font:700 15px/1 var(--sans); padding:8px 0 7px; border-bottom:2px solid transparent}
+.idx a span{font:500 11.5px/1 var(--mono); color:var(--ink-3)}
+.idx a.on{border-bottom-color:var(--ink)}
+.idx a:hover{border-bottom-color:var(--ink)}
+.find{display:flex; align-items:center; gap:14px}
+.find .lbl{font:600 12px/1 var(--sans); color:var(--ink-3); letter-spacing:.04em}
+.scope{display:flex; border:1px solid var(--ink)}
+.scope button{font:600 12.5px/1 var(--sans); background:none; border:0; border-left:1px solid var(--ink); padding:8px 11px 7px; color:var(--ink); cursor:pointer}
+.scope button:first-child{border-left:0}
+.scope button.on{background:var(--ink); color:var(--paper)}
+.qbox{display:flex; align-items:center; gap:9px; width:262px; border-bottom:1.5px solid var(--ink); padding:6px 2px 7px}
+.qbox svg{flex-shrink:0}
+.qbox input{flex:1; min-width:0; border:0; background:none; font:500 14px/1.2 var(--sans); color:var(--ink); padding:0}
+.qbox input:focus{outline:none}
+.qbox input::placeholder{color:var(--ink-3)}
+.qn{font:500 12px/1 var(--mono); color:var(--ink-2); min-width:0}
+.qn:empty{display:none}
+
+/* ---------- 1면: lead story ---------- */
+.front{padding-top:28px}
+.kick{display:flex; align-items:center; gap:12px; font:700 14.5px/1 var(--sans)}
+.kick .sep{width:1px; height:13px; background:var(--ink-3)}
+.flag{display:inline-block; background:var(--ink); color:var(--paper); font:800 12px/1 var(--sans); letter-spacing:.08em; padding:6px 9px 5px}
+.banner{margin-top:14px; font-family:var(--serif); font-weight:800; font-size:var(--banner); line-height:1.16; letter-spacing:-.028em}
+.banner a{text-decoration-thickness:3px; text-underline-offset:10px}
+.banner a:hover{text-decoration-line:underline}
+.kick .go{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font:700 13.5px/1 var(--sans); border-bottom:1.5px solid var(--ink); padding-bottom:4px}
+.fcols{display:grid; grid-template-columns:492px 1fr 332px; margin-top:26px; border-top:1px solid var(--ink); padding-top:26px}
+.lead{padding-right:var(--col-gap)}
+.lead figcaption{display:flex; justify-content:space-between; gap:16px; margin-top:16px; padding-top:9px; border-top:1px solid var(--hair);
+  font:500 12.5px/1.5 var(--sans); color:var(--ink-2)}
+.lead figcaption .credit{font:500 11.5px/1.6 var(--mono); color:var(--ink-3); white-space:nowrap}
+.story{padding:0 var(--col-gap); border-left:1px solid var(--hair); border-right:1px solid var(--hair); display:flex; flex-direction:column}
+.deck li{position:relative; padding-left:16px; font:700 19px/1.5 var(--sans); letter-spacing:-.01em}
+.deck li+li{margin-top:4px}
+.deck li::before{content:""; position:absolute; left:0; top:.32em; bottom:.32em; width:4px; background:var(--ink)}
+.dateline{margin-top:16px; padding:8px 0; border-top:1px solid var(--ink); border-bottom:1px solid var(--hair); font:500 12px/1.5 var(--mono); color:var(--ink-2); display:flex; justify-content:space-between}
+.body{margin-top:22px; font-family:var(--serif); font-size:var(--body); line-height:1.86; letter-spacing:-.005em}
+.body .lab{display:inline-block; margin-right:8px; font:800 11.5px/1 var(--sans); letter-spacing:.1em; border-bottom:2px solid var(--ink); padding-bottom:3px; vertical-align:2px}
+.pages{margin-top:22px; border-top:1px solid var(--ink)}
+.pages a{display:grid; grid-template-columns:44px 1fr auto; align-items:baseline; gap:10px; padding:9px 0 8px; border-bottom:1px solid var(--hair)}
+.pages a:hover b{text-decoration:underline; text-underline-offset:3px}
+.pages i{font:500 11.5px/1 var(--mono); font-style:normal; color:var(--ink-3)}
+.pages b{font:700 14px/1.3 var(--sans)}
+.pages span{display:block; margin-top:3px; font:500 12px/1.4 var(--sans); color:var(--ink-2)}
+.pages svg{align-self:center; color:var(--ink-2)}
+.body p+p{margin-top:12px; text-indent:0}
+.body b{font-weight:700}
+.figs{margin-top:24px; border-top:3px solid var(--ink)}
+.figs-h{display:flex; justify-content:space-between; align-items:baseline; padding:8px 0 0; font:800 12px/1 var(--sans); letter-spacing:.12em}
+.figs-h span{font:500 11.5px/1 var(--mono); letter-spacing:0; color:var(--ink-3)}
+.figs-g{display:grid; grid-template-columns:repeat(3,1fr); margin-top:12px}
+.fig{padding:0 0 2px 14px; border-left:1px solid var(--hair)}
+.fig:first-child{padding-left:0; border-left:0}
+.fig dt{font:700 12px/1.3 var(--sans); letter-spacing:.02em; white-space:nowrap}
+.fig dd.v{font:500 36px/1.1 var(--num); letter-spacing:-.01em; margin-top:6px}
+.fig dd.d{font:500 11.5px/1.4 var(--mono); color:var(--ink-2); margin-top:4px; white-space:nowrap}
+.cta{margin-top:20px; display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--ink); color:var(--paper); padding:15px 18px 14px 20px}
+.cta-t{display:block; font:800 18px/1.2 var(--sans); letter-spacing:-.01em}
+.cta-s{display:block; margin-top:4px; font:500 11.5px/1.3 var(--mono); opacity:.86}
+.cta svg{flex-shrink:0}
+.cta:hover{background:#000}
+.recent{padding-left:var(--col-gap)}
+.rh{display:flex; justify-content:space-between; align-items:baseline; padding-bottom:9px; border-bottom:1px solid var(--ink)}
+.rh b{font:800 12px/1 var(--sans); letter-spacing:.12em}
+.rh a{font:600 12.5px/1 var(--sans); color:var(--ink-2)}
+.rh a:hover{color:var(--ink)}
+.ri{display:grid; grid-template-columns:100px 1fr; gap:16px; padding:13px 0; border-bottom:1px solid var(--hair)}
+.ri:last-child{border-bottom:0; padding-bottom:0}
+.rm{font:500 11.5px/1.3 var(--mono); color:var(--ink-2)}
+.ri h3{margin-top:7px; font:700 16px/1.42 var(--serif); letter-spacing:-.015em; text-wrap:pretty}
+.ri h3 a:hover{text-decoration:underline; text-underline-offset:3px}
+.rp{margin-top:8px; display:flex; align-items:center; gap:6px; font:500 12px/1.3 var(--sans); color:var(--ink-2)}
+.rp .st{--s:15px; border-width:1px}
+
+/* ---------- section heads ---------- */
+.sec{margin-top:var(--sec-gap)}
+.sh{display:flex; align-items:center; gap:14px; border-top:3px solid var(--ink); padding:14px 0 13px; border-bottom:1px solid var(--ink)}
+.sh h2{font:800 var(--h-sec)/1.1 var(--serif); letter-spacing:-.02em}
+.sh .note{margin-left:auto; font:500 12.5px/1.5 var(--sans); color:var(--ink-2); text-align:right}
+.sh .flag{align-self:center}
+
+/* ---------- 2면: phase strip and indicator charts on one date axis ---------- */
+.board{position:relative; margin-top:22px; height:var(--bh)}
+.bt{position:absolute; left:0; right:0; display:flex; align-items:baseline; gap:14px; white-space:nowrap}
+.bt h3{font:800 14.5px/1.2 var(--sans); letter-spacing:.01em}
+.bt p{font:500 12.5px/1.2 var(--sans); color:var(--ink-2)}
+.bt p b{color:var(--ink); font-weight:700}
+.bd-plot{position:absolute; top:0; left:0; height:100%}
+.bd-plot svg{position:absolute; inset:0; overflow:visible}
+.bd-rule{position:absolute; left:0; right:0; height:0; border-top:1px solid var(--hair)}
+.pc{position:absolute; height:38px; display:flex; border:1.5px solid var(--ink)}
+.pc i{flex:1 1 0; display:flex; align-items:center; justify-content:center; font-style:normal; min-width:0}
+.pc i+i{border-left:1.5px solid var(--ink)}
+.pc b{font:800 14px/1 var(--sans); padding:2px 2px 1px}
+.pc i:not(.ph-C) b{background:var(--paper)}
+.pc.q{border-style:dashed; border-width:1.5px}
+.pc.q b{color:var(--ink-2); font-weight:700}
+.pc.today{box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--ink)}
+.pc-n{position:absolute; text-align:center; font:500 10.5px/1 var(--mono); color:var(--ink-2)}
+.pc-gap{position:absolute; display:flex; align-items:center; justify-content:center; height:38px}
+.pc-gap::before{content:""; position:absolute; left:6px; right:6px; top:50%; border-top:1px solid var(--ink-3)}
+.pc-gap span{position:relative; background:var(--paper); padding:0 5px; font:600 11.5px/1 var(--sans); color:var(--ink-2)}
+.g-grid{stroke:var(--ink); stroke-opacity:.14; stroke-width:1}
+.g-zero{stroke:var(--ink); stroke-opacity:.42; stroke-width:1}
+.g-week{stroke:var(--ink); stroke-opacity:.16; stroke-width:1}
+.g-band{fill:var(--ink); fill-opacity:.05}
+.g-tick{font:500 11px/1 var(--mono); fill:var(--ink-3); text-anchor:end}
+.g-day{font:500 11.5px/1 var(--mono); fill:var(--ink); text-anchor:middle}
+.g-wd{font:500 10.5px/1 var(--sans); fill:var(--ink-3); text-anchor:middle}
+.g-today{fill:var(--ink)}
+.g-day.on{fill:var(--paper); font-weight:500}
+.g-mon{font:700 12px/1 var(--sans); fill:var(--ink)}
+.g-line{fill:none; stroke:var(--ink); stroke-width:1.8; stroke-linejoin:round; stroke-linecap:round}
+.g-dot{fill:var(--ink)}
+.g-last{fill:var(--ink); stroke:var(--paper); stroke-width:2}
+.g-end{font:500 12px/1 var(--mono); fill:var(--ink)}
+.g-ref{stroke:var(--ink); stroke-width:1.3; stroke-dasharray:5 4}
+.g-reft{font:600 11.5px/1 var(--sans); fill:var(--ink); text-anchor:end}
+.g-gap{font:500 10.5px/1 var(--sans); fill:var(--ink-3); text-anchor:middle}
+.lg{display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; margin-top:20px; padding-top:14px; border-top:1px solid var(--ink); font:500 12.5px/1.4 var(--sans); color:var(--ink-2)}
+.lg-i{display:inline-flex; align-items:center; gap:8px; white-space:nowrap}
+.lg-i b{color:var(--ink); font-weight:800}
+.lg .st{--s:20px}
+.sw-gap{display:inline-block; width:26px; height:20px; background:var(--tint); position:relative}
+.sw-gap::before{content:""; position:absolute; left:4px; right:4px; top:50%; border-top:1px solid var(--ink-3)}
+.sw-n{font:500 11px/1 var(--mono); color:var(--ink); border:1px solid var(--hair); padding:4px 4px 3px}
+.bd-note{margin-top:10px; font:500 12.5px/1.6 var(--sans); color:var(--ink-2)}
+
+/* ---------- 3면: 축쇄판, every cover ---------- */
+.month{display:flex; align-items:baseline; gap:12px; margin-top:22px}
+.month b{font:800 20px/1 var(--serif); letter-spacing:-.01em}
+.month span{font:500 12.5px/1 var(--mono); color:var(--ink-2)}
+.month::after{content:""; flex:1; border-top:1px solid var(--hair); transform:translateY(-4px)}
+.grid{display:grid; grid-template-columns:repeat(8,141px); column-gap:24px; row-gap:30px; margin-top:20px}
+.ci figcaption{margin-top:12px; padding-top:7px; border-top:1px solid var(--ink)}
+.cm{display:flex; justify-content:space-between; align-items:baseline; gap:6px}
+.cm b{font:800 13px/1.2 var(--sans); letter-spacing:-.01em}
+.cm span{font:500 11px/1.2 var(--mono); color:var(--ink-2); white-space:nowrap}
+.cm span em{font-style:normal; font-family:var(--sans); font-weight:700; color:var(--ink)}
+.ch{margin-top:5px; font:500 12.5px/1.5 var(--serif); letter-spacing:-.01em; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; min-height:4.5em}
+.ch.nt{font-family:var(--sans); font-size:12px; color:var(--ink-2)}
+.gapcell .gbox{width:141px; aspect-ratio:68/100; border:1px dashed var(--ink-3); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center;
+  background:repeating-linear-gradient(-45deg,transparent 0 9px,rgba(22,21,19,.045) 9px 10px)}
+.gbox b{font:800 22px/1 var(--serif)}
+.gbox span{font:500 11.5px/1.5 var(--mono); color:var(--ink-2)}
+.gbox small{font:500 12px/1.4 var(--sans); color:var(--ink-2)}
+[hidden]{display:none!important}
+
+/* ---------- 4면: publication record as a market table ---------- */
+.tbar{display:flex; align-items:center; justify-content:space-between; margin-top:18px}
+.tbar p{font:500 12.5px/1.5 var(--sans); color:var(--ink-2)}
+.csv{display:inline-flex; align-items:center; gap:8px; font:700 13px/1 var(--sans); color:var(--ink); background:none; border:1.5px solid var(--ink); padding:9px 13px 8px; cursor:pointer}
+.csv:hover{background:var(--ink); color:var(--paper)}
+.tbl{width:100%; border-collapse:collapse; margin-top:12px; font-variant-numeric:tabular-nums}
+.tbl th{font:700 11.5px/1.3 var(--sans); letter-spacing:.02em; text-align:left; padding:7px 8px; vertical-align:bottom; white-space:nowrap}
+.tbl thead tr:first-child th{border-top:3px solid var(--ink); padding-top:9px}
+.tbl thead tr:last-child th{border-bottom:1px solid var(--ink)}
+.tbl th.grp{text-align:center; border-bottom:1px solid var(--hair); padding-bottom:5px}
+.tbl th.sub{font-weight:600; color:var(--ink-2); padding-top:5px}
+.tbl td{padding:6px 8px 5px; border-bottom:1px solid var(--hair); vertical-align:baseline; font:500 12.5px/1.5 var(--mono)}
+.tbl .n{text-align:right; white-space:nowrap}
+.tbl .vol{font-weight:500; width:44px}
+.tbl .dt{white-space:nowrap; width:96px}
+.tbl .dt span{font-family:var(--sans); color:var(--ink-2)}
+.tbl .dt em{font-style:normal; display:block; font:600 11px/1.4 var(--sans); color:var(--ink-2)}
+.tbl .ph{width:62px}
+.tbl .ph .st{--s:19px; vertical-align:baseline}
+.tbl td.hl{font:500 14px/1.5 var(--serif); letter-spacing:-.01em; width:auto}
+.tbl td.hl a:hover{text-decoration:underline; text-underline-offset:3px}
+.tbl td.hl .nt{font:500 13px/1.55 var(--sans); color:var(--ink-2)}
+.tbl td.hl .nt::before{content:"메모"; display:inline-block; margin-right:7px; font:700 10.5px/1 var(--sans); border:1px solid var(--ink-3); padding:2px 4px 1px; vertical-align:2px; color:var(--ink-2)}
+.tbl .run{white-space:nowrap; font:500 12.5px/1.5 var(--sans); color:var(--ink-2); width:112px}
+.tbl tr.today td{background:rgba(22,21,19,.06)}
+.tbl tr.today td.vol{font-weight:500; box-shadow:inset 4px 0 0 var(--ink)}
+.tbl tr.gap td{font:500 12px/1.4 var(--sans); color:var(--ink-2); text-align:center; padding:9px 8px;
+  background:repeating-linear-gradient(-45deg,transparent 0 9px,rgba(22,21,19,.05) 9px 10px)}
+.tbl tbody tr:last-child td{border-bottom:3px solid var(--ink)}
+.tbl .neg{white-space:nowrap}
+
+/* ---------- 별지 · 알림 ---------- */
+.tail{display:grid; grid-template-columns:400px 1fr; margin-top:var(--sec-gap); border-top:3px solid var(--ink)}
+.tail>div{padding-top:14px}
+.annex{padding-right:var(--col-gap)}
+.notice{padding-left:var(--col-gap); border-left:1px solid var(--hair)}
+.sh2{display:flex; align-items:center; gap:12px; padding-bottom:13px; border-bottom:1px solid var(--ink)}
+.sh2 h2{font:800 26px/1.1 var(--serif); letter-spacing:-.02em}
+.doc{margin-top:20px; padding-bottom:18px; border-bottom:1px solid var(--hair)}
+.doc .dm{font:500 12px/1.4 var(--mono); color:var(--ink-2)}
+.doc h3{margin-top:8px; font:800 26px/1.25 var(--serif); letter-spacing:-.02em}
+.doc h3 a:hover{text-decoration:underline; text-underline-offset:4px}
+.doc p{margin-top:6px; font:500 14px/1.6 var(--sans); color:var(--ink-2)}
+.more{display:inline-flex; align-items:center; gap:7px; margin-top:14px; font:700 13.5px/1 var(--sans); border-bottom:1.5px solid var(--ink); padding-bottom:4px}
+.ax-n{margin-top:14px; font:500 13.5px/1.7 var(--serif); color:var(--ink-2)}
+.sister{margin-top:30px; border-top:3px solid var(--ink); padding-top:12px}
+.sister .k{font:800 11.5px/1 var(--sans); letter-spacing:.14em; color:var(--ink-2)}
+.sister a{display:inline-flex; align-items:center; gap:9px; margin-top:12px; font:800 22px/1.2 var(--serif); letter-spacing:-.02em; border-bottom:1.5px solid var(--ink); padding-bottom:4px}
+.lede{margin-top:18px; font:500 16px/1.8 var(--serif)}
+.steps{display:grid; grid-template-columns:1fr 1fr; column-gap:var(--col-gap); margin-top:16px}
+.steps div{display:grid; grid-template-columns:58px 1fr; gap:12px; padding:12px 0; border-top:1px solid var(--hair)}
+.steps dt{font:700 13px/1.6 var(--mono)}
+.steps dd{font:500 13.5px/1.65 var(--sans); color:var(--ink-2)}
+
+/* ---------- 판권 ---------- */
+.colo{display:grid; grid-template-columns:auto 1fr; align-items:center; gap:40px; margin-top:44px; padding:18px 0 4px; border-top:4px solid var(--ink); position:relative}
+.colo::before{content:""; position:absolute; left:0; right:0; top:2px; height:1px; background:var(--ink)}
+.colo .cn b{display:block; font:900 28px/1.1 var(--serif); letter-spacing:-.02em}
+.colo .cn span{display:block; margin-top:6px; font:500 12px/1.4 var(--mono); color:var(--ink-2)}
+.colo .disc{justify-self:end; text-align:right; font:500 12.5px/1.65 var(--sans); color:var(--ink-2)}
+
+/* ---------- narrow screens (not rendered here): single column, scrollable board and table ---------- */
+@media (max-width:760px){
+  :root{--page:calc(100vw - 32px); --np:52px; --banner:34px; --h-sec:26px; --sec-gap:52px}
+  .mast-top{grid-template-columns:1fr; gap:12px}
+  .ear{height:auto; flex-direction:row; align-items:center; justify-content:space-between}
+  .ear-k{margin:0}
+  .ear-r .ear-b,.ear-r{text-align:left; justify-content:flex-start}
+  .folio{flex-wrap:wrap; gap:4px 12px} .folio .mid{display:none}
+  .idx{height:auto; flex-direction:column; align-items:stretch; gap:12px; padding:10px 0}
+  .idx ul{overflow-x:auto; gap:18px}
+  .find{flex-wrap:wrap} .qbox{width:100%}
+  .fcols{grid-template-columns:1fr; row-gap:28px}
+  .lead,.story,.recent{padding:0; border:0}
+  .lead .cv>div{width:min(358px,100%)!important}
+  .board-scroll{overflow-x:auto}
+  .grid{grid-template-columns:repeat(2,1fr); column-gap:16px}
+  .tbl-scroll{overflow-x:auto}
+  .tail{grid-template-columns:1fr} .notice{padding-left:0; border-left:0; margin-top:32px}
+  .steps{grid-template-columns:1fr}
+  .colo{grid-template-columns:1fr; gap:16px} .colo .disc{justify-self:start; text-align:left}
+}
+</style>
+</head><body>
+<div id="app"></div>
+<script src="../data.js"></script>
+<script>
+(function(){
+<<MZ>>
+<<COMMON>>
+
+/* ================= helpers for this page ================= */
+function kd(d){return (+d.slice(5,7))+'월 '+(+d.slice(8,10))+'일';}
+function kdot(d){return (+d.slice(5,7))+'.'+(+d.slice(8,10));}
+function addDays(d,n){return new Date((dn(d)+n)*864e5).toISOString().slice(0,10);}
+function mn(v,d){return v==null?'–':(v<0?'−':'')+Math.abs(v).toFixed(d);}               /* minus sign U+2212 */
+function sx(v,d){if(v==null) return '–'; var s=Math.abs(v).toFixed(d); return (Number(s)===0?'':(v>0?'+':'−'))+s;} /* zero without sign */
+function stamp(p,extra){
+  var ps=parts(p);
+  if(!ps.length) return '<span class="st st-q'+(extra?' '+extra:'')+'" title="국면 미기록"><i><b>?</b></i></span>';
+  return '<span class="st'+(extra?' '+extra:'')+'" title="'+esc(phaseText(p))+'">'+ps.map(function(x){return '<i class="ph-'+x+'"><b>'+x+'</b></i>';}).join('')+'</span>';
+}
+function phaseName(p){var ps=parts(p); return ps.length===1?ps[0]+' · '+PHN[ps[0]]:ps.length?ps.join('→')+' · 걸친 판정':'국면 미기록';}
+function splitHL(h){var i=h.indexOf(', '); if(i<0) i=h.indexOf(','); return (i>h.length*.25&&i<h.length*.75)?[h.slice(0,i+1),h.slice(i+1).trim()]:[h];}
+function wrapCover(b,w){return '<div style="width:'+w+'px">'+cover(b)+'</div>';}
+function link(b,inner,cls,label){return '<a class="'+(cls||'')+'" href="'+esc(b.url||'#')+'" target="_blank" rel="noopener"'+(label?' aria-label="'+esc(label)+'"':'')+'>'+inner+'</a>';}
+var ARROW='<svg width="18" height="14" viewBox="0 0 18 14" aria-hidden="true"><path d="M1 7h15M10.5 1.5 16 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var ARROW_S='<svg width="14" height="11" viewBox="0 0 18 14" aria-hidden="true"><path d="M1 7h15M10.5 1.5 16 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var GLASS='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="6.8" cy="6.8" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10.6 10.6 14.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+var DOWN='<svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M6.5 1v9M2.5 6.5l4 4 4-4M1 13h11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* ================= derived facts (all computed from the records) ================= */
+var DAYS=[]; for(var d0=B[0].date; d0<=L.date; d0=addDays(d0,1)) DAYS.push(d0);
+var DM=dayMap(), ST=stats();
+var GAPS=DAYS.filter(function(d){return !DM[d];});
+var PUB=DAYS.length-GAPS.length;
+var LP=parts(L.phase), PP=parts(L.prevPhase), PV=prevOf(L), DL=deltas(L);
+var SK=(function(){var n=0,s=null; if(LP.length!==1) return {n:0}; for(var i=DAYS.length-1;i>=0;i--){var l=DM[DAYS[i]]; if(!l) continue; var p=parts(l[l.length-1].phase); if(p.length===1&&p[0]===LP[0]){n++; s=DAYS[i];} else break;} return {n:n,start:s,ph:LP[0]};})();
+var NX=addDays(L.date,1);
+var E_REF=1.0;   /* ΣSTABLECOIN.D 1개월, E 판정 임시 기준 */
+var D_REF=0;     /* BTCUSD 1개월, D·E 판정의 전제 */
+function ext(key){var s=daily(key), hi=s[0], lo=s[0]; s.forEach(function(p){if(p.v>hi.v) hi=p; if(p.v<lo.v) lo=p;}); return {hi:hi,lo:lo,n:s.length};}
+
+/* ================= masthead ================= */
+var NAV=[['p1','1면','오늘 호'],['p2','2면','국면과 지표'],['p3','3면','축쇄판'],['p4','4면','발행 기록'],['p5','별지','부속 문서'],['p6','알림','갱신 방식']];
+var mast='<header class="mast">'
+ +'<div class="mast-top">'
+  +'<div class="ear ear-l"><div class="ear-k">오늘의 국면</div><div class="ear-b">'+stamp(L.phase)
+   +'<div class="ear-t"><b>'+esc(LP.length===1?PHN[LP[0]]:LP.length?'걸친 판정':'미기록')+'</b><span>'+(L.provisional?'임시 기준 · ':'')+'전날 '+(PP.length?PP.join('→'):'미기록')+'</span></div></div></div>'
+  +'<h1 class="np">크립토 브리핑</h1>'
+  +'<div class="ear ear-r"><div class="ear-k">다음 호</div><div class="ear-b"><div class="ear-t"><b>'+kd(NX)+' '+wd(NX)+'요일</b><span>아침 06:10 발행 · 제'+(B.length+1)+'호</span></div></div></div>'
+ +'</div>'
+ +'<div class="folio"><span>'+L.date.slice(0,4)+'년 '+kd(L.date)+' '+wd(L.date)+'요일</span><span class="mid">날짜별로 모아 두는 크립토 브리핑 서고</span><span>제'+vol(L)+'호 · 발행 '+PUB+'일 · 지표 기록 '+ST.days+'일</span></div>'
+ +'<nav class="idx" aria-label="지면 안내"><ul>'+NAV.map(function(n,i){return '<li><a href="#'+n[0]+'"'+(i===0?' class="on" aria-current="true"':'')+'><span>'+n[1]+'</span>'+n[2]+'</a></li>';}).join('')+'</ul>'
+  +'<form class="find" role="search" onsubmit="return false"><span class="lbl">찾기</span>'
+   +'<div class="scope" role="radiogroup" aria-label="찾을 범위"><button type="button" role="radio" aria-checked="true" class="on" data-s="all">전체</button><button type="button" role="radio" aria-checked="false" data-s="text">헤드라인·메모</button><button type="button" role="radio" aria-checked="false" data-s="date">날짜</button></div>'
+   +'<label class="qbox">'+GLASS+'<input id="q" type="search" placeholder="날짜나 낱말로 지난 호 찾기" aria-label="날짜나 낱말로 지난 호 찾기" autocomplete="off"></label><span class="qn" id="qn" aria-live="polite"></span>'
+  +'</form></nav>'
++'</header>';
+
+/* ================= 1면 ================= */
+var HL=splitHL(L.headline||L.note||L.title);
+var PK=BK.pick(L,B).split(' · ');
+var same=PP.length&&PP.join()===LP.join();
+/* 판정 근거: where today's values sit against the two thresholds in the brief */
+var basis=(L.provisional?'판정은 임시 기준을 따랐다. ':'');
+if(L.stable1m!=null) basis+='ΣSTABLECOIN.D 1개월 변화 <b>'+sx(L.stable1m,3)+'%p</b>는 E 판정의 임시 기준 +'+E_REF.toFixed(1)+'%p'+(L.stable1m<E_REF?'보다 '+(E_REF-L.stable1m).toFixed(3)+'%p 낮다.':'에 닿았다.');
+if(L.btc1m!=null) basis+=' BTCUSD 1개월 변화 <b>'+sx(L.btc1m,2)+'%</b>는 '+(L.btc1m>=D_REF?'0 위에 있어 D·E 판정의 전제가 서지 않았다.':'0 아래로 내려가 D·E 판정의 전제가 섰다.');
+var E1=ext('btcd');
+
+var story='<div class="story">'
+ +'<ul class="deck"><li>국면 '+esc(phaseName(L.phase))+(same?', 전날과 같은 판정':'')+'</li>'+(SK.n>1?'<li>'+kd(SK.start)+'부터 발행한 '+SK.n+'일 모두 '+SK.ph+'</li>':'')+'</ul>'
+ +'<p class="dateline"><span>'+kd(L.date)+' '+esc(runLabel(L))+'</span><span>'+(L.window?'실행 '+esc(L.window):'')+'</span></p>'
+ +link(L,'<span><span class="cta-t">브리핑 전문 읽기</span><span class="cta-s">'+esc(L.title)+' · 새 창에서 열림</span></span>'+ARROW,'cta')
+ +'<div class="figs"><div class="figs-h">오늘의 지표<span>'+kdot(L.date)+' 조회 값</span></div><dl class="figs-g">'
+  +'<div class="fig"><dt>BTC.D</dt><dd class="v">'+f(L.btcd,2)+'%</dd><dd class="d">전날 대비 '+sx(DL.dB,2)+'%p</dd></div>'
+  +'<div class="fig"><dt>ΣSTABLECOIN.D</dt><dd class="v">'+f(L.stableD,3)+'%</dd><dd class="d">1개월 '+sx(L.stable1m,3)+'%p</dd></div>'
+  +'<div class="fig"><dt>BTCUSD 1개월</dt><dd class="v">'+sx(L.btc1m,2)+'%</dd><dd class="d">'+(PV&&PV.btc1m!=null?'전날 '+sx(PV.btc1m,2)+'%에서':'전날 기록 없음')+'</dd></div>'
+ +'</dl></div>'
+ +'<div class="body"><p><span class="lab">판정 근거</span>'+basis+'</p></div>'
+ +'<nav class="pages" aria-label="다른 지면">'
+  +'<a href="#p2"><i>2면</i><span><b>국면과 지표</b><span>'+kd(DAYS[0])+'부터 하루 한 칸 · BTC.D 최저 '+f(E1.lo.v,2)+'%('+kd(E1.lo.d)+')</span></span>'+ARROW_S+'</a>'
+  +'<a href="#p3"><i>3면</i><span><b>축쇄판</b><span>9월 표지 '+B.length+'장 · 휴간 '+GAPS.length+'일</span></span>'+ARROW_S+'</a>'
+  +'<a href="#p4"><i>4면</i><span><b>발행 기록</b><span>발행 목록과 지표 표 · CSV 내려받기</span></span>'+ARROW_S+'</a>'
+ +'</nav>'
++'</div>';
+
+var REC=B.slice(-5,-1).reverse();
+var recent='<aside class="recent" aria-label="지난 호"><div class="rh"><b>지난 호</b><a href="#p3">축쇄판 전체 보기 →</a></div>'
+ +REC.map(function(b){
+   return '<article class="ri">'+link(b,wrapCover(b,100),'cv','제'+vol(b)+'호 브리핑 열기')
+    +'<div><p class="rm">제'+vol(b)+'호 · '+kdot(b.date)+' '+wd(b.date)+'</p>'
+    +'<h3>'+link(b,esc(b.headline||b.note||b.title))+'</h3>'
+    +'<p class="rp">'+stamp(b.phase)+'<span>'+esc(phaseName(b.phase))+(b.btcd!=null?' · BTC.D '+f(b.btcd,2)+'%':'')+'</span></p></div></article>';
+ }).join('')+'</aside>';
+
+var front='<section class="front" id="p1" aria-label="1면 오늘 호">'
+ +'<div class="kick"><span class="flag">1면 · 오늘 호</span><span>제'+vol(L)+'호</span><span class="sep"></span><span>'+esc(L.title)+'</span>'+link(L,'전문 읽기 '+ARROW_S,'go')+'</div>'
+ +'<h2 class="banner">'+link(L,HL.map(esc).join('<br>'))+'</h2>'
+ +'<div class="fcols">'
+  +'<figure class="lead">'+link(L,wrapCover(L,460),'cv','제'+vol(L)+'호 브리핑 열기')
+   +'<figcaption><span>제'+vol(L)+'호 표지. 그림 ‘'+esc(PK[0])+'’, 배색 ‘'+esc(PK[1])+'’.</span><span class="credit">기록으로 그린 표지</span></figcaption></figure>'
+  +story+recent
+ +'</div></section>';
+
+/* ================= 2면: phase strip + three indicators on one date axis ================= */
+var PW=1296, GX=46, RX=78, N=DAYS.length, DW=(PW-GX-RX)/N;
+function X(i){return GX+(i+0.5)*DW;}
+/* rows: each has a title band (HTML) and a plot band (SVG / cells); all share X() */
+var R={ax:{top:0,y:0,h:40}}, yy=46;
+[['ph',54],['c1',118],['c2',118],['c3',126]].forEach(function(r){R[r[0]]={top:yy, y:yy+40, h:r[1]}; yy=yy+40+r[1]+10;});
+var BH=yy;
+var CH=[
+ {row:'c1', key:'btcd', title:'BTC.D', d:2, unit:'%', tick:function(t){return t.toFixed(1);},
+  desc:function(e){return '비트코인 점유율(%) · 기록 구간 최고 <b>'+f(e.hi.v,2)+'%</b>('+kd(e.hi.d)+'), 최저 <b>'+f(e.lo.v,2)+'%</b>('+kd(e.lo.d)+')';}},
+ {row:'c2', key:'stable1m', title:'ΣSTABLECOIN.D 1개월 변화', d:3, unit:'%p', ref:E_REF, refT:'E 판정 임시 기준 +'+E_REF.toFixed(1)+'%p', refPos:'above', zero:true, tick:function(t){return sx(t,0);},
+  desc:function(e){return '스테이블코인 점유율 합계의 한 달 변화(%p) · 최저 <b>'+sx(e.lo.v,2)+'%p</b>('+kd(e.lo.d)+'), 최고 <b>'+sx(e.hi.v,3)+'%p</b>('+kd(e.hi.d)+')';}},
+ {row:'c3', key:'btc1m', title:'BTCUSD 1개월 변화', d:2, unit:'%', ref:D_REF, refT:'0 아래로 내려가야 D·E 판정의 전제가 선다', refPos:'below', tick:function(t){return sx(t,0);},
+  desc:function(e){return '비트코인 가격의 한 달 변화(%) · 최고 <b>'+sx(e.hi.v,2)+'%</b>('+kd(e.hi.d)+'), 최저 <b>'+sx(e.lo.v,2)+'%</b>('+kd(e.lo.d)+')';}}
+];
+function niceStep(r,n){var raw=r/n, p=Math.pow(10,Math.floor(Math.log10(raw))), m=raw/p; return (m<1.5?1:m<3?2:m<7?5:10)*p;}
+var svg='<svg width="'+PW+'" height="'+BH+'" viewBox="0 0 '+PW+' '+BH+'" aria-hidden="true">';
+/* per plot band: no-issue days as a light band, week starts (Mondays) as hairlines */
+['ph','c1','c2','c3'].forEach(function(k){var r=R[k];
+  DAYS.forEach(function(d,i){
+    if(!DM[d]) svg+='<rect class="g-band" x="'+(GX+i*DW).toFixed(1)+'" y="'+(r.y-6)+'" width="'+DW.toFixed(1)+'" height="'+(r.h+12)+'"/>';
+    if(wd(d)==='월'&&i>0){var x=(GX+i*DW).toFixed(1); svg+='<line class="g-week" x1="'+x+'" x2="'+x+'" y1="'+(r.y-6)+'" y2="'+(r.y+r.h+6)+'"/>';}
+  });
+});
+/* date axis */
+svg+='<text class="g-mon" x="0" y="14.5">9월</text>';
+DAYS.forEach(function(d,i){
+  var x=X(i).toFixed(1), t=d===L.date;
+  if(t) svg+='<rect class="g-today" x="'+(X(i)-13).toFixed(1)+'" y="0" width="26" height="20"/>';
+  svg+='<text class="g-day'+(t?' on':'')+'" x="'+x+'" y="14.5">'+(+d.slice(8,10))+'</text><text class="g-wd" x="'+x+'" y="34">'+wd(d)+'</text>';
+  if(wd(d)==='월'&&i>0){var wx=(GX+i*DW).toFixed(1); svg+='<line class="g-week" x1="'+wx+'" x2="'+wx+'" y1="2" y2="38"/>';}
+});
+/* charts */
+CH.forEach(function(c){
+  var r=R[c.row], s=daily(c.key).map(function(p){return {i:DAYS.indexOf(p.d),v:p.v,d:p.d};}).filter(function(p){return p.i>=0;});
+  var vs=s.map(function(p){return p.v;}); if(c.ref!=null) vs.push(c.ref); if(c.zero) vs.push(0);
+  var lo=Math.min.apply(null,vs), hi=Math.max.apply(null,vs), pad=(hi-lo)*.08; lo-=pad; hi+=pad;
+  var pt=c.refPos==='above'?18:8, pb=c.refPos==='below'?22:8, Y=function(v){return r.y+pt+(hi-v)/(hi-lo)*(r.h-pt-pb);};
+  var st=niceStep(hi-lo,3), x0=GX, x1=GX+N*DW;
+  for(var t=Math.ceil(lo/st)*st; t<=hi+1e-9; t+=st){var tt=Math.round(t*1e6)/1e6, y=Y(tt).toFixed(1);
+    if(c.ref!=null&&tt===c.ref) {svg+='<text class="g-tick" x="'+(x0-9)+'" y="'+(+y+3.8).toFixed(1)+'">'+c.tick(tt)+'</text>'; continue;}
+    svg+='<line class="'+(tt===0&&c.zero?'g-zero':'g-grid')+'" x1="'+x0+'" x2="'+x1.toFixed(1)+'" y1="'+y+'" y2="'+y+'"/><text class="g-tick" x="'+(x0-9)+'" y="'+(+y+3.8).toFixed(1)+'">'+c.tick(tt)+'</text>';}
+  if(c.ref!=null){var ry=Y(c.ref).toFixed(1);
+    svg+='<line class="g-ref" x1="'+x0+'" x2="'+x1.toFixed(1)+'" y1="'+ry+'" y2="'+ry+'"/>'
+       +'<text class="g-reft" x="'+(x1-4).toFixed(1)+'" y="'+(c.refPos==='below'?(+ry+15.5):(+ry-6)).toFixed(1)+'">'+esc(c.refT)+'</text>';}
+  var dp=''; s.forEach(function(p,k){var pr=s[k-1]; dp+=(pr&&p.i-pr.i===1?'L':'M')+X(p.i).toFixed(1)+' '+Y(p.v).toFixed(1);});
+  svg+='<path class="g-line" d="'+dp+'"/>';
+  s.forEach(function(p,k){var last=k===s.length-1; svg+='<circle class="'+(last?'g-last':'g-dot')+'" cx="'+X(p.i).toFixed(1)+'" cy="'+Y(p.v).toFixed(1)+'" r="'+(last?4.6:2.4)+'"/>';});
+  var lp=s[s.length-1]; svg+='<text class="g-end" x="'+(X(lp.i)+11).toFixed(1)+'" y="'+(Y(lp.v)+4).toFixed(1)+'">'+(c.key==='btcd'?f(lp.v,c.d):sx(lp.v,c.d))+c.unit+'</text>';
+  c.ext=ext(c.key);
+});
+svg+='</svg>';
+/* phase cells (HTML, so the ink textures match the legend and the table) */
+var cells='', PCH=38;
+DAYS.forEach(function(d,i){
+  var l=DM[d], x=(GX+i*DW+4).toFixed(1), w=(DW-8).toFixed(1);
+  if(!l) return;
+  var b=l[l.length-1], ps=parts(b.phase), top=R.ph.y;
+  cells+='<div class="pc'+(ps.length?'':' q')+(d===L.date?' today':'')+'" style="left:'+x+'px;top:'+top+'px;width:'+w+'px" title="'+esc(kd(d)+' · '+phaseName(b.phase))+'">'
+    +(ps.length?ps.map(function(p){return '<i class="ph-'+p+'"><b>'+p+'</b></i>';}).join(''):'<i><b>?</b></i>')+'</div>';
+  if(l.length>1) cells+='<div class="pc-n" style="left:'+(GX+i*DW).toFixed(1)+'px;top:'+(top+PCH+6)+'px;width:'+DW.toFixed(1)+'px">'+l.length+'회</div>';
+});
+/* label the no-issue run */
+(function(){var i=0; while(i<N){ if(DM[DAYS[i]]){i++; continue;} var j=i; while(j+1<N&&!DM[DAYS[j+1]]) j++;
+  cells+='<div class="pc-gap" style="left:'+(GX+i*DW).toFixed(1)+'px;top:'+R.ph.y+'px;width:'+((j-i+1)*DW).toFixed(1)+'px"><span>휴간</span></div>'; i=j+1;}})();
+
+var labels='<div class="bt" style="top:'+(R.ph.top+15)+'px"><h3>국면</h3><p>'+(SK.n>1?kd(SK.start)+'부터 발행한 <b>'+SK.n+'일 모두 '+SK.ph+' · '+PHN[SK.ph]+'</b> · 오늘 칸은 겹테두리':esc(phaseName(L.phase)))+'</p></div>'
+ +CH.map(function(c){return '<div class="bt" style="top:'+(R[c.row].top+15)+'px"><h3>'+c.title+'</h3><p>'+c.desc(c.ext)+'</p></div>';}).join('');
+var rules='<div class="bd-rule" style="top:'+R.ph.top+'px;border-top-color:var(--ink)"></div>'+['c1','c2','c3'].map(function(k){return '<div class="bd-rule" style="top:'+R[k].top+'px"></div>';}).join('');
+
+var legend='<div class="lg">'
+ +['A','B','C','D','E'].map(function(k){return '<span class="lg-i">'+stamp(k)+'<span><b>'+k+'</b> '+PHN[k]+'</span></span>';}).join('')
+ +'<span class="lg-i">'+stamp(null)+'<span>국면 미기록</span></span>'
+ +'<span class="lg-i"><i class="sw-gap"></i><span>휴간 · 브리핑이 없는 날</span></span>'
+ +'<span class="lg-i"><b class="sw-n">2회</b><span>하루 여러 번 발행한 날, 마지막 회차로 칠함</span></span>'
++'</div>'
+ +'<p class="bd-note">9월 3일 판정은 구 분류표 기준이다. 9월 5일 새 분류표를 처음 적용했고, 그날부터 판정은 모두 임시 기준이다. 걸친 판정은 칸을 반으로 나눠 두 국면을 함께 보인다.</p>';
+
+var p2='<section class="sec" id="p2" aria-label="2면 국면과 지표">'
+ +'<header class="sh"><span class="flag">2면</span><h2>국면과 지표</h2><p class="note">하루 한 칸, '+kd(DAYS[0])+' 창간호부터 '+kd(L.date)+'까지<br>수치는 각 브리핑이 조회한 시점의 값</p></header>'
+ +'<div class="board-scroll"><div class="board" style="--bh:'+BH+'px"><div class="bd-plot" style="width:'+PW+'px">'+svg+cells+'</div>'+rules+labels+'</div></div>'
+ +legend
++'</section>';
+
+/* ================= 3면: 축쇄판 ================= */
+var NEW=B.slice().reverse(), gridH='';
+NEW.forEach(function(b,k){
+  var hl=b.headline||'', nt=!hl;
+  gridH+='<figure class="ci" data-id="'+esc(b.id)+'">'+link(b,wrapCover(b,141),'cv','제'+vol(b)+'호 브리핑 열기')
+   +'<figcaption><p class="cm"><b>제'+vol(b)+'호</b><span>'+kdot(b.date)+' '+wd(b.date)+(b.seq>1?' <em>'+b.seq+'회차</em>':'')+'</span></p>'
+   +'<p class="ch'+(nt?' nt':'')+'">'+esc(hl||b.note||b.title)+'</p></figcaption></figure>';
+  var nx=NEW[k+1];
+  if(nx){var gd=DAYS.filter(function(d){return d<b.date&&d>nx.date&&!DM[d];});
+    if(gd.length) gridH+='<figure class="gapcell" data-gap="1"><div class="gbox"><span>'+gd.map(kdot).join(' · ')+'</span><b>휴간</b><small>브리핑이 없는 날</small></div></figure>';}
+});
+var p3='<section class="sec" id="p3" aria-label="3면 축쇄판">'
+ +'<header class="sh"><span class="flag">3면</span><h2>축쇄판</h2><p class="note">지난 호 표지 전체, 최신 호부터<br>표지를 누르면 그 호의 브리핑이 열린다</p></header>'
+ +'<div class="month"><b>'+L.date.slice(0,4)+'년 9월</b><span>'+B.length+'호 · 발행 '+PUB+'일 · 휴간 '+GAPS.length+'일</span></div>'
+ +'<div class="grid">'+gridH+'</div>'
++'</section>';
+
+/* ================= 4면: 발행 기록 (발행 목록 + 지표 표) ================= */
+var rows='';
+NEW.forEach(function(b,k){
+  var dl=deltas(b), hl=b.headline;
+  rows+='<tr data-id="'+esc(b.id)+'"'+(b===L?' class="today"':'')+'>'
+   +'<td class="vol">'+vol(b)+'</td>'
+   +'<td class="dt">'+mdot(b.date)+' <span>'+wd(b.date)+'</span>'+(b.seq>1?'<em>'+b.seq+'회차</em>':'')+'</td>'
+   +'<td class="ph">'+stamp(b.phase)+'</td>'
+   +'<td class="hl">'+(hl?link(b,esc(hl)):'<span class="nt">'+link(b,esc(b.note||b.title))+'</span>')+'</td>'
+   +'<td class="n">'+f(b.btcd,2)+'</td><td class="n">'+sx(dl.dB,2)+'</td>'
+   +'<td class="n">'+f(b.stableD,3)+'</td><td class="n">'+sx(b.stable1m,3)+'</td>'
+   +'<td class="n">'+sx(b.btc1m,2)+'</td>'
+   +'<td class="run">'+(b.run||b.window?esc(runLabel(b)):'–')+'</td></tr>';
+  var nx=NEW[k+1];
+  if(nx){var gd=DAYS.filter(function(d){return d<b.date&&d>nx.date&&!DM[d];});
+    if(gd.length) rows+='<tr class="gap" data-gap="1"><td colspan="10">'+gd.map(kd).join(' · ')+' — 휴간, 브리핑이 없는 날</td></tr>';}
+});
+var p4='<section class="sec" id="p4" aria-label="4면 발행 기록">'
+ +'<header class="sh"><span class="flag">4면</span><h2>발행 기록</h2><p class="note">발행 목록과 지표 표를 한 장에, 최신 호부터<br>헤드라인이 없는 초기 호는 메모를 싣는다</p></header>'
+ +'<div class="tbar"><p>'+B.length+'호 · 지표 기록 '+ST.days+'일 · 단위: BTC.D와 ΣSTABLECOIN.D는 %, 변화는 %p, BTCUSD는 %</p><button class="csv" type="button" id="csv">'+DOWN+'지표 표 CSV로 내려받기</button></div>'
+ +'<div class="tbl-scroll"><table class="tbl"><thead>'
+  +'<tr><th rowspan="2">호</th><th rowspan="2">날짜</th><th rowspan="2">국면</th><th rowspan="2">헤드라인 · 메모</th><th class="grp" colspan="2">BTC.D</th><th class="grp" colspan="2">ΣSTABLECOIN.D</th><th class="grp">BTCUSD</th><th rowspan="2">실행</th></tr>'
+  +'<tr><th class="n sub">값</th><th class="n sub">전날 대비</th><th class="n sub">값</th><th class="n sub">1개월</th><th class="n sub">1개월</th></tr>'
+ +'</thead><tbody>'+rows+'</tbody></table></div>'
++'</section>';
+
+/* ================= 별지 · 알림 · 판권 ================= */
+var DOC={t:'UNI·ARB 관통 해부', d:'2026-09-08', s:'브리핑에서 파생된 종목 심층 분석', u:'https://claude.ai/code/artifact/f371939a-b726-438b-98e2-92abf515976c'};
+var STEPS=[
+ ['06:10','본실행이 브리핑을 발행한 직후 서고에 그날 건을 등록한다. 등록이 실패하면 한 번 더 시도하고, 그래도 실패하면 실행 보고와 앱 알림에 사유를 남긴다.'],
+ ['07:40','안전판은 그날 브리핑이 이미 있어서 종료하는 날에도, 종료하기 전에 서고에 그날 건이 있는지 확인한다. 없으면 그날 브리핑을 읽어 등록한다.'],
+ ['수동','직접 요청해 만든 브리핑도 스킬에 적힌 같은 절차로 등록한다. 같은 날 주소가 다른 브리핑을 또 발행하면 2회차로 남는다.'],
+ ['표지','표지는 이 페이지가 등록된 기록으로 직접 그린다. 실행이 표지를 따로 만들거나 저장하지 않으므로, 등록 절차는 그대로다.'],
+ ['정정','발행한 브리핑의 수치를 고치면 서고의 기록도 함께 고친다.'],
+ ['보관','브리핑 원본은 각각의 아티팩트로 남고, 서고 기록은 이 페이지의 데이터베이스에 쌓인다. 지표 표는 CSV로 내려받을 수 있다.']
+];
+var tail='<section class="tail">'
+ +'<div class="annex" id="p5"><header class="sh2"><span class="flag">별지</span><h2>부속 문서</h2></header>'
+  +'<article class="doc"><p class="dm">'+DOC.d.slice(0,4)+'년 '+kd(DOC.d)+' · 1건</p><h3><a href="'+DOC.u+'" target="_blank" rel="noopener">'+DOC.t+'</a></h3><p>'+DOC.s+'</p>'
+   +'<a class="more" href="'+DOC.u+'" target="_blank" rel="noopener">문서 열기 '+ARROW_S+'</a></article>'
+  +'<p class="ax-n">브리핑에서 갈라져 나온 심층 문서다. 새 문서는 요청하면 Claude가 이 자리에 등록한다.</p>'
+  +'<div class="sister"><p class="k">형제 서고</p><a href="#">매크로 리스크 서고 '+ARROW_S+'</a></div></div>'
+ +'<div class="notice" id="p6"><header class="sh2"><span class="flag">알림</span><h2>갱신 방식</h2></header>'
+  +'<p class="lede">이 서고는 손으로 고치지 않는다. 브리핑을 발행한 실행이 서고의 데이터베이스에 한 건을 등록하고, 이 페이지는 그 기록으로 목록과 타임라인과 표를 계산한다.</p>'
+  +'<dl class="steps">'+STEPS.map(function(s){return '<div><dt>'+s[0]+'</dt><dd>'+s[1]+'</dd></div>';}).join('')+'</dl></div>'
++'</section>'
++'<footer class="colo"><div class="cn"><b>크립토 브리핑</b><span>'+B[0].date.slice(0,4)+'년 '+kd(B[0].date)+' 창간 · 매일 아침 06:10 발행</span></div>'
+ +'<p class="disc">이 서고는 브리핑을 정리한 색인이며 투자 자문이 아닙니다.<br>수치는 각 브리핑이 조회한 시점의 값입니다.</p></footer>';
+
+document.getElementById('app').innerHTML='<div class="wrap">'+mast+front+p2+p3+p4+tail+'</div>';
+
+/* ================= behaviour: search filter and CSV ================= */
+(function(){
+  var q=document.getElementById('q'), qn=document.getElementById('qn'), scope='all';
+  var btns=document.querySelectorAll('.scope button');
+  function hay(b){
+    var t=' '+[b.headline,b.title,b.note,phaseText(b.phase)].join(' ');
+    var d=' '+[b.date,mdot(b.date),kdot(b.date),kd(b.date),wd(b.date)+'요일','제'+vol(b)+'호'].join(' ');
+    return (scope==='date'?d:scope==='text'?t:t+d).toLowerCase();
+  }
+  function run(){
+    var s=q.value.trim().toLowerCase(), n=0, byId={};
+    B.forEach(function(b){var m=!s||hay(b).indexOf(s)>=0; byId[b.id]=m; if(m) n++;});
+    document.querySelectorAll('[data-id]').forEach(function(el){el.hidden=!byId[el.getAttribute('data-id')];});
+    document.querySelectorAll('[data-gap]').forEach(function(el){el.hidden=!!s;});
+    qn.textContent=s?n+'호':'';
+  }
+  btns.forEach(function(bt){bt.addEventListener('click',function(){btns.forEach(function(x){x.classList.toggle('on',x===bt); x.setAttribute('aria-checked',x===bt?'true':'false');}); scope=bt.getAttribute('data-s'); run();});});
+  q.addEventListener('input',run);
+  document.getElementById('csv').addEventListener('click',function(){
+    var head=['호','날짜','회차','국면','임시 기준','헤드라인','BTC.D(%)','ΣSTABLECOIN.D(%)','ΣSTABLECOIN.D 1개월(%p)','BTCUSD 1개월(%)','실행','메모','주소'];
+    var cell=function(v){v=v==null?'':String(v); return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v;};
+    var lines=[head.join(',')].concat(B.map(function(b){return [vol(b),b.date,b.seq,parts(b.phase).join('→'),b.provisional?'예':'',b.headline,b.btcd,b.stableD,b.stable1m,b.btc1m,runLabel(b),b.note,b.url].map(cell).join(',');}));
+    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8'})); a.download='crypto-briefing-'+L.date+'.csv';
+    document.body.appendChild(a); a.click(); setTimeout(function(){URL.revokeObjectURL(a.href); a.remove();},500);
+  });
+})();
+
+ready();
+})();
+</script></body></html>

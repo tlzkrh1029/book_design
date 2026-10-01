@@ -1,0 +1,60 @@
+{
+ "mapping": {
+  "night_A": {
+   "P1": "json",
+   "P2": "original",
+   "P3": "yaml",
+   "P4": "direct",
+   "P5": "xml",
+   "P6": "md"
+  },
+  "night_B": {
+   "P1": "md",
+   "P2": "yaml",
+   "P3": "direct",
+   "P4": "xml",
+   "P5": "original",
+   "P6": "json"
+  },
+  "paper_A": {
+   "P1": "yaml",
+   "P2": "md",
+   "P3": "json",
+   "P4": "original",
+   "P5": "xml",
+   "P6": "direct"
+  },
+  "paper_B": {
+   "P1": "xml",
+   "P2": "direct",
+   "P3": "original",
+   "P4": "yaml",
+   "P5": "json",
+   "P6": "md"
+  },
+  "calendar_A": {
+   "P1": "original",
+   "P2": "direct",
+   "P3": "json",
+   "P4": "md",
+   "P5": "yaml",
+   "P6": "xml"
+  },
+  "calendar_B": {
+   "P1": "xml",
+   "P2": "json",
+   "P3": "yaml",
+   "P4": "md",
+   "P5": "direct",
+   "P6": "original"
+  }
+ },
+ "manifest": {
+  "night_A": "- P1: 높이 4467px. 전체 축소본 P1_overview.png, 조각 4개: P1_s1.png (y 0–1400), P1_s2.png (y 1300–2700), P1_s3.png (y 2600–4000), P1_s4.png (y 3900–4467)\n- P2: 높이 2928px. 전체 축소본 P2_overview.png, 조각 3개: P2_s1.png (y 0–1400), P2_s2.png (y 1300–2700), P2_s3.png (y 2600–2928)\n- P3: 높이 4752px. 전체 축소본 P3_overview.png, 조각 4개: P3_s1.png (y 0–1400), P3_s2.png (y 1300–2700), P3_s3.png (y 2600–4000), P3_s4.png (y 3900–4752)\n- P4: 높이 4937px. 전체 축소본 P4_overview.png, 조각 4개: P4_s1.png (y 0–1400), P4_s2.png (y 1300–2700), P4_s3.png (y 2600–4000), P4_s4.png (y 3900–4937)\n- P5: 높이 6905px. 전체 축소본 P5_overview.png, 조각 6개: P5_s1.png (y 0–1400), P5_s2.png (y 1300–2700), P5_s3.png (y 2600–4000), P5_s4.png (y 3900–5300), P5_s5.png (y 5200–6600), P5_s6.png (y 6500–6905)\n- P6: 높이 4691px. 전체 축소본 P6_overview.png, 조각 4개: P6_s1.png (y 0–1400), P6_s2.png (y 1300–2700), P6_s3.png (y 2600–4000), P6_s4.png (y 3900–4691)",
+  "night_B": "- P1: 높이 4691px. 전체 축소본 P1_overview.png, 조각 4개: P1_s1.png (y 0–1400), P1_s2.png (y 1300–2700), P1_s3.png (y 2600–4000), P1_s4.png (y 3900–4691)\n- P2: 높이 4752px. 전체 축소본 P2_overview.png, 조각 4개: P2_s1.png (y 0–1400), P2_s2.png (y 1300–2700), P2_s3.png (y 2600–4000), P2_s4.png (y 3900–4752)\n- P3: 높이 4937px. 전체 축소본 P3_overview.png, 조각 4개: P3_s1.png (y 0–1400), P3_s2.png (y 1300–2700), P3_s3.png (y 2600–4000), P3_s4.png (y 3900–4937)\n- P4: 높이 6905px. 전체 축소본 P4_overview.png, 조각 6개: P4_s1.png (y 0–1400), P4_s2.png (y 1300–2700), P4_s3.png (y 2600–4000), P4_s4.png (y 3900–5300), P4_s5.png (y 5200–6600), P4_s6.png (y 6500–6905)\n- P5: 높이 2928px. 전체 축소본 P5_overview.png, 조각 3개: P5_s1.png (y 0–1400), P5_s2.png (y 1300–2700), P5_s3.png (y 2600–2928)\n- P6: 높이 4467px. 전체 축소본 P6_overview.png, 조각 4개: P6_s1.png (y 0–1400), P6_s2.png (y 1300–2700), P6_s3.png (y 2600–4000), P6_s4.png (y 3900–4467)",
+  "paper_A": "- P1: 높이 4769px. 전체 축소본 P1_overview.png, 조각 4개: P1_s1.png (y 0–1400), P1_s2.png (y 1300–2700), P1_s3.png (y 2600–4000), P1_s4.png (y 3900–4769)\n- P2: 높이 5102px. 전체 축소본 P2_overview.png, 조각 4개: P2_s1.png (y 0–1400), P2_s2.png (y 1300–2700), P2_s3.png (y 2600–4000), P2_s4.png (y 3900–5102)\n- P3: 높이 4569px. 전체 축소본 P3_overview.png, 조각 4개: P3_s1.png (y 0–1400), P3_s2.png (y 1300–2700), P3_s3.png (y 2600–4000), P3_s4.png (y 3900–4569)\n- P4: 높이 3155px. 전체 축소본 P4_overview.png, 조각 3개: P4_s1.png (y 0–1400), P4_s2.png (y 1300–2700), P4_s3.png (y 2600–3155)\n- P5: 높이 6165px. 전체 축소본 P5_overview.png, 조각 5개: P5_s1.png (y 0–1400), P5_s2.png (y 1300–2700), P5_s3.png (y 2600–4000), P5_s4.png (y 3900–5300), P5_s5.png (y 5200–6165)\n- P6: 높이 5860px. 전체 축소본 P6_overview.png, 조각 5개: P6_s1.png (y 0–1400), P6_s2.png (y 1300–2700), P6_s3.png (y 2600–4000), P6_s4.png (y 3900–5300), P6_s5.png (y 5200–5860)",
+  "paper_B": "- P1: 높이 6165px. 전체 축소본 P1_overview.png, 조각 5개: P1_s1.png (y 0–1400), P1_s2.png (y 1300–2700), P1_s3.png (y 2600–4000), P1_s4.png (y 3900–5300), P1_s5.png (y 5200–6165)\n- P2: 높이 5860px. 전체 축소본 P2_overview.png, 조각 5개: P2_s1.png (y 0–1400), P2_s2.png (y 1300–2700), P2_s3.png (y 2600–4000), P2_s4.png (y 3900–5300), P2_s5.png (y 5200–5860)\n- P3: 높이 3155px. 전체 축소본 P3_overview.png, 조각 3개: P3_s1.png (y 0–1400), P3_s2.png (y 1300–2700), P3_s3.png (y 2600–3155)\n- P4: 높이 4769px. 전체 축소본 P4_overview.png, 조각 4개: P4_s1.png (y 0–1400), P4_s2.png (y 1300–2700), P4_s3.png (y 2600–4000), P4_s4.png (y 3900–4769)\n- P5: 높이 4569px. 전체 축소본 P5_overview.png, 조각 4개: P5_s1.png (y 0–1400), P5_s2.png (y 1300–2700), P5_s3.png (y 2600–4000), P5_s4.png (y 3900–4569)\n- P6: 높이 5102px. 전체 축소본 P6_overview.png, 조각 4개: P6_s1.png (y 0–1400), P6_s2.png (y 1300–2700), P6_s3.png (y 2600–4000), P6_s4.png (y 3900–5102)",
+  "calendar_A": "- P1: 높이 1718px. 전체 축소본 P1_overview.png, 조각 2개: P1_s1.png (y 0–1400), P1_s2.png (y 1300–1718)\n- P2: 높이 2800px. 전체 축소본 P2_overview.png, 조각 3개: P2_s1.png (y 0–1400), P2_s2.png (y 1300–2700), P2_s3.png (y 2600–2800)\n- P3: 높이 1758px. 전체 축소본 P3_overview.png, 조각 2개: P3_s1.png (y 0–1400), P3_s2.png (y 1300–1758)\n- P4: 높이 2003px. 전체 축소본 P4_overview.png, 조각 2개: P4_s1.png (y 0–1400), P4_s2.png (y 1300–2003)\n- P5: 높이 2687px. 전체 축소본 P5_overview.png, 조각 2개: P5_s1.png (y 0–1400), P5_s2.png (y 1300–2687)\n- P6: 높이 3862px. 전체 축소본 P6_overview.png, 조각 3개: P6_s1.png (y 0–1400), P6_s2.png (y 1300–2700), P6_s3.png (y 2600–3862)",
+  "calendar_B": "- P1: 높이 3862px. 전체 축소본 P1_overview.png, 조각 3개: P1_s1.png (y 0–1400), P1_s2.png (y 1300–2700), P1_s3.png (y 2600–3862)\n- P2: 높이 1758px. 전체 축소본 P2_overview.png, 조각 2개: P2_s1.png (y 0–1400), P2_s2.png (y 1300–1758)\n- P3: 높이 2687px. 전체 축소본 P3_overview.png, 조각 2개: P3_s1.png (y 0–1400), P3_s2.png (y 1300–2687)\n- P4: 높이 2003px. 전체 축소본 P4_overview.png, 조각 2개: P4_s1.png (y 0–1400), P4_s2.png (y 1300–2003)\n- P5: 높이 2800px. 전체 축소본 P5_overview.png, 조각 3개: P5_s1.png (y 0–1400), P5_s2.png (y 1300–2700), P5_s3.png (y 2600–2800)\n- P6: 높이 1718px. 전체 축소본 P6_overview.png, 조각 2개: P6_s1.png (y 0–1400), P6_s2.png (y 1300–1718)"
+ }
+}
