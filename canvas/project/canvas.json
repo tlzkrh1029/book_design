@@ -1,0 +1,725 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Calendar.dc.html": {
+      "h": 1718,
+      "page": "themes",
+      "title": "시안 3 · 달력 벽",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "Covers.dc.html": {
+      "h": 637,
+      "title": "표지 크게 보기 (최근 5호)",
+      "w": 2192,
+      "x": 0,
+      "y": 1779
+    },
+    "ExpCalendarJsonResult.dc.html": {
+      "h": 1758,
+      "page": "exp-calendar",
+      "title": "JSON 명세로 만든 결과",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "ExpCalendarJsonSpec.dc.html": {
+      "h": 5305,
+      "page": "exp-calendar",
+      "title": "JSON 명세 (프롬프트)",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "ExpCalendarOrig.dc.html": {
+      "h": 1718,
+      "page": "exp-calendar",
+      "title": "원래 시안",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "ExpCalendarYamlResult.dc.html": {
+      "h": 2687,
+      "page": "exp-calendar",
+      "title": "YAML 명세로 만든 결과",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "ExpCalendarYamlSpec.dc.html": {
+      "h": 5013,
+      "page": "exp-calendar",
+      "title": "YAML 명세 (프롬프트)",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "ExpNightJsonResult.dc.html": {
+      "h": 4467,
+      "page": "exp-night",
+      "title": "JSON 명세로 만든 결과",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "ExpNightJsonSpec.dc.html": {
+      "h": 4242,
+      "page": "exp-night",
+      "title": "JSON 명세 (프롬프트)",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "ExpNightOrig.dc.html": {
+      "h": 2928,
+      "page": "exp-night",
+      "title": "원래 시안",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "ExpNightYamlResult.dc.html": {
+      "h": 4752,
+      "page": "exp-night",
+      "title": "YAML 명세로 만든 결과",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "ExpNightYamlSpec.dc.html": {
+      "h": 4943,
+      "page": "exp-night",
+      "title": "YAML 명세 (프롬프트)",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "ExpPaperJsonResult.dc.html": {
+      "h": 4569,
+      "page": "exp-paper",
+      "title": "JSON 명세로 만든 결과",
+      "w": 1440,
+      "x": 6080,
+      "y": 0
+    },
+    "ExpPaperJsonSpec.dc.html": {
+      "h": 5317,
+      "page": "exp-paper",
+      "title": "JSON 명세 (프롬프트)",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
+    },
+    "ExpPaperOrig.dc.html": {
+      "h": 3155,
+      "page": "exp-paper",
+      "title": "원래 시안",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "ExpPaperYamlResult.dc.html": {
+      "h": 4769,
+      "page": "exp-paper",
+      "title": "YAML 명세로 만든 결과",
+      "w": 1440,
+      "x": 3040,
+      "y": 0
+    },
+    "ExpPaperYamlSpec.dc.html": {
+      "h": 4983,
+      "page": "exp-paper",
+      "title": "YAML 명세 (프롬프트)",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "h": 1120,
+      "title": "서고에 적용한 모습",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Mobile.dc.html": {
+      "h": 844,
+      "title": "모바일",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "Night.dc.html": {
+      "h": 2928,
+      "page": "themes",
+      "title": "시안 1 · 밤의 가판대",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Paper.dc.html": {
+      "h": 3155,
+      "page": "themes",
+      "title": "시안 2 · 편집국 1면",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Scenes.dc.html": {
+      "h": 2512,
+      "title": "그림 44종 (각 그림을 어울리는 호에 입혀 본 모습)",
+      "w": 2042,
+      "x": 0,
+      "y": 2536
+    },
+    "Schemes.dc.html": {
+      "h": 2673,
+      "title": "배색 12종 × 기준 색상 (9월 30일 표지로 시연)",
+      "w": 1142,
+      "x": 2122,
+      "y": 2536
+    },
+    "Shelf.dc.html": {
+      "h": 1659,
+      "title": "전체 표지 31장",
+      "w": 1068,
+      "x": 1990,
+      "y": 0
+    },
+    "ExpNightDirectResult.dc.html": {
+      "h": 4937,
+      "page": "exp-night",
+      "title": "명세 없이 바로 만든 결과",
+      "w": 1440,
+      "x": 0,
+      "y": 6700
+    },
+    "ExpNightMdSpec.dc.html": {
+      "h": 3183,
+      "page": "exp-night",
+      "title": "브리프 + 토큰 (프롬프트)",
+      "w": 1440,
+      "x": 1520,
+      "y": 6700
+    },
+    "ExpNightMdResult.dc.html": {
+      "h": 4691,
+      "page": "exp-night",
+      "title": "브리프 + 토큰으로 만든 결과",
+      "w": 1440,
+      "x": 3040,
+      "y": 6700
+    },
+    "ExpNightXmlSpec.dc.html": {
+      "h": 5272,
+      "page": "exp-night",
+      "title": "XML 태그 (프롬프트)",
+      "w": 1440,
+      "x": 4560,
+      "y": 6700
+    },
+    "ExpNightXmlResult.dc.html": {
+      "h": 6905,
+      "page": "exp-night",
+      "title": "XML 태그로 만든 결과",
+      "w": 1440,
+      "x": 6080,
+      "y": 6700
+    },
+    "ExpPaperDirectResult.dc.html": {
+      "h": 5860,
+      "page": "exp-paper",
+      "title": "명세 없이 바로 만든 결과",
+      "w": 1440,
+      "x": 0,
+      "y": 6700
+    },
+    "ExpPaperMdSpec.dc.html": {
+      "h": 3250,
+      "page": "exp-paper",
+      "title": "브리프 + 토큰 (프롬프트)",
+      "w": 1440,
+      "x": 1520,
+      "y": 6700
+    },
+    "ExpPaperMdResult.dc.html": {
+      "h": 5102,
+      "page": "exp-paper",
+      "title": "브리프 + 토큰으로 만든 결과",
+      "w": 1440,
+      "x": 3040,
+      "y": 6700
+    },
+    "ExpPaperXmlSpec.dc.html": {
+      "h": 5161,
+      "page": "exp-paper",
+      "title": "XML 태그 (프롬프트)",
+      "w": 1440,
+      "x": 4560,
+      "y": 6700
+    },
+    "ExpPaperXmlResult.dc.html": {
+      "h": 6165,
+      "page": "exp-paper",
+      "title": "XML 태그로 만든 결과",
+      "w": 1440,
+      "x": 6080,
+      "y": 6700
+    },
+    "ExpCalendarDirectResult.dc.html": {
+      "h": 2800,
+      "page": "exp-calendar",
+      "title": "명세 없이 바로 만든 결과",
+      "w": 1440,
+      "x": 0,
+      "y": 6700
+    },
+    "ExpCalendarMdSpec.dc.html": {
+      "h": 3237,
+      "page": "exp-calendar",
+      "title": "브리프 + 토큰 (프롬프트)",
+      "w": 1440,
+      "x": 1520,
+      "y": 6700
+    },
+    "ExpCalendarMdResult.dc.html": {
+      "h": 2003,
+      "page": "exp-calendar",
+      "title": "브리프 + 토큰으로 만든 결과",
+      "w": 1440,
+      "x": 3040,
+      "y": 6700
+    },
+    "ExpCalendarXmlSpec.dc.html": {
+      "h": 5335,
+      "page": "exp-calendar",
+      "title": "XML 태그 (프롬프트)",
+      "w": 1440,
+      "x": 4560,
+      "y": 6700
+    },
+    "ExpCalendarXmlResult.dc.html": {
+      "h": 3862,
+      "page": "exp-calendar",
+      "title": "XML 태그로 만든 결과",
+      "w": 1440,
+      "x": 6080,
+      "y": 6700
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-09-30T12:38:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "exp-night",
+    "view": "canvas"
+  },
+  "notes": {
+    "color": {
+      "fill": "green",
+      "size": 24,
+      "text": "색은 배색 규칙 12종과 날짜마다 바뀌는 기준 색상으로 정합니다. 기준 색상은 하루에 137.5°씩 색상환을 돌기 때문에 이웃한 날짜끼리 비슷해지지 않고, 배색 규칙은 12일마다 한 바퀴를 돕니다. 어두운 배색은 나흘에 한 번 나오며, 경고 성격의 D·E 국면에는 어두운 배색만 씁니다. 강조색 글자는 바탕과의 명암비가 4.5 이상이 되도록 밝기를 자동으로 보정합니다.",
+      "w": 520,
+      "x": 3344,
+      "y": 2536
+    },
+    "fixed": {
+      "fill": "green",
+      "size": 24,
+      "text": "고정 틀: 테두리의 위치와 두께, '크립토' 블록과 BRIEF 제호, 제호 옆 커버라인 3줄, 하단의 흰 띠는 매일 같은 자리에 둡니다. 색만 호마다 바뀌기 때문에, 서가에 여러 호가 꽂혀도 한 잡지로 읽힙니다.",
+      "w": 390,
+      "x": 1520,
+      "y": 904
+    },
+    "headline": {
+      "fill": "green",
+      "size": 24,
+      "text": "표제는 헤드라인을 쉼표 앞뒤로 나눠 킥커(국면), 도입절, 본표제의 3단으로 놓고, 숫자만 강조색으로 표시합니다. 어두운 배색에서는 본표제를 테두리 색으로 써서 한 호 안에서 색이 이어지게 했습니다.",
+      "w": 520,
+      "x": 2272,
+      "y": 1779
+    },
+    "json_exp-calendar": {
+      "fill": "orange",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "JSON 명세: 날짜 칸 하나하나를 흰 카드로 만들어 청회색 벽에 붙였습니다. 지표 추이를 오른쪽 칸 아래 카드로 옮겨 세 결과 중 페이지가 가장 짧습니다. 목록은 '달력|목록' 전환 안에 넣었습니다.",
+      "w": 1400,
+      "x": 6080,
+      "y": -470
+    },
+    "json_exp-night": {
+      "fill": "orange",
+      "page": "exp-night",
+      "size": 24,
+      "text": "JSON 명세: 스포트라이트 아래 오늘 호를 세우고, 가판대 첫 칸을 '다음 호 자리'로 두었습니다. 국면 띠와 지표 차트 세 개를 같은 날짜 칸에 세로로 맞춘 '9월의 흐름' 구역이 가장 큰 차이입니다. 안내 문구는 명세가 새로 짧게 썼습니다.",
+      "w": 1400,
+      "x": 6080,
+      "y": -470
+    },
+    "json_exp-paper": {
+      "fill": "orange",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "JSON 명세: 1면을 표지, 기사, 사이드바의 3단으로 짜고 사이드바에 지난 두 호와 다음 호를 두었습니다. 국면은 색 대신 A~E 줄의 위치로 그렸고, 메뉴에는 1면부터 4면과 판권까지 신문처럼 면 번호를 붙였습니다.",
+      "w": 1400,
+      "x": 6080,
+      "y": -470
+    },
+    "picture": {
+      "fill": "green",
+      "size": 24,
+      "text": "그림은 44종입니다. 헤드라인이 다룬 주제(BTC.D, 알트, 스테이블, 세 몫 비교, 가격, 정책·일정, 국면)로 후보를 추리고, '계단', '꼬리', '표결', '앞장'처럼 헤드라인에 나온 낱말에 맞는 그림을 먼저 고릅니다. 최근 12호 안에 나온 그림은 다시 쓰지 않기 때문에, 9월의 31장에는 30종이 나옵니다. 계단의 높이, 수조의 수위, 조각의 크기, 사다리 위의 위치는 그날 기록된 수치로 정해집니다.",
+      "w": 520,
+      "x": -600,
+      "y": 2536
+    },
+    "sum_exp-calendar": {
+      "fill": "gray",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "두 명세 모두 달력 위에 하루 한 칸짜리 국면 띠를 올리고, 여러 번 발행한 날의 표지 겹치기를 없애 '3회' 같은 배지로 바꿨습니다. 칸마다 표지를 키우고, 고른 날 카드의 '브리핑 펼치기'를 첫 화면 안에 두었습니다.",
+      "w": 1400,
+      "x": 0,
+      "y": -470
+    },
+    "sum_exp-night": {
+      "fill": "gray",
+      "page": "exp-night",
+      "size": 24,
+      "text": "두 명세 모두 원래 시안의 같은 약점부터 고쳤습니다. 날짜보다 헤드라인을 크게 하고, 칩을 국면 한 줄로 줄이고, 가판대에 표지를 모두 꽂고, 빠졌던 지표와 목록과 안내를 되살렸습니다. 두 결과의 차이는 형식이 아니라 명세마다 내린 결정에서 나왔습니다.",
+      "w": 1400,
+      "x": 0,
+      "y": -470
+    },
+    "sum_exp-paper": {
+      "fill": "gray",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "두 명세 모두 제호를 줄이고 양옆에 귀퉁이 상자를 달았으며, '브리핑 전문 읽기'를 첫 화면 안으로 올리고, 국면 연표와 지표를 같은 날짜 축에 맞췄습니다. 브리핑 없는 날 칸과 발행 목록 표도 두 결과 모두 되살렸습니다.",
+      "w": 1400,
+      "x": 0,
+      "y": -470
+    },
+    "t1": {
+      "fill": "gray",
+      "page": "themes",
+      "size": 24,
+      "text": "시안 1 · 밤의 가판대: 어두운 바탕에 조명을 받은 가판대처럼 표지를 선반에 세웠습니다. 페이지의 강조색은 그날 표지의 테두리 색을 따라가므로 매일 분위기가 조금씩 바뀝니다. 표지 색이 가장 선명하게 살아나는 구성입니다.",
+      "w": 900,
+      "x": 0,
+      "y": -470
+    },
+    "t2": {
+      "fill": "orange",
+      "page": "themes",
+      "size": 24,
+      "text": "시안 2 · 편집국 1면: 신문 1면처럼 흑백 지면으로 짰습니다. 페이지에는 색을 쓰지 않고 표지만 컬러로 두어 표지가 사진 기사처럼 보입니다. 제호, 1면 기사, 지난 호 색인, 국면 연표, 지표 순으로 읽혀서 글이 많은 브리핑과 잘 맞습니다.",
+      "w": 900,
+      "x": 1520,
+      "y": -470
+    },
+    "t3": {
+      "fill": "blue",
+      "page": "themes",
+      "size": 24,
+      "text": "시안 3 · 달력 벽: 월간 달력의 날짜 칸마다 그날 표지를 넣었습니다. 브리핑이 없는 날, 하루에 여러 번 발행한 날, 다음 호 자리가 한눈에 보이고, 오른쪽 칸에서 고른 날의 표지와 지표를 크게 봅니다. 날짜로 찾기가 가장 쉬운 구성입니다.",
+      "w": 900,
+      "x": 3040,
+      "y": -470
+    },
+    "themesTitle": {
+      "kind": "title1",
+      "maxW": 4480,
+      "page": "themes",
+      "text": "서고 테마 시안 3종",
+      "w": 240,
+      "x": 0,
+      "y": -760
+    },
+    "title_exp-calendar": {
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "exp-calendar",
+      "text": "달력 벽 · 명세 형식 실험",
+      "w": 240,
+      "x": 0,
+      "y": -760
+    },
+    "title_exp-night": {
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "exp-night",
+      "text": "밤의 가판대 · 명세 형식 실험",
+      "w": 240,
+      "x": 0,
+      "y": -760
+    },
+    "title_exp-paper": {
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "exp-paper",
+      "text": "편집국 1면 · 명세 형식 실험",
+      "w": 240,
+      "x": 0,
+      "y": -760
+    },
+    "yaml_exp-calendar": {
+      "fill": "blue",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "YAML 명세: 큰 흰 카드 하나에 달력을 담고, 오른쪽에 고른 날 카드와 '9월 기록' 요약 카드를 두었습니다. 지표는 달력 아래 한 줄 카드로, 발행 목록은 표로 이어집니다.",
+      "w": 1400,
+      "x": 3040,
+      "y": -470
+    },
+    "yaml_exp-night": {
+      "fill": "blue",
+      "page": "exp-night",
+      "size": 24,
+      "text": "YAML 명세: 전등과 받침으로 오늘 호를 세우고, 받침 아래에 '다음 호 · 10월 1일 목요일 06:10 예정'을 적었습니다. 국면 띠를 히어로 바로 아래에 두고, 가판대에는 지난 호 30장과 브리핑 없는 날 2칸을 꽂았습니다. 지표는 기준선이 있는 카드 세 장으로 나눴습니다.",
+      "w": 1400,
+      "x": 3040,
+      "y": -470
+    },
+    "yaml_exp-paper": {
+      "fill": "blue",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "YAML 명세: 한국어 문구 규칙에 따라 영문 부제를 뺐고, 귀퉁이 상자에 오늘의 국면과 다음 호를 넣었습니다. 구역은 1면, 국면과 지표, 전체 표지, 발행 목록, 서고 안내 순서입니다.",
+      "w": 1400,
+      "x": 3040,
+      "y": -470
+    },
+    "title2_exp-night": {
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "exp-night",
+      "text": "밤의 가판대 · 2차 실험: 브리프 + 토큰, XML 태그, 명세 없이",
+      "w": 240,
+      "x": 0,
+      "y": 5940
+    },
+    "r2direct_exp-night": {
+      "fill": "green",
+      "page": "exp-night",
+      "size": 24,
+      "text": "명세 없이 바로 만든 결과: 펜던트 전등 아래 오늘 호를 세우고, 가판대에는 한 주를 한 줄로 꽂았습니다. 선반 앞면에 날짜와 국면을 가격표처럼 붙이고, 이번 주 선반 끝에 '다음 호' 자리를 두었습니다. 국면 띠와 지표 차트 셋은 같은 날짜 축으로 묶었습니다. 블라인드 평가에서 두 평가자 모두 1위로 꼽았지만, 영문 꼬리표(ALL ISSUES, INDEX)가 남은 점은 지적을 받았습니다.",
+      "w": 1400,
+      "x": 0,
+      "y": 6230
+    },
+    "r2eval_exp-night": {
+      "fill": "gray",
+      "page": "exp-night",
+      "size": 24,
+      "text": "블라인드 평가: 만든 방식을 모르는 평가자 2명이 여섯 페이지의 순위를 매겼습니다. 명세 없이 1위·1위, YAML 2위·3위, JSON 3위·4위, 브리프 + 토큰 4위·2위, XML 태그 5위·5위, 원래 시안 6위·6위입니다.",
+      "w": 1400,
+      "x": 1520,
+      "y": 6230
+    },
+    "r2md_exp-night": {
+      "fill": "blue",
+      "page": "exp-night",
+      "size": 24,
+      "text": "브리프 + 토큰: 가판대를 주 단위 선반 다섯 줄로 바꾸고, 브리핑 없는 날은 좁은 빈칸으로, 다음 호는 점선 칸으로 구분했습니다. 국면과 지표는 한 구역에 묶었습니다. 평가는 4위·2위입니다. 발행 목록에 59.3743처럼 자릿수가 다른 값이 그대로 나온 점과 조명이 옅은 점이 감점 요인이었습니다.",
+      "w": 1400,
+      "x": 3040,
+      "y": 6230
+    },
+    "r2method_exp-night": {
+      "fill": "gray",
+      "page": "exp-night",
+      "size": 24,
+      "text": "2차 실험 방법: 브리프 + 토큰 명세와 XML 태그 명세는 1차와 같이 쓰는 사람과 만드는 사람을 나눴고, 만드는 사람은 명세만 보았습니다. '명세 없이' 조건은 한 사람이 브리프와 원래 시안을 보고 바로 만들었습니다. 작업자마다 임시 폴더를 따로 두어 서로의 결과를 보지 못하게 했습니다.",
+      "w": 1400,
+      "x": 4560,
+      "y": 6230
+    },
+    "r2xml_exp-night": {
+      "fill": "orange",
+      "page": "exp-night",
+      "size": 24,
+      "text": "XML 태그: 같은 주 단위 선반과 국면·지표 구역을 두고, 발행 목록 31호를 처음부터 모두 펼쳤습니다. 평가는 5위·5위입니다. 헤드라인이 세 줄로 끊기고 조명이 거의 보이지 않으며, 페이지가 6,905px로 가장 길어진 점이 지적되었습니다.",
+      "w": 1400,
+      "x": 6080,
+      "y": 6230
+    },
+    "title2_exp-paper": {
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "exp-paper",
+      "text": "편집국 1면 · 2차 실험: 브리프 + 토큰, XML 태그, 명세 없이",
+      "w": 240,
+      "x": 0,
+      "y": 5940
+    },
+    "r2direct_exp-paper": {
+      "fill": "green",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "명세 없이 바로 만든 결과: 제호 양옆 귀퉁이에 오늘 국면과 다음 호를 두고, 1면을 표지·기사·지난 호의 3단으로 짰습니다. 2면에는 국면과 지표, 3면에는 표지 31장을 모은 축쇄판, 4면에는 발행 목록을 두었습니다. 평가는 1위·4위입니다. 평가자 두 명이 실행 시각(06:11~06:40)을 지어낸 값으로 보았지만, 이 값은 실제 데이터에 있습니다.",
+      "w": 1400,
+      "x": 0,
+      "y": 6230
+    },
+    "r2eval_exp-paper": {
+      "fill": "gray",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "블라인드 평가: 명세 없이 1위·4위, YAML 4위·2위, JSON 5위·5위, 브리프 + 토큰 2위·3위, XML 태그 3위·1위, 원래 시안 6위·6위입니다. 세 시안 가운데 두 평가자의 순위가 가장 많이 엇갈린 시안입니다.",
+      "w": 1400,
+      "x": 1520,
+      "y": 6230
+    },
+    "r2md_exp-paper": {
+      "fill": "blue",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "브리프 + 토큰: 헤더를 240px 안으로 줄여 첫 화면에 표지, 헤드라인, '브리핑 전문 읽기'를 모두 넣었습니다. 국면은 색 대신 먹 무늬로 구분하고, 같은 날 여러 호는 괄호선으로 묶었습니다. 평가는 2위·3위입니다. 지표 차트가 납작해서 읽기 어렵다는 지적이 있었습니다.",
+      "w": 1400,
+      "x": 3040,
+      "y": 6230
+    },
+    "r2method_exp-paper": {
+      "fill": "gray",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "2차 실험 방법: 브리프 + 토큰 명세와 XML 태그 명세는 1차와 같이 쓰는 사람과 만드는 사람을 나눴고, 만드는 사람은 명세만 보았습니다. '명세 없이' 조건은 한 사람이 브리프와 원래 시안을 보고 바로 만들었습니다.",
+      "w": 1400,
+      "x": 4560,
+      "y": 6230
+    },
+    "r2xml_exp-paper": {
+      "fill": "orange",
+      "page": "exp-paper",
+      "size": 24,
+      "text": "XML 태그: 면 번호와 굵고 가는 괘선으로 신문 문법을 따르고, 국면을 빗금·점·줄 무늬로 옮겼습니다. 1면 오른쪽 서가에는 '제32호 발행 예정' 자리를 두었습니다. 평가는 3위·1위입니다. 첫 화면에서 표지가 절반만 보인다는 지적이 있었습니다.",
+      "w": 1400,
+      "x": 6080,
+      "y": 6230
+    },
+    "title2_exp-calendar": {
+      "kind": "title1",
+      "maxW": 7520,
+      "page": "exp-calendar",
+      "text": "달력 벽 · 2차 실험: 브리프 + 토큰, XML 태그, 명세 없이",
+      "w": 240,
+      "x": 0,
+      "y": 5940
+    },
+    "r2direct_exp-calendar": {
+      "fill": "green",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "명세 없이 바로 만든 결과: 날짜 밑에 국면 색 띠를 잇고, 달력 앞뒤 빈칸에 범례와 9월 기록을 넣었습니다. 여러 번 낸 날의 표지는 달력 아래 한 줄에 모두 펼쳤고, 국면과 지표는 '9월의 흐름'으로 묶었습니다. 평가는 3위·1위입니다. 오늘 호 헤드라인을 글로 싣지 않았고 '브리핑 열기' 버튼이 첫 화면 밖에 있다는 지적이 있었습니다.",
+      "w": 1400,
+      "x": 0,
+      "y": 6230
+    },
+    "r2eval_exp-calendar": {
+      "fill": "gray",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "블라인드 평가: 명세 없이 3위·1위, YAML 1위·2위, JSON 2위·3위, 브리프 + 토큰 5위·5위, XML 태그 4위·4위, 원래 시안 6위·6위입니다.",
+      "w": 1400,
+      "x": 1520,
+      "y": 6230
+    },
+    "r2md_exp-calendar": {
+      "fill": "blue",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "브리프 + 토큰: 둥근 상자 대신 얇은 괘선 격자에 같은 크기의 표지를 넣고, 지표 카드 셋을 '9월의 흐름' 한 장으로 합쳤습니다. 평가는 5위·5위입니다. 여러 번 낸 날이 작은 '3회' 글자로만 보이고, 발행 목록이 첫 상태에 없다는 지적이 있었습니다.",
+      "w": 1400,
+      "x": 3040,
+      "y": 6230
+    },
+    "r2method_exp-calendar": {
+      "fill": "gray",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "2차 실험 방법: 브리프 + 토큰 명세와 XML 태그 명세는 1차와 같이 쓰는 사람과 만드는 사람을 나눴고, 만드는 사람은 명세만 보았습니다. '명세 없이' 조건은 한 사람이 브리프와 원래 시안을 보고 바로 만들었습니다.",
+      "w": 1400,
+      "x": 4560,
+      "y": 6230
+    },
+    "r2xml_exp-calendar": {
+      "fill": "orange",
+      "page": "exp-calendar",
+      "size": 24,
+      "text": "XML 태그: 칸 아래에 국면 색 선반을 깔아 한 주의 국면이 띠처럼 이어지게 했고, 발행 목록 31호를 모두 펼쳤습니다. 평가는 4위·4위입니다. 전체 표 때문에 페이지가 3,862px로 길어진 점이 지적되었습니다.",
+      "w": 1400,
+      "x": 6080,
+      "y": 6230
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Mobile.dc.html",
+    "Shelf.dc.html",
+    "Covers.dc.html",
+    "Scenes.dc.html",
+    "Schemes.dc.html",
+    "Night.dc.html",
+    "Paper.dc.html",
+    "Calendar.dc.html",
+    "ExpNightOrig.dc.html",
+    "ExpNightYamlSpec.dc.html",
+    "ExpNightYamlResult.dc.html",
+    "ExpNightJsonSpec.dc.html",
+    "ExpNightJsonResult.dc.html",
+    "ExpNightDirectResult.dc.html",
+    "ExpNightMdSpec.dc.html",
+    "ExpNightMdResult.dc.html",
+    "ExpNightXmlSpec.dc.html",
+    "ExpNightXmlResult.dc.html",
+    "ExpPaperOrig.dc.html",
+    "ExpPaperYamlSpec.dc.html",
+    "ExpPaperYamlResult.dc.html",
+    "ExpPaperJsonSpec.dc.html",
+    "ExpPaperJsonResult.dc.html",
+    "ExpPaperDirectResult.dc.html",
+    "ExpPaperMdSpec.dc.html",
+    "ExpPaperMdResult.dc.html",
+    "ExpPaperXmlSpec.dc.html",
+    "ExpPaperXmlResult.dc.html",
+    "ExpCalendarOrig.dc.html",
+    "ExpCalendarYamlSpec.dc.html",
+    "ExpCalendarYamlResult.dc.html",
+    "ExpCalendarJsonSpec.dc.html",
+    "ExpCalendarJsonResult.dc.html",
+    "ExpCalendarDirectResult.dc.html",
+    "ExpCalendarMdSpec.dc.html",
+    "ExpCalendarMdResult.dc.html",
+    "ExpCalendarXmlSpec.dc.html",
+    "ExpCalendarXmlResult.dc.html"
+  ],
+  "pages": [
+    {
+      "id": "covers",
+      "name": "표지 시안"
+    },
+    {
+      "id": "themes",
+      "name": "서고 테마 시안"
+    },
+    {
+      "id": "exp-night",
+      "name": "실험 · 밤의 가판대"
+    },
+    {
+      "id": "exp-paper",
+      "name": "실험 · 편집국 1면"
+    },
+    {
+      "id": "exp-calendar",
+      "name": "실험 · 달력 벽"
+    }
+  ],
+  "title": "크립토 브리핑 표지 시안"
+}

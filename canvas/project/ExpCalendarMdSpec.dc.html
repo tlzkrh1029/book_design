@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>달력 벽 · 브리프 + 토큰 명세</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Gothic+A1:wght@400;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#FBFAF7}
+.sb{font-family:'IBM Plex Mono','Gothic A1',monospace;color:#1E2227}
+.sb pre{margin:0;font-family:inherit;font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-all;column-gap:44px;column-rule:1px solid #E3E0D8}
+.sb .k{color:#1D4ED8;font-weight:600}
+.sb .c{color:#7A776F}
+.sb .hd{display:flex;align-items:baseline;gap:18px;padding-bottom:18px;margin-bottom:22px;border-bottom:2px solid #1E2227;font-family:'Gothic A1',sans-serif}
+.sb .hd b{font-size:30px;font-weight:800;letter-spacing:-.01em}
+.sb .hd span{font-size:15px;color:#5A5850}
+</style>
+</helmet>
+<div class="sb" style="width: 1440px; height: 3237px; box-sizing: border-box; padding: 40px 48px; overflow: hidden; background: #FBFAF7"><div class="hd"><b>달력 벽 · 브리프 + 토큰 명세</b><span>브리프 + 토큰 명세 · 227줄 · 17.5KB</span></div><pre style="column-count: 2"><span class="k"># 디자인 브리프: 크립토 브리핑 서고 · 달력 벽</span>
+<span class="k">## 목적</span>
+- 매일 06:10(KST)에 나오는 크립토 시장 브리핑을 날짜별로 꽂아 두는 서고다. 브리핑 한 편이 잡지 한 호이고, 호마다 자동으로 그린 표지가 있다. 주인 한 사람(한국어 사용자)이 매일 연다.
+- 하는 일은 다섯 가지다. ① 최신 호를 확인하고 브리핑을 연다 ② 지난 호 표지를 훑는다 ③ 날짜별 국면(A~E) 흐름을 본다 ④ 날짜나 낱말로 지난 호를 찾는다 ⑤ BTC.D·ΣSTABLECOIN.D 1개월 변화·BTCUSD 1개월 추이를 본다.
+- 이 테마의 답은 벽에 건 월간 달력이다. 날짜 칸마다 그날 표지를 걸어 발행한 날·빈 날·여러 번 발행한 날이 한눈에 보이고, 오른쪽 '고른 날' 카드에서 한 호를 크게 읽는다. 날짜로 찾기가 가장 쉬운 구성이다.
+<span class="k">## 분위기</span>
+- 벽에 붙인 종이 달력처럼 조용하고 반듯하게. 색은 표지와 국면 표식이 다 가져가고, 페이지 UI는 잉크(--text-1~3)와 청회색 단계만 쓴다. 강조는 최신 표지에서 따온 두 색뿐이다: 짙은 청록 --accent(주 버튼·고른 칸 링·포커스), 복숭아 --accent-soft('최신' 꼬리표). 국면 색은 국면 정보에만 쓴다.
+- 글자: 한국어 UI는 Gothic A1, 날짜·호수·지표 값은 Outfit, 지표 이름·변화량·실행 시각은 IBM Plex Mono. 고른 호의 헤드라인만 Noto Serif KR로 써서 잡지 기사 제목처럼 읽히게 한다. 날짜 숫자는 벽 달력처럼 또렷하게.
+- 바탕: 단색 청회색 벽(--bg)에 흰 종이 카드. 모서리는 작게, 그림자는 얕게, 무늬·그라디언트·반투명 효과는 없다. 달력은 둥근 상자 대신 얇은 괘선(--line) 격자로 나눈다.
+- 움직임: 날을 고르면(달력 칸·국면 띠·목록 어디서든) 고른 날 카드 내용만 --dur 동안 페이드로 바뀐다. 칸에 마우스를 올리면 칸 바탕 --surface-2와 표지 그림자 한 단계(--shadow-cover-hover)뿐이고, 다른 애니메이션은 없다.
+<span class="k">## 참고한 것</span>
+- 뼈대: 옅은 청회색 바탕에 흰 카드로, 머리글(어두운 둥근 네모 로고, '크립토 브리핑 서고', '매일 아침 06:10, 한 호씩 꽂힙니다') → 두 칸 본문(왼쪽 넓은 카드에 일~토 5주 달력, 오른쪽 좁은 카드에 고른 날) → 지표. 이 순서를 지킨다.
+- 달력 카드: 머리에 범례(A BTC! · B 알트시즌? · C 선별적 · D STICKY BTC.D · E 튀어?)와 이달 요약('31 브리핑 · 27 발행한 날 · 2 빈 날 · 3 하루 여러 번 · 26 지표 적립일'). 날짜 칸 머리는 왼쪽 날짜 숫자, 오른쪽 국면 글자 표식(걸친 판정은 왼쪽 앞 국면·오른쪽 뒤 국면으로 반반, 판정 없음은 회색 '?'), 그 아래 표지. 바깥 달 날짜는 '8.30', '10.2'처럼.
+- 고른 날 카드: '9월 30일 수요일'과 '제31호', 큰 표지, 헤드라인, 메타(국면 C · 선별적, 임시 기준, 전날 국면 C, 06:10 본실행), 지표 세 줄, 어두운 '브리핑 펼치기' 버튼, 맨 아래 이전 호·다음 호.
+- 지표 설명 문구: BTC.D '비트코인 점유율', ΣSTABLECOIN.D 1개월 'E 판정의 임시 기준은 +1.0%p', BTCUSD 1개월 '0 아래로 내려가야 D·E 판정의 전제가 섭니다'.
+<span class="k">## 고칠 점</span>
+- 여러 번 발행한 날은 표지를 겹쳐 쌓고 'n회' 배지를 표지에 얹어 가렸다 → 칸에는 그날 마지막 회차 표지 한 장, 'n회'는 칸 머리 날짜 옆. 다른 회차는 고른 날 카드의 회차 탭으로 본다.
+- 점선 칸 하나가 '기록 전'·'브리핑 없음'·'발행 예정' 세 뜻을 졌다 → 뜻마다 모양을 나눈다(상태별 규칙).
+- 국면이 칸 구석의 작은 배지뿐이라 흐름이 읽히지 않고, A·B·E 색 위 흰 글자는 명암비가 모자란다 → 본문 아래 전체 폭 '9월의 흐름' 카드 첫 줄에 하루 한 칸 국면 띠(9/1~9/30)를 둔다. 띠 글자는 국면이 바뀌는 칸에만, 표식 글자색은 --phase-*-on.
+- 지표 차트에 날짜축·기준선이 없고 고른 날 카드의 추세선과 겹친다 → 흐름 카드에서 국면 띠와 같은 날짜 열(--day-col-w)에 세 차트를 줄 세운다. +1.0%p('E 임시 기준')와 0('D·E 전제') 기준선을 이름표와 함께 긋고 그 너머를 --zone-ref로 옅게 칠한다. 고른 날 카드의 지표는 숫자만.
+- 조작이 흩어졌다(머리글의 월 이동·'발행 목록'·'지표' 버튼, 카드 안 '달력/서가/목록') → 월 이동과 '달력 · 목록' 전환은 달력 카드 머리로 옮기고, '서가'는 고른 날 카드가 대신한다. 머리글 오른쪽엔 검색(범위 선택 + '날짜나 낱말로 찾기')과 '매크로 리스크 서고' 링크만.
+- '브리핑 펼치기'가 지표 아래에 있어 첫 화면 밖으로 밀린다 → 고른 날 카드는 날짜·호수 → (회차 탭) → 표지 → 헤드라인 → 국면·메타 → 버튼 → 지표 → 앞뒤 호 순서. 카드 머리는 최신 호면 '최신 호' 꼬리표, 아니면 '고른 날'.
+- 최신 칸 표시는 얇은 테두리뿐이고 메타 칩 넷이 같은 무게다 → 달력의 최신 칸엔 '최신' 꼬리표, 고른 칸엔 --accent 링. 메타는 국면에만 색 표식을 붙이고 나머지는 가운뎃점으로 이은 보조 글로.
+- 둥근 회색 칸 35개 위에 표지 27장, 큰 모서리 카드까지 상자가 겹겹이라 어수선하다 → 괘선 격자와 --radius-card로 상자를 줄인다.
+<span class="k">## 우선순위</span>
+1. 고른 날 카드의 최신 호 표지와 헤드라인 — 페이지에서 가장 큰 덩어리.
+2. '브리핑 펼치기' — 페이지에 하나뿐인 채운 버튼.
+3. 달력의 최신 칸(9/30)과 그 옆 다음 호 자리(10/1) — 표지 벽에서 가장 먼저 눈에 걸리는 두 칸.
+4. 표지 벽 전체 — 발행한 날·빈 날·여러 번 발행한 날의 리듬.
+5. 국면 띠, 이어서 지표 세 줄과 기준선.
+6. 검색·월 이동·보기 전환·바닥글(부속 문서·갱신 방식) — 필요할 때 찾아 쓰는 도구.
+<span class="k">## 상태별 규칙</span>
+- 브리핑 없는 날(9/18, 9/19): 표지 자리(--cover-cell, 68:100)를 --line-strong 실선 윤곽으로 비우고 가운데에 '브리핑 없음'. 국면 표식은 없고, 띠 칸은 비우고, 차트 선은 끊는다. 고르면 카드에도 같은 빈 자리와 앞뒤 호 링크.
+- 기록 전(9/1)과 바깥 달(8/30, 8/31, 10/2, 10/3): 날짜 숫자만 --text-3로 두고 표지 자리는 없다. 9/1에만 '기록 전'.
+- 다음 호(10/1): 페이지에 하나뿐인 점선(--line-next) 표지 자리, 안에 '제32호'와 '06:10 발행 예정'. 고른 날 카드 맨 아래에도 '다음 호 10월 1일 06:10'.
+- 여러 번 발행한 날(9/3 3회, 9/5·9/24 2회): 칸·띠·차트는 마지막 회차 기준. 고르면 표지 바로 위 줄에 '{n}회 · {run}' 회차 탭이 생기고, 탭을 바꾸면 표지·헤드라인·메타·지표가 그 회차로 바뀐다.
+- 값이 없을 때: 국면 없음 → 회색 '?' 표식과 '국면 판정 없음'. headline 없음 → 그 자리에 note를 본문 크기 --text-2로. 지표 없음 → 값 자리에 '—'와 '기록 없음'. provisional이 거짓이거나 prevPhase가 없으면 그 메타는 뺀다.
+- 검색: 맞은 날 칸은 바탕만 --match로 칠하고(표지는 그대로) 고른 날 카드가 결과 목록(날짜·국면 표식·헤드라인, 맞은 낱말에 --match)으로 바뀐다. 날짜를 넣으면 그날을 바로 고른다. 결과가 없으면 달력은 그대로 두고 카드에 '‘{입력어}’에 맞는 호가 없습니다', '날짜는 9월 24일이나 9/24처럼 찾을 수 있습니다', '검색 지우기' 버튼.
+<span class="k">## 피할 것</span>
+- 표지에 테두리·필터·투명도·기울임·모서리 깎기·겹치기, 표지에 얹은 배지 → 표지는 고정 부품이라 다시 꾸미면 안 된다. 강조는 칸 바탕·칸 링·그림자로 한다.
+- 국면 색을 버튼·링크·선택 표시에 쓰기 → 국면의 뜻과 섞인다. UI 강조는 --accent 하나로.
+- 등락을 빨강·파랑으로, 일요일을 빨갛게 → E의 파랑과 부딪치고, 브리핑은 요일과 상관없이 매일 나온다. 등락은 부호(+, 하이픈이 아닌 −)로, 날짜색은 하나로.
+- 차트에서 빈 날을 이어 긋거나 0으로 채우기 → 없는 값을 지어내는 셈이다. 선을 끊는다.
+- 빈 곳을 채우려고 설명·장식·수치를 더하기 → 없는 사실이 생기고 시선이 흩어진다. 고른 날 카드가 달력보다 짧아도 남는 곳은 바탕으로 둔다.
+<span class="k">## 맡기는 부분</span>
+- 칸 머리 세부 배치, 선 아이콘(로고 포함)의 모양, 호버·포커스 세부, 칸에 마우스를 올렸을 때 '제n호 · 헤드라인' 툴팁, 흐름 카드의 눈금과 툴팁.
+- 목록 보기의 세부(기존 발행 목록과 지표 표를 합쳐 날짜·회차·국면·헤드라인·지표 셋·실행을 담는다), 검색 범위 선택지, 고른 날 카드를 스크롤에 붙일지, 바닥글 배치, 토큰 안에서의 간격 조합.
+<span class="k">## 완료 기준</span>
+- 1440px 폭에서 가로 스크롤이 없고, 첫 화면(높이 --fold-h) 안에 최신 표지·헤드라인·국면·'브리핑 펼치기'와 달력 머리·첫 두 주가 들어온다.
+- 표지는 모두 68:100 그대로 --cover-cell 또는 --cover-panel 크기이며, 꾸밈·겹침·가림이 하나도 없다.
+- 9/3·9/5·9/24는 표지 한 장과 'n회', 9/18·9/19는 '브리핑 없음', 9/1은 '기록 전', 10/1은 점선 '제32호'로 서로 다르게 보이고, 점선은 10/1 하나뿐이다.
+- 국면 띠와 세 차트가 같은 날짜 열에 맞고, 고른 날이 달력·띠·차트·카드에 함께 표시되며, 두 기준선에 이름표가 있다.
+- 글자 명암비는 본문 4.5 이상(24px 이상은 3 이상)이고 화면 문구는 한국어다(지표·국면 이름 같은 고유 표기는 그대로). 모든 디자인 값은 토큰에서 나온다.
+
+<span class="k"># 토큰</span>
+
+<span class="c">```css</span>
+:root {
+  <span class="c">/* 바탕과 면 */</span>
+  <span class="k">--bg</span>: #E3E8EE;              <span class="c">/* 페이지 바탕: 청회색 벽 */</span>
+  <span class="k">--surface</span>: #FFFFFF;         <span class="c">/* 카드: 흰 종이 */</span>
+  <span class="k">--surface-2</span>: #F3F6F9;       <span class="c">/* 칸 호버, 보기 전환 바탕 같은 조용한 채움 */</span>
+  <span class="k">--sel-fill</span>: #E9EEF3;        <span class="c">/* 고른 칸 바탕, 흐름 카드의 고른 날 세로띠 */</span>
+  <span class="k">--match</span>: #FBEFC4;           <span class="c">/* 검색에 맞은 칸 바탕과 맞은 낱말(형광펜) */</span>
+
+  <span class="c">/* 선 */</span>
+  <span class="k">--line</span>: #D9E0E7;            <span class="c">/* 달력 괘선, 카드 안 구분선, 입력칸 테두리 */</span>
+  <span class="k">--line-strong</span>: #B5C0CB;     <span class="c">/* 빈 표지 자리 실선 윤곽, 차트 바닥선 */</span>
+  <span class="k">--line-next</span>: #8A95A2;       <span class="c">/* 다음 호 자리 점선: 페이지에 하나뿐인 점선 */</span>
+  <span class="k">--line-ref</span>: #7D8794;        <span class="c">/* 지표 기준선(+1.0%p, 0) */</span>
+  <span class="k">--zone-ref</span>: #F4EEE7;        <span class="c">/* 기준선 너머 영역(+1.0%p 위, 0 아래) */</span>
+
+  <span class="c">/* 글자 */</span>
+  <span class="k">--text-1</span>: #17202B;          <span class="c">/* 잉크: 제목, 본문, 지표 값, 로고 네모 */</span>
+  <span class="k">--text-2</span>: #475262;          <span class="c">/* 라벨, 설명, 보조 메타, 요일 */</span>
+  <span class="k">--text-3</span>: #5C6875;          <span class="c">/* 바깥 달 날짜, 눈금, '브리핑 없음' (모든 바탕에서 4.5 이상) */</span>
+  <span class="k">--text-disabled</span>: #9AA4AF;   <span class="c">/* 끈 조작에만(갈 수 없는 달의 화살표) */</span>
+  <span class="k">--text-on-accent</span>: #FFFFFF;
+
+  <span class="c">/* 강조: 최신 호(9월 30일) 표지 배색에서 따옴 */</span>
+  <span class="k">--accent</span>: #0F3D49;          <span class="c">/* 표지의 짙은 청록: 주 버튼, 고른 칸 링, 포커스, 고른 회차 탭 */</span>
+  <span class="k">--accent-hover</span>: #0A2E37;
+  <span class="k">--accent-soft</span>: #F2B39F;     <span class="c">/* 표지 테두리의 복숭아: '최신' 꼬리표 바탕에만, 글자는 --text-1 */</span>
+
+  <span class="c">/* 국면 (-on은 그 색 위에 얹는 글자색) */</span>
+  <span class="k">--phase-a</span>: #CB8242;         <span class="c">/* A BTC! */</span>
+  <span class="k">--phase-a-on</span>: #0D1117;
+  <span class="k">--phase-b</span>: #A96CAF;         <span class="c">/* B 알트시즌? */</span>
+  <span class="k">--phase-b-on</span>: #0D1117;
+  <span class="k">--phase-c</span>: #056F15;         <span class="c">/* C 선별적 */</span>
+  <span class="k">--phase-c-on</span>: #FFFFFF;
+  <span class="k">--phase-d</span>: #594D99;         <span class="c">/* D STICKY BTC.D */</span>
+  <span class="k">--phase-d-on</span>: #FFFFFF;
+  <span class="k">--phase-e</span>: #2B97FF;         <span class="c">/* E 튀어? */</span>
+  <span class="k">--phase-e-on</span>: #0D1117;
+  <span class="k">--phase-none</span>: #DDE2E8;      <span class="c">/* 판정 없음 '?' */</span>
+  <span class="k">--phase-none-on</span>: #475262;
+
+  <span class="c">/* 차트 */</span>
+  <span class="k">--chart-line</span>: #17202B;
+  <span class="k">--chart-stroke</span>: 2px;
+  <span class="k">--ref-stroke</span>: 1px;
+  <span class="k">--chart-dot</span>: 7px;           <span class="c">/* 마지막 값·고른 날 점의 지름 */</span>
+
+  <span class="c">/* 글꼴 */</span>
+  <span class="k">--font-ui</span>: "Gothic A1", sans-serif;                     <span class="c">/* 한국어 UI 전반 */</span>
+  <span class="k">--font-num</span>: "Outfit", "Gothic A1", sans-serif;          <span class="c">/* 날짜 숫자, 월 제목, 호수, 지표 값, 국면 글자 */</span>
+  <span class="k">--font-mono</span>: "IBM Plex Mono", "Gothic A1", monospace;   <span class="c">/* 지표 이름, 변화량, 실행 시각, 'n회', 눈금 (400·500만 있음) */</span>
+  <span class="k">--font-headline</span>: "Noto Serif KR", serif;                <span class="c">/* 고른 호 헤드라인에만 */</span>
+
+  <span class="c">/* 글자 크기 */</span>
+  <span class="k">--fs-month</span>: 30px;           <span class="c">/* 달력 카드 '2026년 9월' */</span>
+  <span class="k">--fs-value</span>: 26px;           <span class="c">/* 고른 날 카드 지표 값 */</span>
+  <span class="k">--fs-headline</span>: 22px;        <span class="c">/* 고른 호 헤드라인 */</span>
+  <span class="k">--fs-panel-date</span>: 20px;      <span class="c">/* '9월 30일 수요일' */</span>
+  <span class="k">--fs-flow-value</span>: 20px;      <span class="c">/* 흐름 카드 왼쪽 열 현재 값 */</span>
+  <span class="k">--fs-brand</span>: 19px;           <span class="c">/* '크립토 브리핑 서고' */</span>
+  <span class="k">--fs-section</span>: 18px;         <span class="c">/* '9월의 흐름' 같은 카드 제목 */</span>
+  <span class="k">--fs-next-issue</span>: 18px;      <span class="c">/* 다음 호 자리 '제32호' */</span>
+  <span class="k">--fs-cell-date</span>: 17px;       <span class="c">/* 달력 날짜 숫자 */</span>
+  <span class="k">--fs-body</span>: 15px;            <span class="c">/* 본문, 버튼, 검색 입력, 결과 목록 */</span>
+  <span class="k">--fs-label</span>: 13px;           <span class="c">/* 라벨, 메타, 요일, 범례, 바깥 달 날짜 */</span>
+  <span class="k">--fs-micro</span>: 12px;           <span class="c">/* 눈금, 국면 표식 글자, 'n회', 꼬리표: 가장 작은 글자 */</span>
+
+  <span class="c">/* 굵기 */</span>
+  <span class="k">--fw-body</span>: 400;
+  <span class="k">--fw-label</span>: 500;            <span class="c">/* 라벨, 메타, IBM Plex Mono의 최대 굵기 */</span>
+  <span class="k">--fw-num</span>: 600;              <span class="c">/* 날짜 숫자, 지표 값 */</span>
+  <span class="k">--fw-title</span>: 700;            <span class="c">/* 월 제목, 날짜 제목, 카드 제목, 헤드라인, 국면 글자, 버튼 */</span>
+  <span class="k">--fw-brand</span>: 800;
+
+  <span class="c">/* 줄 간격, 자간 */</span>
+  <span class="k">--lh-num</span>: 1;
+  <span class="k">--lh-title</span>: 1.25;
+  <span class="k">--lh-label</span>: 1.4;
+  <span class="k">--lh-headline</span>: 1.45;
+  <span class="k">--lh-body</span>: 1.6;
+  <span class="k">--ls-title</span>: -0.02em;        <span class="c">/* Gothic A1 큰 제목 */</span>
+  <span class="k">--ls-mono</span>: 0.01em;
+
+  <span class="c">/* 간격 */</span>
+  <span class="k">--space-1</span>: 4px;
+  <span class="k">--space-2</span>: 8px;
+  <span class="k">--space-3</span>: 12px;
+  <span class="k">--space-4</span>: 16px;
+  <span class="k">--space-5</span>: 20px;
+  <span class="k">--space-6</span>: 24px;
+  <span class="k">--space-7</span>: 32px;
+  <span class="k">--space-8</span>: 40px;
+  <span class="k">--space-9</span>: 56px;
+
+  <span class="c">/* 모서리 */</span>
+  <span class="k">--radius-card</span>: 16px;
+  <span class="k">--radius-control</span>: 10px;     <span class="c">/* 검색칸, 버튼, 보기 전환, 회차 탭 */</span>
+  <span class="k">--radius-brand</span>: 10px;       <span class="c">/* 로고 네모 */</span>
+  <span class="k">--radius-sel</span>: 8px;          <span class="c">/* 칸 안쪽 바탕(호버·고른 칸·검색 맞음)과 링 */</span>
+  <span class="k">--radius-mark</span>: 5px;         <span class="c">/* 국면 표식 */</span>
+  <span class="k">--radius-ribbon</span>: 3px;       <span class="c">/* 국면 띠 한 칸 */</span>
+  <span class="k">--radius-slot</span>: 2px;         <span class="c">/* 빈 표지 자리, 다음 호 자리 */</span>
+  <span class="k">--radius-tag</span>: 999px;        <span class="c">/* '최신' 꼬리표 */</span>
+  <span class="k">--radius-cover</span>: 0;          <span class="c">/* 표지 모서리는 깎지 않는다 */</span>
+
+  <span class="c">/* 그림자 */</span>
+  <span class="k">--shadow-card</span>: 0 1px 2px rgba(23, 32, 43, 0.05), 0 8px 24px rgba(23, 32, 43, 0.06);
+  <span class="k">--shadow-cover</span>: 0 1px 2px rgba(13, 17, 23, 0.16), 0 4px 10px rgba(13, 17, 23, 0.10);      <span class="c">/* 달력 칸 표지 */</span>
+  <span class="k">--shadow-cover-hover</span>: 0 2px 4px rgba(13, 17, 23, 0.18), 0 10px 22px rgba(13, 17, 23, 0.16);
+  <span class="k">--shadow-cover-lg</span>: 0 2px 6px rgba(13, 17, 23, 0.16), 0 20px 44px rgba(13, 17, 23, 0.22);  <span class="c">/* 고른 날 카드 표지 */</span>
+  <span class="k">--shadow-pop</span>: 0 8px 28px rgba(23, 32, 43, 0.16);                                            <span class="c">/* 툴팁, 검색 펼침 */</span>
+
+  <span class="c">/* 선 굵기 */</span>
+  <span class="k">--hairline</span>: 1px;
+  <span class="k">--sel-ring</span>: 2px;            <span class="c">/* 고른 칸 링(--accent) */</span>
+  <span class="k">--next-stroke</span>: 1.5px;       <span class="c">/* 다음 호 자리 점선 */</span>
+  <span class="k">--focus-ring</span>: 2px;
+  <span class="k">--focus-offset</span>: 2px;
+  <span class="k">--icon-stroke</span>: 1.75px;
+
+  <span class="c">/* 배치 */</span>
+  <span class="k">--page-w</span>: 1440px;
+  <span class="k">--gutter</span>: 48px;             <span class="c">/* 페이지 좌우 여백 */</span>
+  <span class="k">--content-w</span>: 1344px;
+  <span class="k">--fold-h</span>: 900px;            <span class="c">/* 완료 기준의 첫 화면 높이 */</span>
+  <span class="k">--header-h</span>: 88px;
+  <span class="k">--col-gap</span>: 24px;            <span class="c">/* 달력 카드와 고른 날 카드 사이 */</span>
+  <span class="k">--section-gap</span>: 40px;        <span class="c">/* 본문 두 칸 → 흐름 카드 → 바닥글 사이 */</span>
+  <span class="k">--calendar-w</span>: 960px;
+  <span class="k">--panel-w</span>: 360px;           <span class="c">/* 고른 날 카드 */</span>
+  <span class="k">--card-pad</span>: 28px;
+  <span class="k">--panel-pad</span>: 30px;          <span class="c">/* 고른 날 카드 안쪽 폭 300px = --cover-panel */</span>
+  <span class="k">--weekday-h</span>: 32px;
+  <span class="k">--cell-h</span>: 212px;            <span class="c">/* 모든 주의 칸 높이를 같게 */</span>
+  <span class="k">--cell-pad</span>: 10px;
+  <span class="k">--cell-head-h</span>: 24px;        <span class="c">/* 날짜 숫자·'n회'·'최신'·국면 표식 줄 */</span>
+  <span class="k">--cell-head-gap</span>: 8px;       <span class="c">/* 칸 머리와 표지 사이 */</span>
+  <span class="k">--mark-h</span>: 20px;
+  <span class="k">--mark-min-w</span>: 22px;         <span class="c">/* 걸친 판정은 두 배 폭 */</span>
+  <span class="k">--tag-h</span>: 22px;
+  <span class="k">--control-h</span>: 40px;
+  <span class="k">--search-w</span>: 360px;          <span class="c">/* 범위 선택 + 입력칸 한 덩어리 */</span>
+  <span class="k">--button-h</span>: 48px;
+  <span class="k">--tab-h</span>: 32px;              <span class="c">/* 회차 탭 */</span>
+  <span class="k">--brand-mark</span>: 40px;
+  <span class="k">--icon-size</span>: 18px;
+  <span class="k">--flow-label-w</span>: 208px;      <span class="c">/* 흐름 카드 왼쪽 열: 지표 이름·현재 값·설명 */</span>
+  <span class="k">--day-col-w</span>: 36px;          <span class="c">/* 흐름 카드 하루 한 열, 30일 = 1080px */</span>
+  <span class="k">--ribbon-h</span>: 28px;
+  <span class="k">--ribbon-gap</span>: 2px;
+  <span class="k">--chart-h</span>: 96px;
+  <span class="k">--chart-row-gap</span>: 20px;
+  <span class="k">--footer-h</span>: 72px;
+
+  <span class="c">/* 표지 (비율 68:100, 96~520px) */</span>
+  <span class="k">--cover-ratio</span>: 68 / 100;
+  <span class="k">--cover-min</span>: 96px;
+  <span class="k">--cover-cell</span>: 108px;        <span class="c">/* 달력 칸 */</span>
+  <span class="k">--cover-panel</span>: 300px;       <span class="c">/* 고른 날 카드 */</span>
+
+  <span class="c">/* 움직임 */</span>
+  <span class="k">--dur-fast</span>: 120ms;          <span class="c">/* 호버 */</span>
+  <span class="k">--dur</span>: 180ms;               <span class="c">/* 고른 날 카드 내용 바뀜 */</span>
+  <span class="k">--ease</span>: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+<span class="c">```</span>
+
+<span class="k"># 요청</span>
+
+이 브리프와 토큰으로 '크립토 브리핑 서고'의 달력 벽 페이지를 1440px 데스크톱 한 장으로 만들어 주세요. 판단이 갈릴 때는 브리프가 기준이고, 브리프가 열어 둔 결정은 직접 내려 주세요. 토큰은 값을 바꾸지 말고 그대로 쓰는 것입니다. 정말 필요한 새 값이 생기면 :root 토큰에 역할 이름으로 더한 뒤 쓰고, 작업 끝에 더한 토큰과 그 이유를 목록으로 알려 주세요.</pre></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3237}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

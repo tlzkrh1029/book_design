@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>편집국 1면 JSON 명세</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Gothic+A1:wght@400;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#FBFAF7}
+.sb{font-family:'IBM Plex Mono','Gothic A1',monospace;color:#1E2227}
+.sb pre{margin:0;font-family:inherit;font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-all;column-gap:44px;column-rule:1px solid #E3E0D8}
+.sb .k{color:#1D4ED8;font-weight:600}
+.sb .c{color:#7A776F}
+.sb .hd{display:flex;align-items:baseline;gap:18px;padding-bottom:18px;margin-bottom:22px;border-bottom:2px solid #1E2227;font-family:'Gothic A1',sans-serif}
+.sb .hd b{font-size:30px;font-weight:800;letter-spacing:-.01em}
+.sb .hd span{font-size:15px;color:#5A5850}
+</style>
+</helmet>
+<div class="sb" style="width: 1440px; height: 5317px; box-sizing: border-box; padding: 40px 48px; overflow: hidden; background: #FBFAF7"><div class="hd"><b>편집국 1면 · JSON 명세</b><span>JSON 명세 · 261줄 · 37.0KB</span></div><pre style="column-count: 2">{
+  <span class="k">&quot;meta&quot;</span>: {
+    <span class="k">&quot;title&quot;</span>: &quot;크립토 브리핑 서고 · 시안 2 「편집국 1면」 디자인 명세&quot;,
+    <span class="k">&quot;scope&quot;</span>: &quot;데스크톱 1440px 한 장이 기준이고 390px 모바일 적응은 mobile_390에 적는다. 잡지 표지(68:100)는 고정 부품이라 페이지가 다시 꾸미지 않는다.&quot;,
+    <span class="k">&quot;conventions&quot;</span>: &quot;「」 안은 화면에 그대로 나가는 문구다(괄호는 빼고 쓴다). {중괄호}는 데이터 값이며 표기는 formats를 따른다. 단위는 모두 px. 서체는 &#x27;글꼴 굵기 / 크기 / 행간 / 자간 / 색&#x27; 순서. 예시 값은 최신 호(제31호, 2026-09-30) 기준.&quot;,
+    <span class="k">&quot;document_title&quot;</span>: &quot;「크립토 브리핑 서고 — 제{vol}호 {date_ymd}」&quot;
+  },
+  <span class="k">&quot;intent&quot;</span>: {
+    <span class="k">&quot;concept&quot;</span>: &quot;흑백 신문 1면. 종이 바탕에 잉크 한 가지, 굵은 괘선과 가는 괘선, 명조 제호와 헤드라인. 페이지는 무채색만 쓰고 색은 표지에서만 나오게 해서, 표지가 지면의 컬러 보도사진처럼 읽히게 한다. 글이 많은 브리핑의 성격과 맞춘다.&quot;,
+    <span class="k">&quot;mood&quot;</span>: &quot;아침 조간을 펼친 느낌. 빽빽하지만 괘선으로 질서가 잡힌 지면, 장식 대신 조판(크기·굵기·괘선·여백)으로 세운 위계. 차분하고 단정하며 숫자에 정확하다.&quot;,
+    <span class="k">&quot;hierarchy&quot;</span>: &quot;1순위 오늘 호 헤드라인과 「브리핑 전문 읽기」(첫 화면 900px 안) → 2순위 표지 색인 → 3순위 국면과 지표의 흐름 → 4순위 발행 목록과 판권.&quot;,
+    <span class="k">&quot;changes_from_draft&quot;</span>: [
+      &quot;제호를 132→84로 줄이고 날짜 줄·귀·메뉴를 약 257 높이에 모아, 헤드라인·국면·버튼·표지가 첫 화면에 들어오게 한다.&quot;,
+      &quot;1면을 표지 | 기사 | 사이드바 3단으로 짜서 서가(최근 세 호 + 다음 호 자리)를 1면 안에 모두 담는다.&quot;,
+      &quot;수치를 되풀이하던 자동 해설 문단을 없애고 국면 판정 줄과 기준선이 붙은 지표 3칸으로 바꾼다. BTCUSD 아래 「06:10 본실행」 같은 엉뚱한 보조 문구를 두지 않는다.&quot;,
+      &quot;검은 칸만 늘어선 연표 대신, 국면을 칸의 색이 아니라 A~E 레인의 위치로 보여 주는 흑백 연표를 쓴다. 서고 이전인 9월 1일 칸을 없애 9/2~9/30 29칸만 둔다.&quot;,
+      &quot;지표 차트 3개를 연표와 같은 날짜 칸에 세로로 쌓아 하루를 위아래로 맞춰 읽게 하고, 눈금과 기준선(+1.0%p, 0)을 넣는다.&quot;,
+      &quot;빠졌던 발행 목록·지표 표·부속 문서·갱신 방식·검색 범위를 되살리고, 메뉴가 실제로 있는 면으로만 이어지게 한다.&quot;,
+      &quot;표기를 하나로 맞춘다: 「No.31」 대신 「제31호」, 한글 문장에 모노 글꼴 금지, 음수는 U+2212, 데이터에 없는 표지 그림·배색 이름은 쓰지 않는다.&quot;
+    ]
+  },
+  <span class="k">&quot;tokens&quot;</span>: {
+    <span class="k">&quot;color&quot;</span>: {
+      <span class="k">&quot;paper&quot;</span>: &quot;#F3EFE6 — 페이지 바탕(종이).&quot;,
+      <span class="k">&quot;paper_2&quot;</span>: &quot;#E8E2D5 — 호버 바탕, 검색 결과 막대, 차트 기준 구간 채움, 대체 표지 바탕.&quot;,
+      <span class="k">&quot;ink&quot;</span>: &quot;#1B1916 — 제호·헤드라인·본문, 굵은 괘선, 주 버튼 바탕, 선 그래프, 국면 막대. paper 위 15.3:1.&quot;,
+      <span class="k">&quot;ink_2&quot;</span>: &quot;#4A453D — 캡션·보조 문구·메타. paper 위 8.3:1, paper_2 위 7.4:1.&quot;,
+      <span class="k">&quot;ink_3&quot;</span>: &quot;#655E53 — 눈금 숫자·요일·빈 값·점선 자리·빗금. paper 위 5.6:1, paper_2 위 5.0:1.&quot;,
+      <span class="k">&quot;rule_hair&quot;</span>: &quot;#BDB4A3 — 가는 구분선과 점선 눈금선 전용 장식색. 글자나 뜻을 가진 표시에는 쓰지 않는다.&quot;,
+      <span class="k">&quot;on_ink&quot;</span>: &quot;#F3EFE6 — ink 바탕 위 글자와 아이콘.&quot;,
+      <span class="k">&quot;shadow&quot;</span>: &quot;rgba(27,25,22,α) — 그림자 전용.&quot;,
+      <span class="k">&quot;not_used&quot;</span>: &quot;국면 색(#CB8242·#A96CAF·#056F15·#594D99·#2B97FF)과 최신 표지 배색(복숭아 #F2B39F 등)은 페이지에 쓰지 않는다. 쓸 수 있어도 쓰지 않는 것이 이 시안의 규칙이다.&quot;
+    },
+    <span class="k">&quot;font_stacks&quot;</span>: {
+      <span class="k">&quot;serif&quot;</span>: &quot;Noto Serif KR, serif&quot;,
+      <span class="k">&quot;sans&quot;</span>: &quot;Gothic A1, sans-serif&quot;,
+      <span class="k">&quot;numeral&quot;</span>: &quot;Oswald, Gothic A1, sans-serif — 큰 수치·날짜 숫자·국면 글자 전용, tabular-nums&quot;,
+      <span class="k">&quot;mono&quot;</span>: &quot;IBM Plex Mono, Gothic A1, monospace — 표 수치·지표 이름·눈금 전용(이름 속 「1개월」은 Gothic A1로 나온다), tabular-nums&quot;,
+      <span class="k">&quot;display_en&quot;</span>: &quot;Bodoni Moda italic — 영문 부제 한 곳&quot;,
+      <span class="k">&quot;unused&quot;</span>: &quot;Outfit은 쓰지 않는다.&quot;
+    },
+    <span class="k">&quot;typography&quot;</span>: {
+      <span class="k">&quot;nameplate&quot;</span>: &quot;serif 900 / 84 / 84 / −0.04em / ink&quot;,
+      <span class="k">&quot;nameplate_en&quot;</span>: &quot;Bodoni Moda italic 500 / 20 / 24 / 0 / ink&quot;,
+      <span class="k">&quot;nameplate_sub&quot;</span>: &quot;sans 500 / 13 / 20 / 0.04em / ink_2&quot;,
+      <span class="k">&quot;ear&quot;</span>: &quot;제목 sans 800 / 12 / 20 / 0.06em / ink, 본문 sans 500 / 13 / 20 / 0 / ink_2&quot;,
+      <span class="k">&quot;folio&quot;</span>: &quot;sans 500 / 13 / 20 / 0.02em / ink&quot;,
+      <span class="k">&quot;nav_item&quot;</span>: &quot;이름 sans 700 / 15 / 20 / 0 / ink, 앞 번호 sans 600 / 12 / 20 / 0.02em / ink_3&quot;,
+      <span class="k">&quot;section_title&quot;</span>: &quot;serif 800 / 32 / 40 / −0.02em / ink&quot;,
+      <span class="k">&quot;page_tag&quot;</span>: &quot;sans 700 / 12 / 22 / 0.04em / ink&quot;,
+      <span class="k">&quot;section_meta&quot;</span>: &quot;sans 500 / 13 / 20 / 0 / ink_2&quot;,
+      <span class="k">&quot;kicker&quot;</span>: &quot;sans 800 / 13 / 20 / 0.06em / ink&quot;,
+      <span class="k">&quot;lead_headline&quot;</span>: &quot;serif 800 / 48 / 60 / −0.03em / ink, word-break keep-all, 최대 4줄(넘으면 42 / 52로 한 단계 줄인다)&quot;,
+      <span class="k">&quot;phase_name&quot;</span>: &quot;sans 800 / 18 / 24 / −0.01em / ink&quot;,
+      <span class="k">&quot;stamp_letter&quot;</span>: &quot;numeral 600 / 28 / 28 / 0 / ink&quot;,
+      <span class="k">&quot;figure_label&quot;</span>: &quot;mono 500 / 12 / 16 / 0.06em / ink&quot;,
+      <span class="k">&quot;figure_value&quot;</span>: &quot;numeral 500 / 46 / 46 / −0.01em / ink&quot;,
+      <span class="k">&quot;figure_support&quot;</span>: &quot;sans 500 / 13 / 19 / 0 / ink_2&quot;,
+      <span class="k">&quot;item_headline&quot;</span>: &quot;serif 700 / 16 / 23 / −0.01em / ink&quot;,
+      <span class="k">&quot;meta_s&quot;</span>: &quot;sans 600 / 12 / 18 / 0 / ink_2&quot;,
+      <span class="k">&quot;index_date&quot;</span>: &quot;sans 700 / 13 / 20 / 0 / ink&quot;,
+      <span class="k">&quot;badge_letter&quot;</span>: &quot;numeral 600 / 12 / 18 / 0 / ink&quot;,
+      <span class="k">&quot;axis&quot;</span>: &quot;날짜 numeral 500 / 14 / 18 / 0 / ink, 요일 sans 500 / 11 / 14 / 0 / ink_3&quot;,
+      <span class="k">&quot;lane_label&quot;</span>: &quot;글자 numeral 600 / 14 / 24 / 0 / ink + 8 + 이름 sans 500 / 12 / 24 / 0 / ink_2&quot;,
+      <span class="k">&quot;chart_name&quot;</span>: &quot;mono 500 / 12 / 16 / 0.06em / ink&quot;,
+      <span class="k">&quot;chart_value&quot;</span>: &quot;numeral 500 / 32 / 32 / −0.01em / ink&quot;,
+      <span class="k">&quot;chart_support&quot;</span>: &quot;sans 500 / 12 / 18 / 0 / ink_2&quot;,
+      <span class="k">&quot;tick&quot;</span>: &quot;mono 400 / 11 / 14 / 0 / ink_3&quot;,
+      <span class="k">&quot;table_head&quot;</span>: &quot;sans 700 / 12 / 16 / 0.02em / ink&quot;,
+      <span class="k">&quot;table_num&quot;</span>: &quot;mono 400 / 13 / 20 / 0 / ink, 오른쪽 정렬&quot;,
+      <span class="k">&quot;table_headline&quot;</span>: &quot;serif 500 / 15 / 22 / −0.01em / ink&quot;,
+      <span class="k">&quot;body&quot;</span>: &quot;serif 400 / 15 / 26 / 0 / ink_2&quot;,
+      <span class="k">&quot;caption&quot;</span>: &quot;sans 500 / 13 / 20 / 0 / ink_2&quot;,
+      <span class="k">&quot;button&quot;</span>: &quot;sans 700 / 16 / 20 / 0.01em&quot;,
+      <span class="k">&quot;input&quot;</span>: &quot;sans 500 / 14 / 20 / 0 / ink, 자리 글자 ink_3&quot;,
+      <span class="k">&quot;tooltip&quot;</span>: &quot;제목 sans 700 / 13 / 20, 헤드라인 serif 500 / 14 / 21, 수치 mono 400 / 12 / 18, 모두 ink(안내 줄만 sans 500 / 11 / 16 / ink_3)&quot;
+    },
+    <span class="k">&quot;spacing&quot;</span>: &quot;4 · 8 · 12 · 16 · 20 · 24 · 32 · 48 · 64. 요소 안 4~12, 요소 사이 16~24, 블록 사이 32~48, 면 사이 64. 세로 치수는 8의 배수를 기본으로 한다.&quot;,
+    <span class="k">&quot;radius&quot;</span>: &quot;0. 버튼·입력·배지·툴팁·포커스 링까지 모두 각진 모서리.&quot;,
+    <span class="k">&quot;rules&quot;</span>: {
+      <span class="k">&quot;heavy&quot;</span>: &quot;3px solid ink — 각 면의 시작, 1면 지표 묶음 위, 발행 목록 표 위, 판권 imprint 위&quot;,
+      <span class="k">&quot;double&quot;</span>: &quot;3px ink + 3px 틈 + 1px ink(총 7) — 제호 아래 한 곳&quot;,
+      <span class="k">&quot;ink&quot;</span>: &quot;1px solid ink — 면 제목 아래, column_head 아래, 표 머리 아래와 표 끝, 연표 날짜 줄 아래와 스택 끝&quot;,
+      <span class="k">&quot;hair&quot;</span>: &quot;1px solid rule_hair — 항목 사이, 지표 칸 사이 세로선, 1면 기사와 사이드바 사이 세로 괘선, 지표 패널 사이&quot;,
+      <span class="k">&quot;dotted&quot;</span>: &quot;1px dotted rule_hair — 차트 눈금선, 레인 안내선, 월요일 구분선&quot;
+    },
+    <span class="k">&quot;shadow&quot;</span>: {
+      <span class="k">&quot;cover_rest&quot;</span>: &quot;0 1px 2px rgba(27,25,22,.16), 0 8px 16px -8px rgba(27,25,22,.32) — 색인·사이드바 표지&quot;,
+      <span class="k">&quot;cover_lead&quot;</span>: &quot;0 2px 4px rgba(27,25,22,.14), 0 28px 48px -20px rgba(27,25,22,.45) — 1면 표지&quot;,
+      <span class="k">&quot;cover_hover&quot;</span>: &quot;0 2px 4px rgba(27,25,22,.16), 0 18px 30px -12px rgba(27,25,22,.42)&quot;,
+      <span class="k">&quot;tooltip&quot;</span>: &quot;0 8px 20px -8px rgba(27,25,22,.35)&quot;,
+      <span class="k">&quot;else&quot;</span>: &quot;다른 요소에는 그림자를 쓰지 않는다.&quot;
+    },
+    <span class="k">&quot;motion&quot;</span>: {
+      <span class="k">&quot;cover_hover&quot;</span>: &quot;translateY(−4px) + cover_hover, 180ms cubic-bezier(.2,.7,.2,1). 1면 표지는 움직이지 않는다.&quot;,
+      <span class="k">&quot;color&quot;</span>: &quot;버튼 반전·링크 밑줄·행 바탕 120ms linear.&quot;,
+      <span class="k">&quot;tooltip&quot;</span>: &quot;opacity 0→1 100ms. 마우스 호버는 250ms 뒤, 키보드 포커스는 즉시.&quot;,
+      <span class="k">&quot;scroll&quot;</span>: &quot;메뉴 이동은 smooth.&quot;,
+      <span class="k">&quot;reduced&quot;</span>: &quot;prefers-reduced-motion: reduce이면 이동·페이드 없이 즉시 바꾸고 스크롤도 즉시.&quot;
+    },
+    <span class="k">&quot;texture&quot;</span>: &quot;종이 결: 공용 헬퍼가 만드는 var(--grain)을 body::before(position fixed, inset 0, z-index −1, pointer-events none)에 170px 타일, opacity .5로 깐다. sticky 메뉴 바탕도 paper 위에 같은 결을 깐다. 표지 위에는 절대 올리지 않는다.&quot;
+  },
+  <span class="k">&quot;frame&quot;</span>: {
+    <span class="k">&quot;page&quot;</span>: &quot;뷰포트 1440, 바탕 paper + 결. 가로 스크롤 없음.&quot;,
+    <span class="k">&quot;container&quot;</span>: &quot;폭 1296, 가운데 정렬(좌우 72). 괘선도 이 폭까지만.&quot;,
+    <span class="k">&quot;grid&quot;</span>: &quot;12단(단 86, 거터 24). 1면은 4 / 5 / 3단, 표지 색인은 8열(141, 거터 24), 3면은 전용 가로 격자 180 | 24 | 1044 | 48.&quot;,
+    <span class="k">&quot;section_flag&quot;</span>: &quot;1면을 뺀 모든 면의 머리: heavy 괘선 → 14 → 높이 40 한 줄(왼쪽 page_tag, 12 띄고 section_title / 오른쪽 section_meta, 세로 가운데) → 12 → ink 괘선 → 28 → 내용.&quot;,
+    <span class="k">&quot;rhythm&quot;</span>: &quot;면 사이 64. 앵커 scroll-margin-top 76(검색 결과 막대가 있으면 116).&quot;,
+    <span class="k">&quot;order&quot;</span>: &quot;header → search_result_bar(검색 중만) → front_page(1면) → cover_index(2면) → phase_and_metrics(3면) → issue_list(4면) → colophon(판권)&quot;
+  },
+  <span class="k">&quot;sections&quot;</span>: [
+    {
+      <span class="k">&quot;id&quot;</span>: &quot;header&quot;,
+      <span class="k">&quot;folio_bar&quot;</span>: &quot;높이 40, 세 칸(왼쪽·가운데·오른쪽 정렬), folio 서체. 왼쪽 「{date_long}」(최신 호 날짜 → 「2026년 9월 30일 수요일」), 가운데 「제{vol}호」, 오른쪽 링크 「매크로 리스크 서고」 + 6 + 바깥 화살표 14(새 창). 아래 ink 괘선.&quot;,
+      <span class="k">&quot;nameplate&quot;</span>: &quot;위 20, 아래 18. 가운데 h1 「크립토 브리핑」(nameplate). 10 아래 부제 한 줄 가운데: 「The Crypto Brief Archive」(nameplate_en) + 12 + 세로선 1×12 ink_3 + 12 + 「날짜별로 모아 두는 크립토 브리핑 서고」(nameplate_sub). 그 아래 double 괘선.&quot;,
+      <span class="k">&quot;ears&quot;</span>: &quot;제호 줄 양끝, 폭 240, 세 줄, 제호 글줄에 세로 가운데. 왼쪽 귀(왼쪽 정렬): 「서고 현황」 / 「브리핑 {호 수}호 · 발행 {발행일}일」 / 「휴간 {휴간일}일 · 지표 기록 {지표일}일」(→ 31 · 27 · 2 · 26). 오른쪽 귀(오른쪽 정렬): 「발행」 / 「매일 아침 06:10(KST)」 / 「제1호 {첫 호 date_ymd}」(→ 2026년 9월 2일).&quot;,
+      <span class="k">&quot;nav_bar&quot;</span>: &quot;높이 52, position sticky top 0, z-index 20, 바탕 paper + 결, 아래 ink 괘선. 왼쪽 메뉴 5개(항목 간격 28, 앞 번호와 이름 사이 6): 「1면」「오늘 호」 · 「2면」「표지 색인」 · 「3면」「국면·지표」 · 「4면」「발행 목록」 · 「판권」「갱신·부속 문서」. 오른쪽 끝에 search 부품.&quot;
+    },
+    {
+      <span class="k">&quot;id&quot;</span>: &quot;search_result_bar&quot;,
+      <span class="k">&quot;layout&quot;</span>: &quot;검색어가 있을 때만. nav_bar 바로 아래에 붙어 함께 sticky, 높이 40, 바탕 paper_2, 아래 ink 괘선, 내용은 container 폭.&quot;,
+      <span class="k">&quot;content&quot;</span>: &quot;왼쪽 sans 600 / 13 / 20 / 0 / ink: 「“{검색어}” — 표지 {n}권 · 발행 목록 {m}건 · 부속 문서 {k}건 · 갱신 방식 {j}건」(0건 항목은 빼고, 범위가 「전체」가 아니면 끝에 「 · 범위 {범위 이름}」). 오른쪽 text_link 버튼 「모두 보기」(검색어를 비우고 범위를 「전체」로). aria-live polite.&quot;
+    },
+    {
+      <span class="k">&quot;id&quot;</span>: &quot;front_page&quot;,
+      <span class="k">&quot;purpose&quot;</span>: &quot;오늘 호 확인과 브리핑 열기(일 1), 서가(최근 세 호 + 다음 호 자리). 숨긴 h2 「1면 · 오늘 호」.&quot;,
+      <span class="k">&quot;layout&quot;</span>: &quot;위 32, 아래 48. 표지 기둥 1~4단(416) | 기사 기둥 5~9단(526, 안쪽 왼쪽 여백 24 → 글 폭 502) | 사이드바 10~12단(306). 기사와 사이드바 사이 거터 한가운데 hair 세로 괘선(표지 윗선~아랫선). 세 기둥의 윗선은 표지 윗선에 맞춘다.&quot;,
+      <span class="k">&quot;cover_column&quot;</span>: &quot;최신 호 표지 416×612, cover_lead. 12 아래 caption 「▲ 제{vol}호 표지 · {date_long}」.&quot;,
+      <span class="k">&quot;story_column&quot;</span>: &quot;높이 612의 세로 flex. 위 묶음: column_head 「오늘의 1면」(오른쪽 끝 meta_s 「제{vol}호 · {run}」, seq≥2면 「제{vol}호 · {seq}회차 · {run}」) → 24 → h3 {display_text}(lead_headline, 링크 아님) → 20 → verdict_line → 28 → primary_button 「브리핑 전문 읽기」. 아래 묶음 figures는 아랫선을 표지 아랫선에 맞춘다(두 묶음 사이 최소 32).&quot;,
+      <span class="k">&quot;verdict_line&quot;</span>: &quot;phase_stamp + 16 + 두 줄(도장과 세로 가운데): 위 「국면 {phase} · {phase_name}」(phase_name 서체), 6 아래 chip_provisional 「임시 기준」(provisional일 때만) + 10 + meta_s 「전날 국면 {prevPhase}」(있을 때만). 예: [C] 국면 C · 선별적 / [임시 기준] 전날 국면 C.&quot;,
+      <span class="k">&quot;figures&quot;</span>: &quot;heavy 괘선 위 3칸 균등(약 167), 칸 사이 hair 세로선, 칸 안 여백 위 16·좌우 16(첫 칸 왼쪽 0). 칸 = figure_label → 8 → figure_value → 8 → figure_support. ① 「BTC.D」 / {btcd}(59.18%) / {btcd_change}(전날 +0.01%p) ② 「ΣSTABLECOIN.D」 / {stableD}(9.125%) / 두 줄 「1개월 {stable1m}」(1개월 −0.705%p)·「E 임시 기준 +1.0%p」 ③ 「BTCUSD 1개월」 / {btc1m}(+6.71%) / 두 줄 「0 아래로 내려가야」·「D·E 판정 전제」.&quot;,
+      <span class="k">&quot;sidebar&quot;</span>: &quot;column_head 「지난 호」 → 20 → 최신 호 바로 앞 두 호의 side_item(제30호, 제29호), 사이 20 · hair · 20. 맨 아래(아랫선 = 표지 아랫선) column_head 「다음 호」 → 16 → cover_slot + 16 + 글 세 줄: 「제{vol+1}호」(index_date) / 「{다음 날 date_mdw}」(item_headline → 10월 1일 목요일) / 「아침 06:10(KST) 발행 예정」(meta_s). 다음 날 = 최신 호 날짜 + 1일.&quot;
+    },
+    {
+      <span class="k">&quot;id&quot;</span>: &quot;cover_index&quot;,
+      <span class="k">&quot;purpose&quot;</span>: &quot;지난 호 표지를 훑고 연다(일 2). 월별 전체 표지.&quot;,
+      <span class="k">&quot;flag&quot;</span>: &quot;page_tag 「2면」, 제목 「표지 색인」, 오른쪽 「표지를 누르면 그날 브리핑이 새 창으로 열립니다」.&quot;,
+      <span class="k">&quot;month_group&quot;</span>: &quot;최신 달부터. 머리 줄: 왼쪽 「{YYYY}년 {M}월」(serif 700 / 20 / 28 / 0 / ink), 오른쪽 section_meta 「{호 수}호 · 발행 {발행일}일 · 휴간 {휴간일}일」(9월 → 31호 · 발행 27일 · 휴간 2일) → 10 → hair → 24 → 격자. 달 묶음 사이 48.&quot;,
+      <span class="k">&quot;grid&quot;</span>: &quot;8열 × 141, 열 거터 24, 줄 간격 32, 호 번호 내림차순(제31호가 왼쪽 위). 9월은 8·8·8·7칸 네 줄이고 남는 칸은 비워 둔다.&quot;,
+      <span class="k">&quot;cell&quot;</span>: &quot;index_cell. 셀 높이 257 = 표지 207 + 10 + 20 + 2 + 18.&quot;
+    },
+    {
+      <span class="k">&quot;id&quot;</span>: &quot;phase_and_metrics&quot;,
+      <span class="k">&quot;purpose&quot;</span>: &quot;날짜별 국면 흐름(일 3)과 지표 추이(일 5)를 한 날짜 축에서 본다. 기존 국면 타임라인과 지표 차트 3개를 합친 면.&quot;,
+      <span class="k">&quot;flag&quot;</span>: &quot;page_tag 「3면」, 제목 「국면과 지표」, 오른쪽 「{첫 칸 M월 D일} – {끝 칸 M월 D일} · 하루 한 칸 · 여러 번 발행한 날은 마지막 회차」. 달이 둘 이상이면 이 줄 끝에 text_link 「‹ 이전 달」「다음 달 ›」.&quot;,
+      <span class="k">&quot;columns&quot;</span>: &quot;이름 칸 180 | 24 | 날짜 칸 영역 1044 | 눈금 칸 48. 한 번에 한 달: 그 달 1일(서고 첫 달은 첫 호 날짜)부터 말일까지 모든 날이 한 칸. 칸 폭 = 1044 ÷ 칸 수(9월은 9/2~9/30 29칸 → 36). 서고 이전 날은 넣지 않는다.&quot;,
+      <span class="k">&quot;stack&quot;</span>: &quot;위에서 아래로: date_row 52 → ink → 국면 레인 160(위아래 8 + 6레인 × 24) → hair → BTC.D 패널 168 → hair → ΣSTABLECOIN.D 1개월 패널 168 → hair → BTCUSD 1개월 패널 168 → ink → 12 → 범례 한 줄. 전체 약 755.&quot;,
+      <span class="k">&quot;date_row&quot;</span>: &quot;칸마다 date_cell. 이름 칸에는 아래 맞춤 「{YYYY}년 {M}월」(sans 700 / 13 / 20 / 0 / ink).&quot;,
+      <span class="k">&quot;lanes&quot;</span>: &quot;레인 6개를 위에서부터 A·B·C·D·E·?(각 24). 이름 칸 lane_label: 「A BTC!」「B 알트시즌?」「C 선별적」「D STICKY BTC.D」「E 튀어?」「? 미기록」. 레인 가운데마다 dotted 안내선(날짜 칸 영역 전체). 하루 표시는 lane_marker, 값은 그날 마지막 회차의 phase.&quot;,
+      <span class="k">&quot;panel_common&quot;</span>: &quot;위아래 여백 24, 그림 높이 120. 이름 칸: chart_name → 6 → chart_value(최신 값) → 6 → chart_support(최대 2줄). 그림: 날짜 칸 가운데를 잇는 2px ink 선(이음 round), 값 있는 날마다 4×4 잉크 네모, 최신 점은 8×8 잉크 네모 + 2px paper 테두리. 값이 없는 날에서 선을 끊는다. 눈금선 dotted, 눈금 숫자는 눈금 칸 왼쪽 8에 tick 서체로 눈금선과 세로 가운데.&quot;,
+      <span class="k">&quot;panel_btcd&quot;</span>: &quot;이름 「BTC.D」, 값 {btcd}, 보조 {btcd_change}. 범위: 최솟값을 0.5 단위로 내림 ~ 최댓값을 0.5 단위로 올림(폭이 1.0 미만이면 위로 0.5 더), 눈금 0.5마다 소수 한 자리(「59.0」「59.5」…).&quot;,
+      <span class="k">&quot;panel_stable&quot;</span>: &quot;이름 「ΣSTABLECOIN.D 1개월」, 값 {stable1m}, 보조 「현재 {stableD} · E 판정 임시 기준 +1.0%p」. 범위: 최솟값 1 단위 내림 ~ max(최댓값 1 단위 올림, 1) + 1, 눈금 1마다(「+1」「0」「−1」). 0에 1px ink_3 실선. +1.0에 기준선(1.5px ink, 점선 5·4)과 오른쪽 끝 안쪽 선 바로 위 라벨 「E 임시 기준 +1.0%p」(sans 700 / 11 / 14 / 0 / ink, paper 상자 여백 1 4). 기준선 위 구간은 paper_2로 채우고 왼쪽 위 안쪽 6에 「E 판정 기준 이상」(sans 500 / 11 / 14 / 0 / ink_2).&quot;,
+      <span class="k">&quot;panel_btc&quot;</span>: &quot;이름 「BTCUSD 1개월」, 값 {btc1m}, 보조 「0 아래로 내려가야 D·E 판정의 전제가 섭니다」. 범위: min(최솟값 10 단위 내림, −10) ~ 최댓값 10 단위 올림, 눈금 10마다. 0에 기준선(1.5px ink, 점선 5·4)과 라벨 「0 · D·E 전제선」(panel_stable 라벨과 같은 꼴), 0 아래 구간 paper_2 채움 + 왼쪽 아래 안쪽 6에 「D·E 전제 구간」.&quot;,
+      <span class="k">&quot;overlays&quot;</span>: &quot;휴간 날(첫 호와 최신 호 사이에 호가 없는 날)은 레인 위끝~BTCUSD 패널 아래끝의 칸 전체에 45° 빗금(1px ink_3, 간격 6). 이어진 휴간 날은 한 띠로 보고 레인 영역 가운데에 「휴간」(sans 700 / 12 / 16 / 0 / ink_2, paper 상자 여백 2 4). 월요일 칸 왼쪽 끝에 dotted 세로선(date_row 아래~스택 끝).&quot;,
+      <span class="k">&quot;legend&quot;</span>: &quot;caption 서체, 기호 높이 12, 항목 사이 20: [잉크 막대] 「그날 판정」 · [반씩 나뉜 막대] 「걸친 판정(왼쪽→오른쪽)」 · [점선 막대] 「국면 미기록」 · [빗금] 「휴간」 · [점선 가로줄] 「판정 기준선」.&quot;,
+      <span class="k">&quot;interaction&quot;</span>: &quot;날짜 칸(칸 폭 × 스택 전체 높이)이 하나의 대상. 호버·포커스: 칸 가운데 1px ink 세로선(레인 위끝~스택 끝), 그 칸 date_row 바탕 paper_2, day_tooltip. 클릭·Enter: 그날 마지막 회차 브리핑을 새 창으로. 휴간 칸은 툴팁만.&quot;
+    },
+    {
+      <span class="k">&quot;id&quot;</span>: &quot;issue_list&quot;,
+      <span class="k">&quot;purpose&quot;</span>: &quot;지난 호를 찾고(일 4) 수치를 표로 비교한다(일 5). 기존 발행 목록과 지표 표를 한 표로 합친다.&quot;,
+      <span class="k">&quot;flag&quot;</span>: &quot;page_tag 「4면」, 제목 「발행 목록」, 오른쪽 「호마다 한 줄 · 여러 번 발행한 날은 회차마다 남깁니다」.&quot;,
+      <span class="k">&quot;table&quot;</span>: &quot;폭 1296의 table. heavy 괘선 → 머리 줄 높이 48(table_head, 아래 맞춤) → ink 괘선 → list_row들 → 표 끝 ink 괘선. 칸 좌우 여백 12(첫 칸 왼쪽·끝 칸 오른쪽 0).&quot;,
+      <span class="k">&quot;columns&quot;</span>: &quot;① 「호」 72 ② 「날짜」 132 ③ 「국면」 72 ④ 「헤드라인」 나머지(약 436) ⑤ 「BTC.D」 88 ⑥ 「ΣSTABLECOIN.D」 124 ⑦ 두 줄 머리 「ΣSTABLECOIN.D」「1개월」 124 ⑧ 두 줄 머리 「BTCUSD」「1개월」 112 ⑨ 「실행」 136(왼쪽 여백 24). ⑤~⑧은 머리와 값 모두 오른쪽 정렬.&quot;,
+      <span class="k">&quot;order&quot;</span>: &quot;호 번호 내림차순. 달이 바뀌는 곳마다 달 줄 「{YYYY}년 {M}월」(serif 700 / 15 / 22 / 0 / ink, 위 16 아래 8, 아래 ink 괘선). 9월은 머리 줄 바로 아래 한 번.&quot;,
+      <span class="k">&quot;collapse&quot;</span>: &quot;처음엔 최신 10줄만. 표 아래 16에 secondary_button 「나머지 {n}호 모두 보기」(셰브런 아래), 펼친 뒤 「최근 10호만 보기」(셰브런 위). 검색 중에는 접기를 풀고 맞는 줄만 보이며 버튼은 숨긴다.&quot;
+    },
+    {
+      <span class="k">&quot;id&quot;</span>: &quot;colophon&quot;,
+      <span class="k">&quot;purpose&quot;</span>: &quot;갱신 방식, 부속 문서, 형제 서고. footer 랜드마크.&quot;,
+      <span class="k">&quot;flag&quot;</span>: &quot;page_tag 「판권」, 제목 「갱신 방식과 부속 문서」, 오른쪽 비움.&quot;,
+      <span class="k">&quot;layout&quot;</span>: &quot;3기둥: 1~5단 갱신 방식 | 6~9단 부속 문서 | 10~12단 형제 서고. 기둥마다 column_head → 16 → 내용.&quot;,
+      <span class="k">&quot;update_method&quot;</span>: &quot;column_head 「갱신 방식」. body 한 문단: 「매일 아침 06:10(KST) 발행 실행이 이 서고에 한 호씩 등록합니다. 하루에 여러 번 발행하면 회차마다 한 호가 되고, 브리핑이 없는 날은 휴간으로 남습니다. 연표와 지표, 목록은 모두 이 기록으로 계산합니다.」&quot;,
+      <span class="k">&quot;attachments&quot;</span>: &quot;column_head 「부속 문서」. 기존 부속 문서 데이터를 순서 그대로: 제목 링크(serif 600 / 15 / 22 / 0 / ink, 새 창) + 설명이 있으면 4 아래 caption. 항목 사이 12 · hair · 12. 없으면 states.attachments_empty.&quot;,
+      <span class="k">&quot;sibling&quot;</span>: &quot;column_head 「형제 서고」. 상자 전체가 한 링크(1px ink 테두리, 여백 20, 새 창, 호버 바탕 paper_2): 「매크로 리스크 서고」(serif 800 / 20 / 28 / −0.01em / ink) + 오른쪽 위 바깥 화살표 18, 8 아래 meta_s 「형제 서고 · 새 창으로 열기」.&quot;,
+      <span class="k">&quot;imprint&quot;</span>: &quot;기둥 아래 48 → heavy 괘선 → 14 → 한 줄 caption: 왼쪽 「크립토 브리핑 서고 · 제1호 {date_ymd} — 제{vol}호 {date_ymd}」, 오른쪽 text_link 「맨 위로」 + 위 화살표 14. 페이지 아래 여백 64.&quot;
+    }
+  ],
+  <span class="k">&quot;components&quot;</span>: {
+    <span class="k">&quot;cover&quot;</span>: &quot;고정 부품, 68:100. 크기: 1면 416×612 · 색인 141×207 · 사이드바 96×141 · 모바일 1면 300×441 · 모바일 색인 112×165. 페이지가 더하는 것은 그림자와 호버 떠오름뿐. 감싼 링크가 그 호 url을 새 창으로 연다. 표지 마크업은 aria-hidden, 링크에 aria-label. 1면 표지 링크는 버튼과 겹치므로 tabindex −1.&quot;,
+    <span class="k">&quot;cover_fallback&quot;</span>: &quot;표지를 그리지 못하면 같은 크기 상자: 바탕 paper_2, 1px dashed ink_3, 가운데 「제{vol}호」(sans 700 / 13 / 20 / 0 / ink_2) + 4 + 「{date_mid}」(meta_s).&quot;,
+    <span class="k">&quot;cover_slot&quot;</span>: &quot;다음 호 자리 96×141: 1px dashed ink_3 테두리, 채움 없음, 가운데 「제{vol+1}호」(sans 700 / 12 / 18 / 0 / ink_3). 링크 아님.&quot;,
+    <span class="k">&quot;column_head&quot;</span>: &quot;8×8 잉크 네모 + 8 + kicker 글자, 오른쪽 끝에 meta_s(선택), 12 아래 ink 괘선.&quot;,
+    <span class="k">&quot;page_tag&quot;</span>: &quot;높이 24, 좌우 여백 8, 1px ink 테두리, 채움 없음, page_tag 서체.&quot;,
+    <span class="k">&quot;phase_badge&quot;</span>: &quot;높이 20. 단일: 20×20, 1px ink 테두리, paper 바탕, badge_letter 가운데. 걸친 판정: 40×20을 가운데 1px ink 세로선으로 나눠 왼쪽 앞 국면·오른쪽 뒤 국면(「C→D」 → C | D). 미기록: 20×20, 1px dashed ink_3, 「?」 ink_3.&quot;,
+    <span class="k">&quot;phase_stamp&quot;</span>: &quot;1면 전용. 48×48, 2px ink 테두리, 채움 없음, stamp_letter. 걸친 판정은 96×48을 2px 세로선으로 반씩, 미기록은 2px dashed ink_3 테두리에 「?」 ink_3.&quot;,
+    <span class="k">&quot;chip_provisional&quot;</span>: &quot;높이 24, 좌우 여백 8, 1px dashed ink 테두리(점선 = 임시), sans 700 / 12 / 16 / 0.02em / ink, 「임시 기준」.&quot;,
+    <span class="k">&quot;lane_marker&quot;</span>: &quot;(칸 폭 − 2) × 12 잉크 막대(데스크톱 34), 해당 레인 가운데, 칸 안 좌우 1씩 → 같은 국면이 이어지면 2px 틈의 띠로 읽힌다. 걸친 판정은 반 폭(17) 두 조각: 왼쪽 반은 앞 국면 레인, 오른쪽 반은 뒤 국면 레인. 미기록은 「?」 레인에 같은 크기 1px dashed ink_3 빈 막대. 휴간·미래 날은 표시 없음.&quot;,
+    <span class="k">&quot;date_cell&quot;</span>: &quot;칸 가운데 정렬, 위 4부터(axis 서체): 날짜 숫자 / 요일 / 하루 여러 호면 「{n}회」(sans 600 / 10 / 12 / 0 / ink_2). 최신 호 날짜는 숫자를 ink 상자 28×20(on_ink 글자)로 뒤집는다. 아직 오지 않은 날은 숫자·요일 모두 ink_3.&quot;,
+    <span class="k">&quot;index_cell&quot;</span>: &quot;셀 전체가 한 링크: 표지 141×207(cover_rest) → 10 → 1줄 높이 20: 왼쪽 「{date_mid}」(index_date), 오른쪽 phase_badge → 2 → 2줄 meta_s 「제{vol}호」(seq≥2면 「제{vol}호 · {seq}회차」). 호버(250ms 뒤)·포커스(즉시) 때 라벨 아래 8에 day_tooltip과 같은 상자, 내용은 그 호 기준.&quot;,
+    <span class="k">&quot;side_item&quot;</span>: &quot;항목 전체가 한 링크: [표지 96×141, cover_rest] 16 [글 194]. 글: meta_s 「제{vol}호 · {date_mid}」(seq≥2면 끝에 「 · {seq}회차」) → 6 → item_headline {display_text}(최대 4줄) → 8 → phase_badge + 8 + 「BTC.D {btcd}」(mono 400 / 12 / 18 / 0 / ink_2, 값 없으면 생략). 호버: 표지 떠오름 + 헤드라인 밑줄 1px.&quot;,
+    <span class="k">&quot;list_row&quot;</span>: &quot;최소 높이 56, 위아래 여백 12, 세로 가운데, 아래 hair. ① 「제{vol}호」 sans 700 / 13 ② 「{date_mid}」 sans 500 / 13 / ink, seq≥2면 아래 줄 meta_s 「{seq}회차」 ③ phase_badge ④ {display_text} 링크(table_headline, 최대 2줄, 평소 밑줄 없음) ⑤ {btcd} ⑥ {stableD} ⑦ {stable1m} ⑧ {btc1m}(⑤~⑧ table_num) ⑨ {run}(meta_s). 호버 바탕 paper_2.&quot;,
+    <span class="k">&quot;primary_button&quot;</span>: &quot;높이 52, 좌우 여백 24, 바탕 ink, 글자 on_ink(button 서체), 글 뒤 10에 오른쪽 화살표 18. 새 창. 호버: 바탕 paper + 글자 ink + 안쪽 2px ink 테두리. 누름: translateY(1px).&quot;,
+    <span class="k">&quot;secondary_button&quot;</span>: &quot;높이 48, 폭 100%, 1px ink 테두리, 채움 없음, sans 700 / 14 / 20 / 0 / ink, 글 뒤 8에 셰브런 16. 호버 바탕 paper_2.&quot;,
+    <span class="k">&quot;text_link&quot;</span>: &quot;ink, 밑줄 1px, 밑줄 간격 3. 호버 밑줄 2px.&quot;,
+    <span class="k">&quot;nav_link&quot;</span>: &quot;호버: 이름 아래 2px 밑줄(간격 6). 현재 면(IntersectionObserver로 화면 위 30% 선에 걸린 면): 이름 굵기 800, nav_bar 아랫선 바로 위에 이름 폭만큼 3px ink 막대, aria-current true.&quot;,
+    <span class="k">&quot;search&quot;</span>: &quot;한 몸 상자: 1px ink 테두리, 높이 36, 폭 420. 범위 select 104(sans 600 / 13, 왼쪽 여백 12, 오른쪽 10에 셰브런 12) | 1px ink 세로선 | 입력 260(왼쪽 12에 돋보기 16, 글은 40부터, 자리 글자 「낱말이나 날짜 (예: 안전판, 09.24)」) | 「찾기」 56(바탕 ink, 글자 on_ink, sans 700 / 13, 호버 반전). 범위 옵션 「전체」「표지」「발행 목록」「부속 문서」「갱신 방식」.&quot;,
+    <span class="k">&quot;search_behavior&quot;</span>: &quot;입력 120ms 뒤 바로 거른다. Enter·「찾기」는 결과가 있는 첫 면으로 스크롤. 대소문자 무시 부분 일치. 대상: 「제24호」·「24」, 날짜(2026-09-24 · 09.24 · 9.24 · 9월 24일 · 요일), headline · note · title, 국면 글자와 이름, 실행 표기. 범위는 찾을 곳만 정한다. 거르는 것은 2면 셀·4면 줄·부속 문서 항목·갱신 방식 문단뿐이고 1면과 3면은 그대로 둔다.&quot;,
+    <span class="k">&quot;day_tooltip&quot;</span>: &quot;바탕 paper, 1px ink 테두리, shadow tooltip, 여백 12 14, 폭 260. 칸 오른쪽 12(넘치면 왼쪽), 위끝은 레인 위끝. 내용: 「{date_long} · 제{vol}호」(여러 호면 끝에 「 · {n}회 발행」) → 4 → 「국면 {phase} · {phase_name}」(provisional이면 「 · 임시 기준」) → 8 → 수치 세 줄 「BTC.D {btcd}」「ΣSTABLECOIN.D 1개월 {stable1m}」「BTCUSD 1개월 {btc1m}」 → 8 → {display_text}(최대 3줄) → 8 → 「누르면 브리핑이 새 창으로 열립니다」. 휴간: 「{date_long}」 / 「휴간 · 브리핑이 없는 날」. role tooltip, Esc로 닫힘.&quot;,
+    <span class="k">&quot;icons&quot;</span>: &quot;선 SVG, viewBox 24, stroke currentColor 1.75, 끝·이음 round, 채움 없음: 돋보기, 오른쪽 화살표, 바깥 화살표(↗), 셰브런 위·아래, 위 화살표. 모두 aria-hidden.&quot;,
+    <span class="k">&quot;skip_link&quot;</span>: &quot;포커스 때만 왼쪽 위 16에 나타남: 바탕 ink, 글자 on_ink, sans 700 / 14, 여백 10 14, 「본문 바로가기」 → main.&quot;
+  },
+  <span class="k">&quot;formats&quot;</span>: {
+    <span class="k">&quot;vol&quot;</span>: &quot;「제31호」. 「No.31」 꼴은 쓰지 않는다.&quot;,
+    <span class="k">&quot;seq&quot;</span>: &quot;seq ≥ 2일 때만 「2회차」.&quot;,
+    <span class="k">&quot;dates&quot;</span>: &quot;date_long 「2026년 9월 30일 수요일」 · date_ymd 「2026년 9월 2일」 · date_mdw 「10월 1일 목요일」 · date_mid 「9월 30일 (수)」 · 연표 칸 「30」+「수」.&quot;,
+    <span class="k">&quot;phase&quot;</span>: &quot;단일 「국면 C · 선별적」, 걸침 「국면 C→D · 걸친 판정」, 없음 「국면 미기록」, 전날 「전날 국면 C」. 이름: A 「BTC!」 B 「알트시즌?」 C 「선별적」 D 「STICKY BTC.D」 E 「튀어?」.&quot;,
+    <span class="k">&quot;numbers&quot;</span>: &quot;btcd 소수 2자리 + 「%」(59.18%), stableD 3자리 + 「%」(9.125%), stable1m 부호 + 3자리 + 「%p」(−0.705%p), btc1m 부호 + 2자리 + 「%」(+6.71%). 양수 「+」, 음수 U+2212 「−」, 0은 부호 없이.&quot;,
+    <span class="k">&quot;btcd_change&quot;</span>: &quot;앞선 호 가운데 btcd가 있는 가장 가까운 호와의 차, 부호 + 2자리 + 「%p」. 그 호가 달력상 전날이면 「전날 +0.01%p」, 같은 날 앞 회차면 「직전 회차 {차}」, 그보다 앞이면 「{M}월 {D}일 대비 {차}」. 차가 0이면 「전날과 같음」「직전 회차와 같음」「{M}월 {D}일과 같음」.&quot;,
+    <span class="k">&quot;display_text&quot;</span>: &quot;headline → 없으면 note → 없으면 title.&quot;,
+    <span class="k">&quot;run&quot;</span>: &quot;데이터 표기 그대로(「06:10 본실행」「안전판」「지연 실행 10:57」). 없으면 「실행 기록 없음」.&quot;,
+    <span class="k">&quot;missing&quot;</span>: &quot;빈 수치는 「–」(U+2013, ink_3). 차트는 그날 점을 빼고 선을 끊는다.&quot;,
+    <span class="k">&quot;counts&quot;</span>: &quot;데이터에서 센다: 호 수, 발행일(호가 있는 날), 휴간일(첫 호~최신 호 사이 호가 없는 날), 지표 기록일(btcd가 있는 날).&quot;
+  },
+  <span class="k">&quot;states&quot;</span>: {
+    <span class="k">&quot;hover&quot;</span>: &quot;표지 4 떠오름 + cover_hover(1면 표지 제외), 링크 밑줄, 표 줄 바탕 paper_2, 날짜 칸 세로선 + 툴팁, 버튼 반전, 형제 서고 상자 바탕 paper_2. 커서는 링크·버튼·날짜 칸에서 pointer.&quot;,
+    <span class="k">&quot;focus&quot;</span>: &quot;모든 대화형 요소에 2px solid ink outline, offset 3, 모서리 0(셀·항목 링크는 offset 4). 포커스는 같은 자리의 호버 표시(툴팁·세로선)도 함께 켠다.&quot;,
+    <span class="k">&quot;search_active&quot;</span>: &quot;search_result_bar를 띄우고 범위 안의 맞지 않는 항목을 숨긴다. 남은 항목이 없는 달 묶음·달 줄은 숨긴다. 결과가 0인 면은 면 머리를 남기고 caption 한 줄 「이 면에는 맞는 항목이 없습니다.」(ink_3).&quot;,
+    <span class="k">&quot;search_empty&quot;</span>: &quot;막대 문구 「“{검색어}”와 맞는 호가 없습니다.」 + 「모두 보기」.&quot;,
+    <span class="k">&quot;attachments_empty&quot;</span>: &quot;caption 「아직 등록된 부속 문서가 없습니다.」(ink_3).&quot;,
+    <span class="k">&quot;missing_phase&quot;</span>: &quot;배지·도장은 미기록 꼴, 문구 「국면 미기록」, 연표는 「?」 레인.&quot;,
+    <span class="k">&quot;missing_url&quot;</span>: &quot;표지·헤드라인은 링크 없이 두고, 1면 버튼은 disabled: 바탕 paper_2, 글자 ink_3, 1px dashed ink_3 테두리, 문구 「브리핑 링크 없음」, 화살표 없음.&quot;,
+    <span class="k">&quot;missing_values&quot;</span>: &quot;formats.missing을 따르고, 1면 지표 칸은 값 「–」에 보조 문구 「기록 없음」.&quot;,
+    <span class="k">&quot;missing_cover&quot;</span>: &quot;components.cover_fallback.&quot;,
+    <span class="k">&quot;holiday_future&quot;</span>: &quot;휴간 날은 2면·4면에 항목이 없고 3면에서만 빗금 칸이다. 아직 오지 않은 날은 3면에 빈 칸(날짜 ink_3).&quot;
+  },
+  <span class="k">&quot;accessibility&quot;</span>: {
+    <span class="k">&quot;contrast&quot;</span>: &quot;ink/paper 15.3, ink_2/paper 8.3, ink_3/paper 5.6, ink_3/paper_2 5.0, on_ink/ink 15.3 — 본문 4.5 기준을 모두 넘긴다. rule_hair(1.8)는 장식 괘선에만 쓰고, 뜻을 가진 선(점선 자리·빗금·기준선·배지 테두리)은 ink 또는 ink_3라 3:1 이상.&quot;,
+    <span class="k">&quot;structure&quot;</span>: &quot;html lang ko. header(banner) 안에 nav(aria-label 「면 이동」)와 form role search(aria-label 「서고 검색」), main, footer(판권). h1 「크립토 브리핑」, 면마다 h2(1면은 숨김), 1면 헤드라인 h3. 발행 목록은 table + 숨긴 caption 「발행 목록과 지표」, th scope col.&quot;,
+    <span class="k">&quot;focus_order&quot;</span>: &quot;건너뛰기 링크 → 형제 서고(날짜 줄) → 메뉴 5개 → 범위 → 입력 → 찾기 → 「모두 보기」(검색 중) → 「브리핑 전문 읽기」 → 지난 호 2개 → 색인 셀(최신→과거) → 연표(탭 한 번) → 목록 헤드라인 → 펼치기 버튼 → 부속 문서 → 형제 서고 → 맨 위로.&quot;,
+    <span class="k">&quot;keyboard&quot;</span>: &quot;연표는 roving tabindex: 들어오면 최신 날짜, ←/→ 하루씩, Home/End 처음·끝, Enter 브리핑 열기(휴간 칸은 포커스만), Esc 툴팁 닫기.&quot;,
+    <span class="k">&quot;labels&quot;</span>: &quot;링크 aria-label 예: 「제30호, 2026년 9월 29일 화요일, 결제·상호운용 계열만 따로 올랐다, 브리핑 새 창으로 열기」. 1면 버튼 「제31호 브리핑 전문 읽기, 새 창」. 날짜 칸 「9월 30일 수요일, 제31호, 국면 C 선별적, 임시 기준, BTC.D 59.18%」, 휴간 칸 「9월 18일 금요일, 휴간」. 배지 「국면 C 선별적」「국면 C에서 D로 걸친 판정」「국면 미기록」. 숨긴 label 「검색 범위」「찾을 말」. 결과 막대 aria-live polite.&quot;,
+    <span class="k">&quot;charts&quot;</span>: &quot;레인과 패널 SVG는 role img + 데이터로 만든 aria-label 요약(「BTC.D 추이, {첫 기록일}부터 {마지막 기록일}까지, 최신 {btcd}」 꼴). 자세한 값은 4면 표가 대신한다.&quot;,
+    <span class="k">&quot;motion_targets&quot;</span>: &quot;prefers-reduced-motion을 따른다. 누르는 대상은 데스크톱 24×24, 모바일 44×44 이상.&quot;
+  },
+  <span class="k">&quot;mobile_390&quot;</span>: {
+    <span class="k">&quot;frame&quot;</span>: &quot;좌우 여백 16, 내용 폭 358, 한 단. 면 사이 48. section_title serif 800 / 24 / 32, section_meta는 제목 아래 4에 따로 한 줄.&quot;,
+    <span class="k">&quot;header&quot;</span>: &quot;날짜 줄은 가운데 두 줄 「{date_long}」 / 「제{vol}호」(sans 500 / 12 / 18), 형제 서고 링크는 판권에만. 제호 serif 900 / 44 / 48 / −0.04em, 부제는 영문만(Bodoni Moda italic 500 / 15 / 20), 귀는 숨긴다. nav_bar 높이 48 sticky: 메뉴는 가로 스크롤(간격 20, 스크롤바 숨김), 오른쪽 끝 돋보기 버튼 44×44를 누르면 바로 아래 검색 줄(높이 44: 범위 96 | 입력 가변 | 찾기 56)이 열린다.&quot;,
+    <span class="k">&quot;front_page&quot;</span>: &quot;순서: column_head 「오늘의 1면」 → 16 → 헤드라인 serif 800 / 30 / 38(최대 5줄) → 16 → verdict_line(도장 40×40, 걸침 80×40) → 20 → primary_button 폭 100% → 24 → 표지 300×441 가운데 + 캡션 가운데 → 24 → figures 3칸(각 약 119, 값 numeral 500 / 26 / 26, 보조 sans 500 / 11 / 16 최대 3줄) → 32 → 「지난 호」 side_item 2개 → 24 → 「다음 호」.&quot;,
+    <span class="k">&quot;cover_index&quot;</span>: &quot;3열 × 112, 열 거터 11, 줄 간격 24. 라벨 1줄 「{date_mid}」 sans 700 / 12 / 18 / 0 / ink + 배지, 2줄 「제{vol}호」 sans 600 / 11 / 16 / 0 / ink_2. 툴팁 없음.&quot;,
+    <span class="k">&quot;phase_and_metrics&quot;</span>: &quot;스택 전체를 가로 스크롤 상자 하나에 넣는다(폭 358, 안쪽 폭 32 + 29 × 32 + 40 = 1000, 날짜 칸 32, 막대 30). 레인 이름 칸은 32로 줄여 글자만 두고 position sticky left 0, 바탕 paper. 패널 이름·값·보조는 그림 위 한 줄 머리(높이 40, 폭 358, sticky left 0)로 올린다. 첫 스크롤 위치는 오른쪽 끝(최신 날). 칸을 탭하면 툴팁 대신 화면 아래 고정 시트(폭 358, 여백 16, 같은 내용 + text_link 「브리핑 열기」, 밖을 탭하면 닫힘). 범례는 여러 줄로 감싼다.&quot;,
+    <span class="k">&quot;issue_list&quot;</span>: &quot;표 대신 카드 목록: 1줄 「{date_mid}」 sans 700 / 14 + 8 + 「제{vol}호」 meta_s + 오른쪽 배지 → 6 → {display_text} 링크 serif 600 / 16 / 24 → 10 → 2×2 수치 격자(칸마다 이름 mono 500 / 11 / ink_2 위, 값 table_num 14 아래: 「BTC.D」「ΣSTABLECOIN.D」「ΣSTABLECOIN.D 1개월」「BTCUSD 1개월」) → 8 → {run} meta_s. 항목 사이 hair, 위아래 여백 16. 접기 규칙은 같다.&quot;,
+    <span class="k">&quot;colophon&quot;</span>: &quot;세 기둥을 세로로(사이 32), 형제 서고 상자 폭 100%. imprint는 왼쪽 정렬 두 줄.&quot;
+  },
+  <span class="k">&quot;do&quot;</span>: [
+    &quot;페이지는 paper·ink 계열 무채색만 쓰고, 색은 표지에서만 나오게 한다.&quot;,
+    &quot;위계는 크기·굵기·괘선·여백으로 만든다. 굵은 괘선은 면의 시작, 가는 괘선은 면 안의 구분이다.&quot;,
+    &quot;표지는 68:100 그대로 정해진 폭(416·141·96)에만 놓고 그림자로만 받친다.&quot;,
+    &quot;모든 수·날짜·개수는 데이터에서 계산하고 formats 표기를 지킨다.&quot;,
+    &quot;국면과 지표는 같은 날짜 칸에 맞춰 쌓아 하루가 위아래로 읽히게 한다.&quot;,
+    &quot;잉크로 채운 UI 면은 「브리핑 전문 읽기」와 「찾기」 두 버튼뿐이다(국면 막대·차트 점·column_head 네모·최신 날짜 표시·건너뛰기 링크는 예외).&quot;
+  ],
+  <span class="k">&quot;dont&quot;</span>: [
+    &quot;표지에 테두리·필터·기울임·둥근 모서리·잘라내기·겹쳐 가리기를 하지 않는다. 종이 결도 표지 위에 올리지 않는다.&quot;,
+    &quot;국면 색·표지 배색·그라데이션·색 강조를 페이지에 쓰지 않는다.&quot;,
+    &quot;데이터에 없는 값(독자 수, 가격, 표지 그림·배색 이름 등)을 적지 않는다.&quot;,
+    &quot;수치를 되풀이하는 자동 해설 문단이나 지표와 무관한 보조 문구를 넣지 않는다.&quot;,
+    &quot;한글 문장(날짜 줄·캡션·목록 글)에 IBM Plex Mono를 지정하지 않는다. 모노는 수치와 지표 이름에만 쓴다.&quot;,
+    &quot;서고 이전 날(9월 1일)을 연표에 넣거나, 휴간과 국면 미기록을 같은 모양으로 그리지 않는다.&quot;,
+    &quot;실제 면이 없는 메뉴 항목을 두지 않는다.&quot;
+  ]
+}</pre></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5317}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

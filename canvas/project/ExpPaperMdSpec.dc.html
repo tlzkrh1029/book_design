@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>편집국 1면 · 브리프 + 토큰 명세</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Gothic+A1:wght@400;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#FBFAF7}
+.sb{font-family:'IBM Plex Mono','Gothic A1',monospace;color:#1E2227}
+.sb pre{margin:0;font-family:inherit;font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-all;column-gap:44px;column-rule:1px solid #E3E0D8}
+.sb .k{color:#1D4ED8;font-weight:600}
+.sb .c{color:#7A776F}
+.sb .hd{display:flex;align-items:baseline;gap:18px;padding-bottom:18px;margin-bottom:22px;border-bottom:2px solid #1E2227;font-family:'Gothic A1',sans-serif}
+.sb .hd b{font-size:30px;font-weight:800;letter-spacing:-.01em}
+.sb .hd span{font-size:15px;color:#5A5850}
+</style>
+</helmet>
+<div class="sb" style="width: 1440px; height: 3250px; box-sizing: border-box; padding: 40px 48px; overflow: hidden; background: #FBFAF7"><div class="hd"><b>편집국 1면 · 브리프 + 토큰 명세</b><span>브리프 + 토큰 명세 · 209줄 · 19.7KB</span></div><pre style="column-count: 2"><span class="k"># 디자인 브리프: 편집국 1면 — 크립토 브리핑 서고</span>
+<span class="k">## 목적</span>
+- 매일 아침 06:10(KST)에 나오는 크립토 브리핑을 한 편에 한 호씩 모아 둔 서고의 첫 페이지다. 주인 한 사람(한국어 사용자)이 매일 연다. 페이지는 흑백 신문 1면처럼 오늘 호를 머리기사로, 표지를 1면 사진으로, 나머지 기록을 안쪽 단으로 싣는다.
+- 주인이 이 페이지에서 하는 일 다섯: ① 오늘 호를 확인하고 브리핑을 연다 ② 지난 호 표지를 훑는다 ③ 날짜별 국면(A~E) 흐름을 본다 ④ 날짜나 낱말로 지난 호를 찾는다 ⑤ 지표 추이(BTC.D, ΣSTABLECOIN.D 1개월 변화, BTCUSD 1개월)를 본다.
+<span class="k">## 분위기</span>
+- 색: 종이(--bg) 위에 먹(--text-1) 한 가지. 회색은 먹을 푼 단계(--text-2, --text-3, --line-2, --line-3)뿐이고, 먹 바탕에 종이 글자를 얹는 반전은 ‘브리핑 전문 읽기’ 하나에만 쓴다. 국면까지 포함해 페이지에는 색이 없다. 색은 표지에만 있다.
+- 글꼴: 제호·헤드라인·구역 제목·호 제목은 Noto Serif KR, 메뉴·라벨·버튼·표 글자는 Gothic A1, 큰 숫자와 연표 글자는 Oswald, 날짜·호수·눈금·표 숫자는 IBM Plex Mono. 이 네 가족만 쓰고 숫자는 자릿수를 맞춘다(--figures).
+- 구조와 바탕: 상자 대신 괘선과 단으로 나눈다. 제호 위아래는 굵은 줄과 가는 줄의 이중 괘선, 구역 시작은 굵은 괘선(--rule-heavy), 구역 안은 가는 괘선, 모서리는 모두 직각이다. 바탕은 종이 결을 아주 옅게(--grain-opacity) 깐 한 장.
+- 움직임: 거의 없다. 링크는 밑줄, 표지는 마우스를 올리면 그림자만 한 단계 짙어진다(--shadow-cover-hover, --dur-fast). 스크롤 연출·자동 넘김은 없다.
+<span class="k">## 참고한 것</span>
+- 지금 시안은 옅은 종이 결 위에 먹 글자뿐이라 컬러 표지가 신문 사진처럼 떠오른다. 맨 위는 이중 괘선 사이 가운데에 극굵은 명조 제호 ‘크립토 브리핑’과 작은 부제 ‘날짜별로 모아 두는 크립토 브리핑 서고’, 그 아래 굵은 고딕 구역 이름(현재 항목만 밑줄)과 오른쪽의 밑줄 하나뿐인 검색칸이 있다.
+- 1면은 왼쪽에 큰 최신 호 표지와 그 아래 사진 설명(호수, 그림·배색 이름), 오른쪽에 작은 킥커 줄(‘오늘의 1면’) → 가는 괘선 → 극굵은 명조 헤드라인 → 세로 가는 괘선으로 나눈 지표 칸(큰 Oswald 숫자와 작은 고정폭 보조 줄) → 작은 표지 옆에 명조 제목을 단 지난 두 호.
+- 구역 머리는 굵은 괘선 아래 왼쪽에 큰 명조 제목, 오른쪽 끝에 작은 고정폭 메모. 표지 격자는 최신 호부터 촘촘히, 표지마다 옅은 그림자와 한 줄 캡션. 판권은 굵은 괘선 아래 한 줄. 이 문법을 모두 지킨다.
+<span class="k">## 고칠 점</span>
+- 날짜 줄·아주 큰 제호·메뉴가 첫 화면의 40% 남짓을 차지해 ‘브리핑 전문 읽기’가 첫 화면 밖으로 밀리고, 그 링크는 작은 밑줄 글자라 주 행동으로 안 보인다 → 제호를 --fs-masthead로 줄이고 날짜 줄을 제호 양옆 귀로 옮겨(왼쪽: 날짜·호수·발행 시각, 오른쪽: 발행·지표 집계와 ‘매크로 리스크 서고 →’) 헤더를 --header-max-h 안에 넣는다. 링크는 헤드라인 바로 아래 먹 바탕 띠(--cta-h)로 만들고, 표지와 헤드라인도 같은 곳으로 잇는다.
+- 헤드라인이 표지 속 같은 문장 옆에서 똑같이 아주 커서 무게가 겹친다 → 헤드라인은 --fs-headline으로 두 줄 안팎. 표지는 사진, 헤드라인은 제목으로 역할을 나눈다.
+- 같은 숫자를 해설 문단·1면 지표·지표 구역에서 세 번 되풀이하고, ΣSTABLECOIN.D는 1면에선 수준(9.125%), 지표 구역에선 1개월 변화(−0.705%p)라 기준이 엇갈린다 → 두 곳 모두 BTC.D, ΣSTABLECOIN.D 1개월, BTCUSD 1개월을 같은 라벨로 쓰고(수준값은 보조 줄), 헤드라인 아래에는 숫자 해설 대신 note가 있을 때만 note를 둔다.
+- 지표 그래프에 축·날짜·기준선이 없어 기준이 글로만 있다 → 점선 기준선(--line-ref)에 ‘E 판정 임시 기준 +1.0%p’, ‘0 아래면 D·E 전제’ 라벨을 달고, 처음·끝 날짜와 최근값의 점·값을 그린다.
+- 국면 연표는 똑같은 검은 상자의 줄이라 흐름이 안 보이고, 걸친 판정은 ‘CD’·‘AC’ 작은 두 글자라 안 읽히며, 첫 호 전날인 9.1을 브리핑 없는 날처럼 그렸다 → ‘상태별 규칙’대로 그리고 9.2부터 시작한다.
+- 메뉴의 ‘발행 목록·부속 문서·갱신 방식’은 가리키는 구역이 없고, 검색엔 범위 선택이, 서가엔 다음 호 자리가 없으며, 화면 한 장이 넘는 표지 격자가 연표·지표를 한참 아래로 밀었다 → 1면 → 국면과 지표 → 표지 전체 → 발행 목록 → 부속 문서·갱신 방식 → 판권 순으로 다시 짜고 빠진 것을 채운다. 매일 보는 것이 위로 오고, 컬러와 흑백 구역이 번갈아 리듬을 만든다.
+- 표기가 섞였다(‘No.31’과 ‘제31호’, ‘09.29 화요일’과 ‘09.30 수’, 영문 부제, 같은 날 첫 호만 회차 없음, 한글을 눕힌 사진 설명) → 호수는 ‘제31호’, 날짜는 긴 꼴 ‘9월 30일 수요일’과 짧은 꼴 ‘9.30 수’ 둘만, 부제는 한국어만, 회차는 같은 날 모든 호에, 기울임은 쓰지 않는다.
+<span class="k">## 우선순위</span>
+1. 최신 호 표지와 헤드라인(한 덩어리). 제호는 커도 위아래를 조여 이 둘보다 앞서 읽히지 않게 한다.
+2. ‘브리핑 전문 읽기’.
+3. 1면 판정·지표 칸: 맨 앞에 오늘 국면(C 선별적 · 임시 기준 · 전날 대비), 이어 지표 세 칸.
+4. 서가: 지난 두 호(제30호, 제29호)와 다음 호 자리.
+5. 국면과 지표: 국면 연표 한 줄과 지표 그래프 세 줄을 같은 날짜 열(--board-day-w)에 맞춰 위아래로 쌓은 한 판. 왼쪽 라벨 단(--board-label-w)에 이름·최근값·기준을 두어 하루를 세로로 읽게 한다.
+6. 표지 전체: 월별 묶음(지금은 2026년 9월)으로 31호 전부를 최신 호부터 --index-cols열로.
+7. 발행 목록: 호마다 한 줄(호, 날짜, 회차, 실행, 국면, 헤드라인, 지표 세 값)로 지표 표를 겸한다. 본실행이 아닌 실행(안전판, 지연 실행)은 굵게.
+8. 검색(메뉴 줄 오른쪽에 늘 있되 조용하게), 부속 문서·갱신 방식(내용은 기존 서고 그대로, 두 단의 작은 글), 판권.
+<span class="k">## 상태별 규칙</span>
+- 국면: 글자와 먹 무늬(--phase-a-fill ~ --phase-e-fill)로 보이고, 글자를 무늬 위에 얹지 않는다. 연표 칸은 위에 글자, 아래에 무늬 띠(--tl-band-h)라 띠가 이어지며 구간이 드러나고, 같은 국면 구간 위에 이름을 한 번만 적는다. 걸친 판정은 띠를 반씩 나누고 ‘C→D’로 적는다. 최신 호 칸은 굵은 테(--rule-mid), 임시 기준은 1면·목록에 ‘임시 기준’ 꼬리표. 범례에는 다섯 무늬와 이름, ‘?’, 점선 칸, ‘여러 호인 날은 마지막 회차’를 적는다.
+- 브리핑 없는 날(9.18, 9.19): 연표는 글자·무늬 없이 가운데 가는 가로줄과 두 칸에 걸친 ‘발행 없음’, 지표 선은 여기서 끊는다. 표지 전체에는 표지 크기 빈자리 하나(같은 가로줄과 ‘9.18 금 – 9.19 토 발행 없음’), 목록에는 흐린 한 줄. 첫 호(9.2) 이전 날짜는 그리지 않는다.
+- 다음 호(제32호, 10월 1일 목요일 06:10 예정): 서가에 표지 비율의 점선 틀(--line-placeholder)을 두고 안에 ‘다음 호’, 날짜, ‘06:10 발행 예정’. 아직 찍지 않은 판이라 그림자는 없다. 연표 끝 열에도 같은 점선 칸. 점선은 다음 호에만 쓴다.
+- 하루 여러 호(9.3 3회, 9.5 2회, 9.24 2회): 연표는 한 칸에 마지막 회차의 국면, 칸 위에 ‘3회’처럼 회차 수. 표지 전체는 같은 날 표지를 붙여 가는 괄호선으로 묶고 날짜는 한 번, 표지마다 ‘1회·2회·3회’. 목록은 날짜를 묶음 첫 줄에만. 최신 날에 여러 호가 있으면 1면은 마지막 회차, 앞 회차는 서가 맨 앞.
+- 값이 없을 때: 국면이 없으면 무늬 없는 가는 테 칸에 ‘?’(--text-3), 지표가 없으면 ‘—’(0이나 빈칸으로 두지 않는다), 차트는 그날 선을 끊고 점을 찍지 않는다. headline이 없는 초기 호는 그 자리에 note를 --text-2로. 전날 국면이 없으면 ‘전날 —’.
+- 검색: 범위 선택(기본 ‘전체’)과 입력칸. 결과는 메뉴 줄 바로 아래 위아래 괘선 사이로 펼치는 한 단(표지 --cover-result, 호수·날짜·헤드라인, 일치한 낱말은 굵게 하고 바탕 --bg-2). 결과가 없으면 그 자리에 “‘{검색어}’에 맞는 호가 없습니다.”, 현재 범위, “범위를 ‘전체’로 넓히거나 다른 낱말로 찾아 보세요.”, ‘검색 지우기’. 다른 구역은 그대로 둔다.
+<span class="k">## 피할 것</span>
+- 국면 색을 포함한 페이지의 색 — 표지만 컬러라는 콘셉트가 깨지고 날마다 바뀌는 표지 배색과 부딪힌다. 대신 글자와 먹 무늬로 구분한다.
+- 표지의 테두리·필터·기울임·겹침·모서리 깎기 — 공통 규칙 위반이고 표지를 훼손한다. 대신 그림자(--shadow-cover-lead, --shadow-cover)만 쓰고, 키보드 포커스는 표지 아래 받침 괘선(--rule-mid)과 캡션 밑줄로 보인다.
+- 카드·둥근 상자·배경 그라데이션 같은 앱 문법 — 신문 지면이 대시보드처럼 보인다. 대신 괘선·단·여백으로 나눈다.
+- 한글 기울임 — 한글 글꼴엔 이탤릭이 없어 브라우저가 억지로 눕히면 획이 찌그러진다. 대신 크기·굵기·--text-2로 구분한다.
+- 빈 날을 이어 그리거나 없는 값을 0으로 쓰기 — 없는 사실을 만든다. 대신 끊긴 선과 ‘—’.
+<span class="k">## 맡기는 부분</span>
+- 1면 단 나눔과 서가 위치, 귀와 구역 머리 메모의 문구, 선 아이콘, ‘전체’ 외 검색 범위 항목, 차트 눈금 수와 날짜 표시 간격, 구간 이름·회차·괄호선 모양, 부속 문서·갱신 방식과 판권의 배치, 마우스 올림·포커스 세부. 새 화면 문구도 한국어로 쓰되 지표 이름과 국면 이름은 원문 그대로.
+<span class="k">## 완료 기준</span>
+- 첫 화면(--page-w × --first-screen-h)에 최신 호 표지 전체, 헤드라인, ‘브리핑 전문 읽기’가 모두 보인다.
+- 색이 있는 픽셀은 표지 안에만 있다.
+- 메뉴의 모든 항목이 실제 구역으로 가고, 다섯 가지 일이 모두 된다(검색은 범위 선택과 입력을 갖춘다).
+- 31호 표지가 모두 보이고, 9.18·9.19는 연표·지표·표지 전체·목록에서 ‘발행 없음’으로 일관되며, 9.1은 어디에도 없다.
+- 9.3·9.5·9.24의 모든 호에 회차가 붙고, 호수와 날짜는 정한 꼴만 쓴다.
+- +1.0%p와 0 기준선이 점선과 라벨로 보이고, 값이 기준선에서 멀어도 축을 넓혀 기준선이 들어온다.
+- 글자 명암비는 본문 4.5 이상, 24px 이상 3 이상이며(토큰의 글자색과 바탕 조합이면 충족), 토큰 밖 값이 없다.
+
+<span class="k"># 토큰</span>
+
+<span class="c">```css</span>
+:root {
+  <span class="c">/* ── 색: 종이 한 장과 먹 한 가지. 페이지의 색은 이것뿐이고 컬러는 표지에만 있다 ── */</span>
+  <span class="k">--bg</span>: #F2EEE6;              <span class="c">/* 종이. 페이지 바탕 */</span>
+  <span class="k">--bg-2</span>: #E8E3D7;            <span class="c">/* 한 단계 짙은 종이: 목록 줄 마우스 올림, 검색 일치 낱말 바탕 */</span>
+  <span class="k">--text-1</span>: #171614;          <span class="c">/* 먹. 제호·헤드라인·본문 (종이 위 15.6:1) */</span>
+  <span class="k">--text-2</span>: #47433C;          <span class="c">/* 보조 글: note, 사진 설명, 보조 줄 (종이 위 8.5:1) */</span>
+  <span class="k">--text-3</span>: #625C53;          <span class="c">/* 가장 흐린 글: 캡션 날짜, 눈금, ‘—’, ‘?’ (종이 5.7:1, --bg-2 위 5.2:1) */</span>
+  <span class="k">--text-on-fill</span>: #F2EEE6;    <span class="c">/* 먹 바탕 위 글자 */</span>
+  <span class="k">--fill-1</span>: var(--text-1);    <span class="c">/* 먹 바탕: ‘브리핑 전문 읽기’ 띠 */</span>
+  <span class="k">--fill-1-hover</span>: #34302B;    <span class="c">/* 그 띠에 마우스를 올렸을 때 */</span>
+  <span class="k">--line-1</span>: var(--text-1);    <span class="c">/* 굵은 괘선, 이중 괘선, 입력칸 밑줄, 차트 선 */</span>
+  <span class="k">--line-2</span>: #9E9789;          <span class="c">/* 가는 괘선: 단 나눔, 구역 안 구분, 괄호선, ‘?’ 칸의 테 */</span>
+  <span class="k">--line-3</span>: #CFC7B9;          <span class="c">/* 가장 옅은 선: 목록 줄 사이, 차트 보조 눈금 */</span>
+  <span class="k">--line-ref</span>: var(--text-1);  <span class="c">/* 차트 기준선(+1.0%p, 0) */</span>
+  <span class="k">--line-ref-dash</span>: 4 4;       <span class="c">/* 기준선 점선 간격(stroke-dasharray) */</span>
+  <span class="k">--line-placeholder</span>: 1.5px dashed var(--text-3); <span class="c">/* 다음 호 자리: 서가의 점선 틀, 연표 끝 칸 */</span>
+  <span class="k">--grain-opacity</span>: 0.05;      <span class="c">/* 종이 결 농도 */</span>
+
+  <span class="c">/* ── 국면 무늬: 색 대신 먹 무늬. background 속기에 그대로 넣고, 글자는 무늬 밖에 둔다 ── */</span>
+  <span class="k">--phase-a-fill</span>: var(--text-1); <span class="c">/* A BTC! — 먹 */</span>
+  <span class="k">--phase-b-fill</span>: repeating-linear-gradient(135deg, var(--text-1) 0 1.5px, transparent 1.5px 5px); <span class="c">/* B 알트시즌? — 빗금 */</span>
+  <span class="k">--phase-c-fill</span>: radial-gradient(circle, var(--text-1) 0 1.1px, transparent 1.5px) 0 0 / 4px 4px; <span class="c">/* C 선별적 — 망점 */</span>
+  <span class="k">--phase-d-fill</span>: repeating-linear-gradient(0deg, var(--text-1) 0 1.5px, transparent 1.5px 4.5px); <span class="c">/* D STICKY BTC.D — 가로줄 */</span>
+  <span class="k">--phase-e-fill</span>: repeating-linear-gradient(45deg, var(--text-1) 0 1px, transparent 1px 4px), repeating-linear-gradient(-45deg, var(--text-1) 0 1px, transparent 1px 4px); <span class="c">/* E 튀어? — 겹빗금 */</span>
+
+  <span class="c">/* ── 글꼴 ── */</span>
+  <span class="k">--font-serif</span>: "Noto Serif KR", serif;                 <span class="c">/* 제호, 헤드라인, 구역 제목, 호 제목, note */</span>
+  <span class="k">--font-sans</span>: "Gothic A1", sans-serif;                 <span class="c">/* 메뉴, 라벨, 버튼, 표 글자, 부속 문서 본문 */</span>
+  <span class="k">--font-num</span>: "Oswald", "Gothic A1", sans-serif;        <span class="c">/* 큰 숫자, 연표 국면 글자 */</span>
+  <span class="k">--font-mono</span>: "IBM Plex Mono", "Gothic A1", monospace; <span class="c">/* 날짜, 호수, 눈금, 표 숫자 (한글은 Gothic A1로) */</span>
+  <span class="k">--figures</span>: tabular-nums;                              <span class="c">/* 숫자 자릿수 맞춤 */</span>
+
+  <span class="c">/* 글자 크기 */</span>
+  <span class="k">--fs-masthead</span>: 96px;    <span class="c">/* 제호 ‘크립토 브리핑’ */</span>
+  <span class="k">--fs-headline</span>: 52px;    <span class="c">/* 1면 헤드라인, 두 줄 안팎 */</span>
+  <span class="k">--fs-stat</span>: 40px;        <span class="c">/* 1면 판정·지표 칸의 숫자와 국면 글자 */</span>
+  <span class="k">--fs-section</span>: 30px;     <span class="c">/* 구역 제목 */</span>
+  <span class="k">--fs-stat-board</span>: 26px;  <span class="c">/* 국면과 지표 판 라벨 단의 최근값 */</span>
+  <span class="k">--fs-month</span>: 22px;       <span class="c">/* 표지 전체의 월 제목 */</span>
+  <span class="k">--fs-dek</span>: 18px;         <span class="c">/* 헤드라인 아래 note */</span>
+  <span class="k">--fs-title</span>: 17px;       <span class="c">/* 서가·검색 결과의 호 제목 */</span>
+  <span class="k">--fs-cta</span>: 17px;         <span class="c">/* ‘브리핑 전문 읽기’ */</span>
+  <span class="k">--fs-tl-letter</span>: 17px;   <span class="c">/* 연표 칸 글자 */</span>
+  <span class="k">--fs-body</span>: 15px;        <span class="c">/* 부속 문서·갱신 방식 본문 */</span>
+  <span class="k">--fs-nav</span>: 15px;         <span class="c">/* 메뉴 */</span>
+  <span class="k">--fs-subtitle</span>: 15px;    <span class="c">/* 제호 아래 부제 */</span>
+  <span class="k">--fs-ear</span>: 14px;         <span class="c">/* 제호 양옆 귀 */</span>
+  <span class="k">--fs-table</span>: 14px;       <span class="c">/* 발행 목록 */</span>
+  <span class="k">--fs-caption</span>: 13px;     <span class="c">/* 사진 설명, 표지 캡션 */</span>
+  <span class="k">--fs-meta</span>: 13px;        <span class="c">/* 킥커, 구역 머리 메모, 보조 줄 */</span>
+  <span class="k">--fs-label</span>: 12px;       <span class="c">/* 지표 이름 라벨, 눈금, 꼬리표, 범례 */</span>
+
+  <span class="c">/* 굵기 */</span>
+  <span class="k">--fw-masthead</span>: 900;
+  <span class="k">--fw-headline</span>: 800;
+  <span class="k">--fw-section</span>: 800;
+  <span class="k">--fw-title</span>: 700;        <span class="c">/* 호 제목, 월 제목 */</span>
+  <span class="k">--fw-ui</span>: 700;           <span class="c">/* 메뉴, 버튼, 표 머리, 귀의 날짜 */</span>
+  <span class="k">--fw-emph</span>: 600;         <span class="c">/* 본실행이 아닌 실행, 일치 낱말, 국면 이름 */</span>
+  <span class="k">--fw-tl</span>: 600;           <span class="c">/* 연표 글자 */</span>
+  <span class="k">--fw-num</span>: 500;          <span class="c">/* Oswald 숫자 */</span>
+  <span class="k">--fw-meta</span>: 500;         <span class="c">/* 고정폭 라벨 */</span>
+  <span class="k">--fw-body</span>: 400;
+
+  <span class="c">/* 줄 높이·자간 */</span>
+  <span class="k">--lh-masthead</span>: 1;
+  <span class="k">--lh-headline</span>: 1.22;
+  <span class="k">--lh-title</span>: 1.4;
+  <span class="k">--lh-body</span>: 1.7;
+  <span class="k">--lh-ui</span>: 1.4;
+  <span class="k">--lh-num</span>: 1;
+  <span class="k">--ls-masthead</span>: -0.02em;
+  <span class="k">--ls-headline</span>: -0.02em;
+  <span class="k">--ls-label</span>: 0.06em;     <span class="c">/* 고정폭 라벨(BTC.D 등) */</span>
+  <span class="k">--ls-subtitle</span>: 0.14em;  <span class="c">/* 제호 아래 부제 */</span>
+
+  <span class="c">/* ── 간격 ── */</span>
+  <span class="k">--space-1</span>: 4px;
+  <span class="k">--space-2</span>: 8px;
+  <span class="k">--space-3</span>: 12px;
+  <span class="k">--space-4</span>: 16px;
+  <span class="k">--space-5</span>: 24px;
+  <span class="k">--space-6</span>: 32px;
+  <span class="k">--space-7</span>: 48px;
+  <span class="k">--space-8</span>: 64px;
+  <span class="k">--section-gap</span>: 72px;       <span class="c">/* 구역과 구역 사이 */</span>
+  <span class="k">--section-head-gap</span>: 24px;  <span class="c">/* 구역 머리 괘선과 내용 사이 */</span>
+
+  <span class="c">/* ── 괘선·모서리·그림자·움직임 ── */</span>
+  <span class="k">--rule-heavy</span>: 4px;         <span class="c">/* 구역 시작, 이중 괘선의 굵은 줄, 판권 위 */</span>
+  <span class="k">--rule-mid</span>: 2px;           <span class="c">/* 메뉴 현재 항목 밑줄, 표 머리 아래, 최신 호 연표 칸 테, 표지 포커스 받침 */</span>
+  <span class="k">--rule-hair</span>: 1px;          <span class="c">/* 가는 괘선, 이중 괘선의 가는 줄 */</span>
+  <span class="k">--rule-double-gap</span>: 3px;    <span class="c">/* 이중 괘선 두 줄 사이 */</span>
+  <span class="k">--underline-w</span>: 1px;
+  <span class="k">--underline-offset</span>: 0.22em;
+  <span class="k">--radius</span>: 0px;             <span class="c">/* 모든 모서리 직각 */</span>
+  <span class="k">--radius-dot</span>: 50%;         <span class="c">/* 차트 최근값 점만 둥글게 */</span>
+  <span class="k">--shadow-cover-lead</span>: 0 1px 1px rgba(23, 22, 20, 0.14), 0 24px 40px -20px rgba(23, 22, 20, 0.45); <span class="c">/* 1면 표지 */</span>
+  <span class="k">--shadow-cover</span>: 0 1px 1px rgba(23, 22, 20, 0.14), 0 10px 18px -10px rgba(23, 22, 20, 0.38);       <span class="c">/* 서가·표지 전체·검색 결과 표지 */</span>
+  <span class="k">--shadow-cover-hover</span>: 0 1px 1px rgba(23, 22, 20, 0.16), 0 16px 26px -12px rgba(23, 22, 20, 0.5);  <span class="c">/* 표지에 마우스를 올렸을 때 */</span>
+  <span class="k">--focus-ring</span>: 2px solid var(--text-1); <span class="c">/* 표지가 아닌 링크·버튼·입력칸 */</span>
+  <span class="k">--focus-offset</span>: 3px;
+  <span class="k">--icon-size</span>: 18px;
+  <span class="k">--icon-stroke</span>: 1.5px;
+  <span class="k">--dur-fast</span>: 150ms;
+  <span class="k">--ease-out</span>: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  <span class="c">/* ── 판형 ── */</span>
+  <span class="k">--page-w</span>: 1440px;
+  <span class="k">--first-screen-h</span>: 900px;   <span class="c">/* 첫 화면 판정 높이(완료 기준) */</span>
+  <span class="k">--page-pad-x</span>: 72px;
+  <span class="k">--content-w</span>: 1296px;       <span class="c">/* --page-w에서 양쪽 --page-pad-x를 뺀 폭 */</span>
+  <span class="k">--grid-gutter</span>: 24px;
+  <span class="k">--header-max-h</span>: 240px;     <span class="c">/* 귀·제호·부제·메뉴를 합친 높이 상한 */</span>
+  <span class="k">--ear-w</span>: 280px;            <span class="c">/* 제호 양옆 귀 */</span>
+  <span class="k">--nav-h</span>: 52px;
+  <span class="k">--nav-gap</span>: 28px;
+  <span class="k">--search-w</span>: 400px;         <span class="c">/* 범위 선택 + 입력칸 */</span>
+  <span class="k">--input-h</span>: 40px;
+  <span class="k">--hero-pad-top</span>: 28px;      <span class="c">/* 메뉴 줄과 1면 사이 */</span>
+  <span class="k">--hero-gap</span>: 56px;          <span class="c">/* 1면 표지와 기사 단 사이. 기사 단 = 1296 − 400 − 56 = 840 */</span>
+  <span class="k">--cta-h</span>: 52px;
+  <span class="k">--cta-pad-x</span>: 28px;
+  <span class="k">--measure</span>: 640px;          <span class="c">/* note·부속 문서 글줄 최대 길이 */</span>
+  <span class="k">--board-label-w</span>: 200px;    <span class="c">/* 국면과 지표 판의 왼쪽 라벨 단 */</span>
+  <span class="k">--board-label-gap</span>: 16px;
+  <span class="k">--board-day-w</span>: 36px;       <span class="c">/* 하루 한 열(칸 32 + 간격 4). 9.2~9.30 29열 + 다음 호 1열: 200 + 16 + 36 × 30 = 1296 */</span>
+  <span class="k">--tl-gap</span>: 4px;             <span class="c">/* 연표 칸 사이 */</span>
+  <span class="k">--tl-cell-h</span>: 44px;         <span class="c">/* 연표 칸(글자 + 무늬 띠) */</span>
+  <span class="k">--tl-band-h</span>: 10px;         <span class="c">/* 연표 칸 아래 무늬 띠 */</span>
+  <span class="k">--chart-row-h</span>: 96px;       <span class="c">/* 지표 한 줄의 그림 높이 */</span>
+  <span class="k">--chart-row-gap</span>: 20px;
+  <span class="k">--chart-line-w</span>: 1.75px;
+  <span class="k">--chart-dot</span>: 6px;          <span class="c">/* 최근값 점 지름 */</span>
+  <span class="k">--axis-h</span>: 28px;            <span class="c">/* 날짜 눈금 줄 */</span>
+  <span class="k">--index-cols</span>: 8;
+  <span class="k">--index-gap-x</span>: 16px;       <span class="c">/* 148 × 8 + 16 × 7 = 1296 */</span>
+  <span class="k">--index-gap-y</span>: 40px;
+  <span class="k">--row-h</span>: 34px;             <span class="c">/* 발행 목록 한 줄 */</span>
+
+  <span class="c">/* ── 표지 크기 (비율 68:100 고정, 폭 96~520px 범위 안) ── */</span>
+  <span class="k">--cover-ratio</span>: 68 / 100;
+  <span class="k">--cover-lead</span>: 400px;       <span class="c">/* 1면, 높이 588px */</span>
+  <span class="k">--cover-index</span>: 148px;      <span class="c">/* 표지 전체, 높이 약 218px */</span>
+  <span class="k">--cover-shelf</span>: 104px;      <span class="c">/* 서가의 지난 두 호와 다음 호 점선 틀, 높이 약 153px */</span>
+  <span class="k">--cover-result</span>: 96px;      <span class="c">/* 검색 결과(표지 최소 크기), 높이 약 141px */</span>
+}
+<span class="c">```</span>
+
+<span class="k"># 요청</span>
+
+위 브리프와 토큰으로 크립토 브리핑 서고 페이지를 데스크톱 1440px 한 장으로 만들어 주세요. 판단이 갈리는 곳에서는 브리프가 기준이고, 토큰은 정해 둔 값이니 바꾸지 말고 그대로 쓰세요. 토큰에 없는 값이 꼭 필요하면 역할 이름으로 토큰에 추가해 쓰고, 작업 끝에 추가한 토큰과 그 이유를 목록으로 알려 주세요.</pre></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3250}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

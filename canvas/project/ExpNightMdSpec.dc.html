@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>밤의 가판대 · 브리프 + 토큰 명세</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=Gothic+A1:wght@400;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#FBFAF7}
+.sb{font-family:'IBM Plex Mono','Gothic A1',monospace;color:#1E2227}
+.sb pre{margin:0;font-family:inherit;font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-all;column-gap:44px;column-rule:1px solid #E3E0D8}
+.sb .k{color:#1D4ED8;font-weight:600}
+.sb .c{color:#7A776F}
+.sb .hd{display:flex;align-items:baseline;gap:18px;padding-bottom:18px;margin-bottom:22px;border-bottom:2px solid #1E2227;font-family:'Gothic A1',sans-serif}
+.sb .hd b{font-size:30px;font-weight:800;letter-spacing:-.01em}
+.sb .hd span{font-size:15px;color:#5A5850}
+</style>
+</helmet>
+<div class="sb" style="width: 1440px; height: 3183px; box-sizing: border-box; padding: 40px 48px; overflow: hidden; background: #FBFAF7"><div class="hd"><b>밤의 가판대 · 브리프 + 토큰 명세</b><span>브리프 + 토큰 명세 · 218줄 · 18.2KB</span></div><pre style="column-count: 2"><span class="k"># 디자인 브리프: 밤의 가판대</span>
+
+<span class="k">## 목적</span>
+- 매일 아침 06:10(KST)에 나오는 크립토 시장 브리핑을 잡지처럼 한 호씩 꽂아 두는 서고다. 주인 한 사람(한국어 사용자)이 매일 연다.
+- 하는 일 다섯: ① 오늘 호를 확인하고 브리핑을 연다 ② 지난 호 표지를 훑는다 ③ 날짜별 국면(A~E) 흐름을 본다 ④ 날짜나 낱말로 지난 호를 찾는다 ⑤ 지표 추이(BTC.D, ΣSTABLECOIN.D 1개월 변화, BTCUSD 1개월)를 본다.
+- 구역(위→아래): 상단 막대(로고 '크립토 브리핑 서고', 구역 링크, 검색, '매크로 리스크 서고' 링크) → 오늘의 호 → 가판대 → 국면과 지표 → 발행 목록(검색 결과 겸 지표 표) → 바닥글(부속 문서·갱신 방식·형제 서고 링크).
+
+<span class="k">## 분위기</span>
+- 밤늦게 불 켜진 신문 가판대. 사방은 어둡고 빛은 표지에만 떨어진다. 네온처럼 번쩍이지 않고 등불처럼 조용하고 따뜻하다.
+- 색: 유채색은 표지, 국면 색, 오늘의 강조색 셋뿐이다. --accent는 최신 호 표지의 테두리색(9/30은 복숭아색)이고 ① '브리핑 펼치기' 버튼 ② 오늘 표식(눈썹 글, 선반의 '오늘', 국면 띠의 오늘 칸, 차트의 오늘 점) ③ 다음 호 자리 ④ 스포트라이트 기미, 이 네 곳에만 쓴다. 테두리색이 어두워 바탕 대비 4.5:1에 못 미치는 날은 --text-1 쪽으로 섞어 밝힌다.
+- 글자: 한글은 Gothic A1, 날짜와 큰 숫자는 Oswald(신문 날짜 줄), 티커·날짜 표식·목록 숫자는 IBM Plex Mono(가격표). 크기 단계는 적게 두고 위계는 굵기와 명도로 세운다. 한글은 자간을 벌리지 않고 낱말 중간에서 줄을 바꾸지 않으며, 헤드라인은 쉼표 뒤에서 두 줄로 고르게 나눈다.
+- 바탕과 빛: 바탕은 거의 검은 단색(--bg)이고 면은 명도 한 단계(--bg-raise)와 가는 선으로만 나눈다. 조명은 둘뿐이다. 오늘의 호 위에서 떨어지는 스포트라이트(가장자리가 어둠에 녹는 원뿔 + 받침대 아래 빛 웅덩이)와 선반마다 위에서 비추는 옅은 등(--shelf-lamp). 그림자는 모두 그 빛을 받은 듯 아래로 떨어진다.
+- 움직임: 처음 열릴 때 스포트라이트만 천천히 켜진다(--dur-light). 표지 hover는 --lift만큼 들리며 그림자가 깊어지는 것뿐이다. prefers-reduced-motion이면 끈다.
+
+<span class="k">## 참고한 것</span>
+- 히어로: 왼쪽에 위에서 떨어지는 빛을 받으며 받침대 위에 선 최신 호 표지(--cover-hero). 오른쪽 열에 짧은 가로선이 붙은 눈썹 글('오늘의 호 · 제31호'), 날짜와 '수요일 · 06:10 본실행', 두 줄 헤드라인, 국면, 세로선으로 나눈 지표 세 칸(값 + 작은 추세선), 버튼 둘('브리핑 펼치기' 강조색 면 + 꺾쇠, '지난 호 넘겨 보기' 선 버튼).
+- 가판대: 어두운 선반 판 위에 표지를 나란히 세우고 표지마다 고정폭 날짜('09.30 수')와 국면 표식을 단다. 표지를 누르면 그 호 브리핑이 열린다. 국면 띠: 둥근 칸 안에 국면 글자, 걸친 판정은 칸을 반씩 두 색, 오늘 칸만 강조색 테두리, 아래에 날짜 숫자와 범례(A · BTC! … 브리핑 없음).
+- 구역 머리는 큰 한글 제목 + 오른쪽 끝 한 줄 설명 + 아래 가는 선. 목록 행은 날짜(숫자 위, 요일 아래)·국면·헤드라인·오른쪽 정렬 숫자. 바닥글은 왼쪽에 '크립토 브리핑 서고 · 매일 아침 06:10에 한 호씩 꽂힙니다.', 오른쪽에 '매크로 리스크 서고 →'.
+
+<span class="k">## 고칠 점</span>
+- 히어로에서 날짜가 헤드라인보다 커서 첫눈이 갈리고, 조명은 모서리 딱딱한 회색 사다리꼴이라 빛보다 도형으로 보인다 → 헤드라인을 오른쪽 열의 가장 큰 글자(--fs-hero-title, --text-1 한 색)로, 날짜는 한 단계 아래(--fs-hero-date)로. 빛은 경계 없이 번지게.
+- 모양이 같은 칩 넷(국면·임시 기준·전날 국면·누적 통계)이 성격은 달라 헷갈린다 → 국면 한 줄(--phase-swatch 정사각 + '선별적' + '임시 기준' 태그 + '전날 C')로 묶고, 누적 통계는 구역 머리 요약으로 보낸다.
+- 지표 칸에 비교 기준이 없고, ΣSTABLECOIN.D는 판정에 쓰는 1개월 변화 대신 수준값을 크게 보였다 → 큰 값은 59.18% / −0.705%p / +6.71%, 아랫줄은 '전날 +0.01%p' / '현재 9.125% · E 기준 +1.0%p' / 'D·E 전제: 0 아래'. 작은 추세선에는 기준선(--line-ref)과 오늘 점을 더한다.
+- 가판대가 7열 격자에 21장만 세우고 10장은 '더 보기'에 숨겼다. 9/18·19는 말없이 건너뛰고, 9/24 두 호는 두 줄로 갈렸고, 다음 호 자리가 없고, 같은 초록 C 배지가 21번 되풀이된다 → 한 주에 선반 하나(맨 위가 이번 주, 선반 안은 월→일 왼쪽부터), 31장 모두 --cover-shelf로, 선반마다 '09.21–09.27 · 8호' 같은 이름표. 날짜 표식은 선반 앞면(--shelf-face)에 가격표처럼 붙이고 국면은 --chip 하나로 줄인다.
+- 국면 띠가 첫 호(9/2) 전날인 9/1을 '브리핑 없음'으로 그렸고, A·B·E 칸의 흰 글자는 명암이 모자란다 → 9/2~9/30 29칸, 칸 글자는 --on-phase-*.
+- 메뉴에 있는 지표 시계열·부속 문서·갱신 방식이 페이지에 없다 → 부속 문서·갱신 방식은 바닥글 링크로 줄이고 '국면과 지표' 구역을 만든다: 국면 띠 아래 차트 셋(BTC.D, ΣSTABLECOIN.D 1개월 변화, BTCUSD 1개월)이 같은 날짜 열(--day-col)을 쓰고, +1.0%p와 0 기준선은 --line-ref 점선 + 이름표, 기준선 너머는 --zone-fill. 월요일마다 주 구분선을 그어 선반과 맞춘다.
+- 목록이 최근 5개뿐이고 행마다 '06:10 본실행' 알약이 되풀이된다 → 목록을 지표 표와 합친다(날짜·국면·헤드라인·BTC.D·Σ 1개월·BTCUSD 1개월·실행, 회차는 날짜 칸에). 본실행은 흐리게, 안전판·지연 실행만 테두리 태그로. 기본은 최근 10호 + '31호 모두 보기'. 검색(범위 선택 + 입력)은 상단 막대에 두고 결과를 이 자리에 보인다.
+- 영어 부제(SEPTEMBER 2026, 30 DAYS, LATEST)와 영어 로고(CRYPTO BRIEF) → 한국어 제목과 숫자 요약('2026년 9월 · 31호 · 발행 27일', '9.02–9.30 · 지표 기록 26일').
+
+<span class="k">## 우선순위</span>
+최신 호 표지 → 헤드라인과 날짜 → '브리핑 펼치기' → 오늘 국면과 지표 세 값 → 이번 주 선반과 다음 호 자리 → 지난 선반들 → 국면과 지표 → 발행 목록과 검색 → 바닥글. 첫 화면(--fold) 안에 앞의 넷이 모두 들어온다.
+
+<span class="k">## 상태별 규칙</span>
+- 브리핑 없는 날(9/18·19): 선반에는 표지 대신 좁은 빈칸(--slot-empty)과 흐린 날짜·'발행 없음'. 국면 띠는 칠하지 않은 칸에 짧은 가로줄, 차트 선은 끊고, 목록에는 행이 없다. 첫 호 전인 9/1은 어디에도 칸을 두지 않는다.
+- 다음 호: 이번 주 선반의 마지막 호 바로 뒤에 표지 크기 점선 칸(--accent-line)과 '다음 호 · 10.01 목 · 06:10 발행 예정'. 점선은 이 자리에만 쓴다. 최신 호가 오늘 날짜가 아니면 눈썹 글을 '최신 호'로 바꾼다.
+- 여러 번 발행한 날(9/3 3회, 9/5·9/24 2회): 선반에서 --gap-round로 붙여 세우고 날짜 표식은 하나('09.03 목 · 3회'), 표지마다 회차 숫자와 국면 표식. 국면 띠와 차트는 마지막 회차 값을 쓰고 칸 아래에 회차 수. 목록은 회차마다 한 행, 날짜는 첫 행에만.
+- 빠진 값: 국면이 없으면 테두리만 있는 칸에 '?'. 헤드라인이 없는 초기 호는 그 자리에 note를 --text-2로. 지표가 없으면 '—'(--text-3)로 두고, 0으로 채우거나 이어 그리지 않는다.
+- 검색 결과 없음: 목록 자리에 "‘{검색어}’에 맞는 호가 없습니다." 한 줄과 '범위를 넓히거나 날짜를 9.24처럼 넣어 보세요.', '검색 지우기' 버튼. 다른 구역은 그대로 둔다.
+
+<span class="k">## 피할 것</span>
+- 표지에 테두리·필터·기울임·둥근 모서리·hover 덮개: 고정 부품이고 호마다 배색이 달라 손대면 표지가 망가진다 → 그림자(--shadow-cover)와 받침, hover 들림만.
+- 바탕에 색·질감·무늬·유리 효과: 12종 배색 표지와 부딪치고 밤이 깨진다 → --bg 단색 위에 조명 둘만.
+- 강조색을 구역 부제·차트 선·헤드라인 일부·메뉴에까지 쓰기: 오늘의 색이 흩어져 버튼과 오늘 표식이 묻힌다 → '분위기'의 네 곳에만.
+- 오르내림을 초록·빨강으로 칠하기: 국면 C의 초록과 헷갈리고 상승=빨강 관례와도 엇갈린다 → 부호(+, −)와 기준선으로 말하고 글자색은 중립.
+- '더 보기'·캐러셀로 표지 숨기기: 훑기가 끊긴다 → 선반 다섯 개에 31장을 모두 세운다.
+
+<span class="k">## 맡기는 부분</span>
+- 빛·받침대·선반의 정확한 모양과 그라디언트, 선반 이름표 위치, 선 SVG 아이콘, 차트 눈금과 라벨 배치, 목록 열 너비, 범위 선택의 형태와 항목(데이터에 있는 날짜·필드 안에서), hover·focus 세부, 상단 막대 고정 여부, 여기서 정하지 않은 문구(한국어로).
+
+<span class="k">## 완료 기준</span>
+- 데스크톱 폭(--page-width)에서 가로 스크롤이 없고, 첫 화면에 표지·헤드라인·버튼·국면·지표 세 값이 다 보인다.
+- 31호가 모두 선반에 서 있고 9/18·19 빈칸, 9/3·9/5·9/24 묶음, 다음 호 점선 칸이 보인다.
+- 국면 띠와 차트 셋의 날짜 열이 세로로 정확히 맞고, +1.0%p와 0 기준선에 이름표가 붙어 있다.
+- 모든 글자가 바탕 대비 4.5:1 이상(24px 이상은 3:1 이상)이다. 국면 칸 글자도 포함.
+- 화면 문구는 모두 한국어(티커·국면 이름 같은 데이터 값은 그대로)이고, 값은 데이터 자릿수 그대로이며 없는 값·사실이 없다.
+- 표지에 테두리·필터·기울임·겹침이 없고, 토큰 밖의 값을 쓰지 않았다(새 값은 토큰에 넣고 끝에 보고).
+
+<span class="k"># 토큰</span>
+
+<span class="c">```css</span>
+:root {
+  <span class="c">/* 바탕·면: 거의 검은 단색, 면은 명도 한 단계로만 나눈다 */</span>
+  <span class="k">--bg</span>: #0C0D10;
+  <span class="k">--bg-raise</span>: #14161A;            <span class="c">/* 상단 막대, 입력칸, 목록 머리 */</span>
+  <span class="k">--bg-hover</span>: #1B1E23;            <span class="c">/* 목록 행 hover */</span>
+
+  <span class="c">/* 선 */</span>
+  <span class="k">--line-1</span>: #1F2228;              <span class="c">/* 구역 아래 선, 목록 행 사이 */</span>
+  <span class="k">--line-2</span>: #2E323A;              <span class="c">/* 지표 칸 세로선, 차트 눈금, 0 선, 브리핑 없는 칸의 가로줄 */</span>
+  <span class="k">--line-3</span>: #5A606B;              <span class="c">/* 입력칸·선 버튼·태그·'?' 칸 테두리, 주 구분선 (바탕 대비 3:1) */</span>
+
+  <span class="c">/* 글자 */</span>
+  <span class="k">--text-1</span>: #F3F1EC;              <span class="c">/* 헤드라인, 본문, 큰 숫자 */</span>
+  <span class="k">--text-2</span>: #B4B8C0;              <span class="c">/* 보조 설명, 날짜 표식, 초기 호의 note */</span>
+  <span class="k">--text-3</span>: #868B95;              <span class="c">/* 라벨, 캡션, '발행 없음', '—' (바탕 대비 5.6:1, 가장 흐린 글자) */</span>
+
+  <span class="c">/* 오늘의 강조색: 최신 호 표지 테두리색(9/30). 날마다 바뀐다 */</span>
+  <span class="k">--accent</span>: #F2B39F;              <span class="c">/* 버튼 면, 오늘 표식, 오늘 칸 테두리, 오늘 점 */</span>
+  <span class="k">--accent-ink</span>: #0C0D10;          <span class="c">/* 강조색 면 위 글자 */</span>
+  <span class="k">--accent-line</span>: rgba(242, 179, 159, 0.55);   <span class="c">/* 다음 호 자리 점선 */</span>
+
+  <span class="c">/* 빛 */</span>
+  <span class="k">--spot-core</span>: rgba(255, 241, 228, 0.12);     <span class="c">/* 스포트라이트 중심, 페이지에서 가장 밝은 빛 */</span>
+  <span class="k">--spot-tint</span>: rgba(242, 179, 159, 0.10);     <span class="c">/* 표지 뒤로 번지는 강조색 기미 */</span>
+  <span class="k">--spot-floor</span>: rgba(255, 241, 228, 0.07);    <span class="c">/* 받침대 아래 빛 웅덩이 */</span>
+  <span class="k">--spot-width</span>: 760px;                        <span class="c">/* 원뿔이 바닥에서 퍼지는 폭 */</span>
+  <span class="k">--shelf-lamp</span>: rgba(255, 241, 228, 0.045);   <span class="c">/* 선반마다 위에서 비추는 옅은 등 */</span>
+
+  <span class="c">/* 선반·받침대: 같은 재질 */</span>
+  <span class="k">--shelf-top</span>: #3A3E46;           <span class="c">/* 빛을 받는 윗면 */</span>
+  <span class="k">--shelf-face</span>: #17191E;          <span class="c">/* 앞면, 날짜 표식이 붙는 곳 */</span>
+  <span class="k">--shelf-top-h</span>: 6px;
+  <span class="k">--shelf-face-h</span>: 36px;
+  <span class="k">--plinth-face-h</span>: 20px;          <span class="c">/* 히어로 받침대 앞면 */</span>
+  <span class="k">--plinth-overhang</span>: 40px;        <span class="c">/* 받침대가 표지 양옆으로 나오는 길이 */</span>
+
+  <span class="c">/* 국면: 표지와 같은 색. 칸 글자색은 명암비로 정했다 */</span>
+  <span class="k">--phase-a</span>: #CB8242;             <span class="c">/* A BTC! */</span>
+  <span class="k">--phase-b</span>: #A96CAF;             <span class="c">/* B 알트시즌? */</span>
+  <span class="k">--phase-c</span>: #056F15;             <span class="c">/* C 선별적 */</span>
+  <span class="k">--phase-d</span>: #594D99;             <span class="c">/* D STICKY BTC.D */</span>
+  <span class="k">--phase-e</span>: #2B97FF;             <span class="c">/* E 튀어? */</span>
+  <span class="k">--on-phase-a</span>: #0C0D10;          <span class="c">/* A·B·E 위 흰 글자는 4.5:1 미달이라 어두운 글자 */</span>
+  <span class="k">--on-phase-b</span>: #0C0D10;
+  <span class="k">--on-phase-c</span>: #FFFFFF;
+  <span class="k">--on-phase-d</span>: #FFFFFF;
+  <span class="k">--on-phase-e</span>: #0C0D10;
+
+  <span class="c">/* 차트 */</span>
+  <span class="k">--chart-line</span>: #D9D6D0;          <span class="c">/* 지표 선 */</span>
+  <span class="k">--line-ref</span>: #868B95;            <span class="c">/* 판정 기준선 +1.0%p, 0 (점선) */</span>
+  <span class="k">--ref-dash</span>: 4px 4px;            <span class="c">/* 기준선 점선 간격 (stroke-dasharray) */</span>
+  <span class="k">--zone-fill</span>: rgba(255, 255, 255, 0.05);     <span class="c">/* 기준선 너머 판정 구역 */</span>
+  <span class="k">--chart-h</span>: 104px;               <span class="c">/* '국면과 지표' 차트 한 줄 높이 */</span>
+  <span class="k">--spark-h</span>: 40px;                <span class="c">/* 히어로 작은 추세선 높이 */</span>
+  <span class="k">--chart-dot</span>: 7px;               <span class="c">/* 오늘 점 지름, 색은 --accent */</span>
+  <span class="k">--stroke-hair</span>: 1px;             <span class="c">/* 구분선, 기준선, 테두리 */</span>
+  <span class="k">--stroke-mark</span>: 2px;             <span class="c">/* 지표 선, 오늘 칸 테두리, 다음 호 점선 */</span>
+
+  <span class="c">/* 글꼴 */</span>
+  <span class="k">--font-ko</span>: "Gothic A1", sans-serif;         <span class="c">/* 한글 전부: 로고, 헤드라인, 본문, 버튼 */</span>
+  <span class="k">--font-num</span>: "Oswald", sans-serif;           <span class="c">/* 날짜, 큰 숫자, 국면 글자 */</span>
+  <span class="k">--font-mono</span>: "IBM Plex Mono", monospace;    <span class="c">/* 티커, 날짜 표식, 목록 숫자, 날짜 숫자 */</span>
+
+  <span class="c">/* 글자 크기 */</span>
+  <span class="k">--fs-hero-title</span>: 44px;          <span class="c">/* 오늘의 헤드라인, 오른쪽 열에서 가장 큰 글자 */</span>
+  <span class="k">--fs-hero-date</span>: 36px;           <span class="c">/* 히어로 날짜 */</span>
+  <span class="k">--fs-figure</span>: 32px;              <span class="c">/* 히어로 지표 값 */</span>
+  <span class="k">--fs-section</span>: 28px;             <span class="c">/* 구역 제목 */</span>
+  <span class="k">--fs-lead</span>: 18px;                <span class="c">/* 로고, 국면 이름, 요일·실행 줄 */</span>
+  <span class="k">--fs-body</span>: 16px;                <span class="c">/* 본문, 목록 헤드라인, 버튼 */</span>
+  <span class="k">--fs-small</span>: 14px;               <span class="c">/* 보조 설명, 눈썹 글, 메뉴, 지표 아랫줄 */</span>
+  <span class="k">--fs-caption</span>: 13px;             <span class="c">/* 날짜 표식, 범례, 차트 라벨, 표 머리 */</span>
+  <span class="k">--fs-micro</span>: 12px;               <span class="c">/* 티커 라벨, 회차 수, 날짜 숫자 (가장 작은 글자) */</span>
+  <span class="k">--fs-cell</span>: 15px;                <span class="c">/* 국면 띠 칸 글자 */</span>
+
+  <span class="c">/* 굵기 */</span>
+  <span class="k">--fw-regular</span>: 400;
+  <span class="k">--fw-medium</span>: 500;               <span class="c">/* Oswald 숫자, 고정폭 라벨 */</span>
+  <span class="k">--fw-semibold</span>: 600;             <span class="c">/* 눈썹 글, 버튼, 국면 글자 */</span>
+  <span class="k">--fw-bold</span>: 700;                 <span class="c">/* 헤드라인, 구역 제목 */</span>
+  <span class="k">--fw-heavy</span>: 800;                <span class="c">/* 로고 */</span>
+
+  <span class="c">/* 줄 간격·자간 */</span>
+  <span class="k">--lh-display</span>: 1.3;              <span class="c">/* 헤드라인 */</span>
+  <span class="k">--lh-tight</span>: 1.1;                <span class="c">/* 날짜, 큰 숫자 */</span>
+  <span class="k">--lh-label</span>: 1.4;                <span class="c">/* 라벨, 표식 */</span>
+  <span class="k">--lh-body</span>: 1.6;                 <span class="c">/* 본문, 목록 */</span>
+  <span class="k">--ls-display</span>: -0.015em;         <span class="c">/* 헤드라인 */</span>
+  <span class="k">--ls-label</span>: 0.04em;             <span class="c">/* 고정폭 라벨만. 한글에는 자간을 주지 않는다 */</span>
+
+  <span class="c">/* 간격 */</span>
+  <span class="k">--space-1</span>: 4px;
+  <span class="k">--space-2</span>: 8px;
+  <span class="k">--space-3</span>: 12px;
+  <span class="k">--space-4</span>: 16px;
+  <span class="k">--space-5</span>: 24px;
+  <span class="k">--space-6</span>: 32px;
+  <span class="k">--space-7</span>: 48px;
+  <span class="k">--space-8</span>: 64px;
+  <span class="k">--space-9</span>: 96px;
+  <span class="k">--section-gap</span>: 128px;           <span class="c">/* 구역 사이 */</span>
+  <span class="k">--section-head-gap</span>: 32px;       <span class="c">/* 구역 머리와 내용 사이 */</span>
+
+  <span class="c">/* 모서리 */</span>
+  <span class="k">--radius-cover</span>: 0;              <span class="c">/* 표지는 둥글리지 않는다 */</span>
+  <span class="k">--radius-sm</span>: 4px;               <span class="c">/* 국면 칸, 국면 표식, 태그 */</span>
+  <span class="k">--radius-md</span>: 8px;               <span class="c">/* 버튼, 입력칸 */</span>
+
+  <span class="c">/* 그림자 */</span>
+  <span class="k">--shadow-cover-hero</span>: 0 40px 72px -20px rgba(0, 0, 0, 0.85), 0 10px 20px rgba(0, 0, 0, 0.45);
+  <span class="k">--shadow-cover</span>: 0 14px 22px -8px rgba(0, 0, 0, 0.8), 0 3px 6px rgba(0, 0, 0, 0.45);
+  <span class="k">--shadow-cover-hover</span>: 0 24px 32px -10px rgba(0, 0, 0, 0.85), 0 6px 10px rgba(0, 0, 0, 0.5);
+  <span class="k">--shadow-shelf</span>: 0 18px 28px rgba(0, 0, 0, 0.6);   <span class="c">/* 선반·받침대 아래 */</span>
+  <span class="k">--focus-ring</span>: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+  <span class="c">/* 레이아웃 */</span>
+  <span class="k">--page-width</span>: 1440px;
+  <span class="k">--page-gutter</span>: 64px;
+  <span class="k">--content-width</span>: 1312px;        <span class="c">/* --page-width − 2 × --page-gutter */</span>
+  <span class="k">--fold</span>: 900px;                  <span class="c">/* 첫 화면 높이 기준 */</span>
+  <span class="k">--topbar-h</span>: 72px;
+  <span class="k">--search-w</span>: 360px;              <span class="c">/* 범위 선택 포함 */</span>
+  <span class="k">--hero-pad-y</span>: 72px;
+  <span class="k">--hero-cover-col</span>: 520px;        <span class="c">/* 표지 열: 표지 + 빛 여백 */</span>
+  <span class="k">--hero-gap</span>: 92px;
+  <span class="k">--hero-text-max</span>: 700px;         <span class="c">/* 오른쪽 열. 표지 열 + 간격 + 이 값 = --content-width */</span>
+  <span class="k">--flow-label-w</span>: 152px;          <span class="c">/* '국면과 지표' 줄 이름 열 */</span>
+  <span class="k">--day-col</span>: 40px;                <span class="c">/* 하루 한 열. 29열 + --flow-label-w = --content-width */</span>
+  <span class="k">--tl-cell</span>: 34px;                <span class="c">/* 국면 칸 한 변 */</span>
+  <span class="k">--row-h</span>: 48px;                  <span class="c">/* 목록 행 최소 높이 */</span>
+  <span class="k">--btn-h</span>: 52px;
+  <span class="k">--btn-pad-x</span>: 24px;
+  <span class="k">--input-h</span>: 40px;
+  <span class="k">--tag-h</span>: 24px;                  <span class="c">/* '임시 기준', 안전판·지연 실행 태그 */</span>
+
+  <span class="c">/* 표지: 비율 68:100, 아래 폭 그대로 그린다 */</span>
+  <span class="k">--cover-ratio</span>: 68 / 100;
+  <span class="k">--cover-hero</span>: 420px;            <span class="c">/* 오늘의 호 */</span>
+  <span class="k">--cover-shelf</span>: 136px;           <span class="c">/* 가판대 표지와 다음 호 자리 */</span>
+  <span class="k">--slot-empty</span>: 72px;             <span class="c">/* 브리핑 없는 날 빈칸 폭 */</span>
+  <span class="k">--gap-day</span>: 24px;                <span class="c">/* 선반 위 날짜 사이 */</span>
+  <span class="k">--gap-round</span>: 8px;               <span class="c">/* 같은 날 여러 호 사이 */</span>
+  <span class="k">--gap-shelf</span>: 56px;              <span class="c">/* 선반 줄 사이 */</span>
+  <span class="k">--chip</span>: 20px;                   <span class="c">/* 날짜 표식의 국면 정사각 */</span>
+  <span class="k">--phase-swatch</span>: 36px;           <span class="c">/* 히어로 국면 정사각 */</span>
+
+  <span class="c">/* 움직임 */</span>
+  <span class="k">--ease</span>: cubic-bezier(0.2, 0.7, 0.2, 1);
+  <span class="k">--dur-fast</span>: 160ms;              <span class="c">/* hover */</span>
+  <span class="k">--dur-light</span>: 900ms;             <span class="c">/* 처음 열릴 때 스포트라이트가 켜지는 시간 */</span>
+  <span class="k">--lift</span>: -4px;                   <span class="c">/* 표지 hover 때 위로 */</span>
+}
+<span class="c">```</span>
+
+<span class="k"># 요청</span>
+
+위 브리프와 토큰만으로 크립토 브리핑 서고 페이지를 1440px 데스크톱 한 장으로 만들어 주세요. 판단이 갈릴 때는 브리프가 기준이고, 토큰 값은 바꾸지 말고 그대로 씁니다. 브리프가 열어 둔 부분은 직접 정해 주세요. 꼭 필요한 새 값이 생기면 역할 이름으로 토큰에 더하고, 작업 끝에 더한 토큰과 그 이유를 알려 주세요. 표지와 데이터는 주어진 그대로 쓰고, 없는 값은 지어내지 않습니다.</pre></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3183}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
