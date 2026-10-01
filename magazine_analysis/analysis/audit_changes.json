@@ -1,0 +1,62 @@
+[
+ {
+  "key": "hk_1578",
+  "var": "emphasis",
+  "old": "크기 대비",
+  "new": "색 바꿈"
+ },
+ {
+  "key": "hk_1593",
+  "var": "image_area",
+  "old": "60~90%",
+  "new": "30~60%"
+ },
+ {
+  "key": "hk_1600",
+  "var": "masthead_overlap",
+  "old": "겹치지 않음",
+  "new": "이미지가 제호 일부를 가림"
+ },
+ {
+  "key": "hk_1604",
+  "var": "layout",
+  "old": "중앙 오브젝트형",
+  "new": "풀블리드 장면형"
+ },
+ {
+  "key": "hk_1604",
+  "var": "effect",
+  "old": "그림자",
+  "new": "외곽선"
+ },
+ {
+  "key": "hk_1604",
+  "var": "archetype",
+  "old": "데이터·기호형",
+  "new": "개념 은유형"
+ },
+ {
+  "key": "mk_2350",
+  "var": "image_area",
+  "old": "60~90%",
+  "new": "30~60%"
+ },
+ {
+  "key": "mk_2350",
+  "var": "ideal_real",
+  "old": "문구 위·이미지 아래",
+  "new": "문구와 이미지 겹침"
+ },
+ {
+  "key": "mk_2358",
+  "var": "image_area",
+  "old": "60~90%",
+  "new": "30~60%"
+ },
+ {
+  "key": "mk_2375",
+  "var": "image_area",
+  "old": "60~90%",
+  "new": "30~60%"
+ }
+]
