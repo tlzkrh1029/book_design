@@ -1,5 +1,7 @@
 # AGENTS.md: 작업 지침
 
+> **이 저장소는 2026년 10월 2일에 [design-studio](https://github.com/tlzkrh1029/design-studio) 저장소의 [`book-design/`](https://github.com/tlzkrh1029/design-studio/tree/main/book-design) 폴더로 옮겼습니다.** 이 저장소에서는 더 이상 작업하지 않습니다. 새 위치의 맨 위 `AGENTS.md`와 `book-design/AGENTS.md`를 따라 주세요.
+
 이 저장소에서 일하는 AI 에이전트(ChatGPT, Codex 등)와 사람이 지킬 규칙입니다. 지금 상태와 남은 일은 [HANDOFF.md](HANDOFF.md)에 있습니다.
 
 ## 언어와 문체

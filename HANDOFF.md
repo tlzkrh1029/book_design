@@ -1,5 +1,7 @@
 # 인계 문서: 크립토 브리핑 서고 디자인 작업
 
+> **이 저장소는 2026년 10월 2일에 [design-studio](https://github.com/tlzkrh1029/design-studio) 저장소의 [`book-design/`](https://github.com/tlzkrh1029/design-studio/tree/main/book-design) 폴더로 옮겼습니다.** 이어받을 때는 새 위치의 `book-design/HANDOFF.md`를 읽어 주세요.
+
 이 문서는 Claude와 진행한 디자인 작업을 다른 AI(ChatGPT 등)나 사람이 이어받을 때 가장 먼저 읽는 문서입니다. 기준 시각은 2026년 10월 2일 0시(한국 시간)입니다. 일하면서 지킬 규칙과 디자인 개선 절차는 [AGENTS.md](AGENTS.md)에 따로 두었습니다.
 
 ## 0. 이 저장소의 목적
